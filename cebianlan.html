@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PTE score Sidebar</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: #0a1628;
+    display: flex;
+    min-height: 100vh;
+  }
+
+  .sidebar {
+    width: 280px;
+    height: 100vh;
+    background: linear-gradient(180deg, #0f1e33 0%, #0d1a2e 100%);
+    border-right: 1px solid rgba(255,255,255,0.05);
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+  }
+
+  /* Header */
+  .sidebar-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 24px 20px 18px;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    flex-shrink: 0;
+  }
+
+  .logo-area {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .logo-icon {
+    width: 34px;
+    height: 34px;
+    background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+    border-radius: 9px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    box-shadow: 0 4px 12px rgba(59,130,246,0.25);
+  }
+
+  .logo-text {
+    font-size: 15px;
+    font-weight: 600;
+    color: #e8f0fe;
+    letter-spacing: 0.3px;
+  }
+
+  .header-actions {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .icon-btn {
+    width: 30px;
+    height: 30px;
+    border-radius: 8px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.07);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: #8ba4c4;
+    font-size: 12px;
+    transition: all 0.2s ease;
+  }
+
+  .icon-btn:hover { background: rgba(255,255,255,0.09); color: #c8d8f0; }
+
+  .lang-btn {
+    padding: 0 10px;
+    width: auto;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.6px;
+  }
+
+  /* Nav */
+  .nav-content {
+    flex: 1;
+    padding: 10px 10px 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+  }
+
+  /* Top-level nav item */
+  .nav-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 9px 12px;
+    border-radius: 9px;
+    cursor: pointer;
+    transition: all 0.18s ease;
+    color: #7a96b8;
+    font-size: 13.5px;
+    font-weight: 400;
+    text-decoration: none;
+    position: relative;
+    user-select: none;
+  }
+
+  .nav-item:hover { background: rgba(255,255,255,0.04); color: #c8d8f0; }
+
+  .nav-item.active {
+    background: rgba(59,130,246,0.12);
+    color: #93c5fd;
+    font-weight: 500;
+  }
+
+  .nav-item.active::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 50%;
+    transform: translateY(-50%);
+    width: 3px; height: 55%;
+    background: #3b82f6;
+    border-radius: 0 2px 2px 0;
+  }
+
+  .nav-icon {
+    font-size: 14px;
+    width: 18px;
+    text-align: center;
+    flex-shrink: 0;
+  }
+
+  /* Chevron */
+  .chevron {
+    margin-left: auto;
+    font-size: 9px;
+    color: #3a5270;
+    transition: transform 0.2s ease;
+  }
+
+  .nav-item.open .chevron { transform: rotate(90deg); }
+
+  /* Sub-items */
+  .sub-group {
+    display: none;
+    flex-direction: column;
+    gap: 1px;
+    margin: 1px 0 2px 0;
+  }
+
+  .sub-group.open { display: flex; }
+
+  .sub-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 7px 12px 7px 40px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.18s ease;
+    color: #526d8a;
+    font-size: 12.5px;
+    font-weight: 400;
+    position: relative;
+  }
+
+  .sub-item::before {
+    content: '';
+    position: absolute;
+    left: 26px;
+    width: 4px; height: 4px;
+    border-radius: 50%;
+    background: #2a4060;
+    transition: background 0.18s;
+  }
+
+  .sub-item:hover {
+    background: rgba(255,255,255,0.035);
+    color: #9ab8d8;
+  }
+
+  .sub-item:hover::before { background: #4a7aaa; }
+
+  .sub-item.active {
+    color: #7db8e8;
+  }
+
+  .sub-item.active::before { background: #3b82f6; }
+
+  /* Section divider */
+  .nav-divider {
+    height: 1px;
+    background: rgba(255,255,255,0.04);
+    margin: 6px 10px;
+  }
+
+  /* Badge */
+  .badge {
+    margin-left: auto;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.4px;
+    color: #f87171;
+    background: rgba(248,113,113,0.08);
+    border: 1px solid rgba(248,113,113,0.18);
+    padding: 1px 6px;
+    border-radius: 4px;
+  }
+
+  /* Scrollbar */
+  .sidebar::-webkit-scrollbar { width: 3px; }
+  .sidebar::-webkit-scrollbar-track { background: transparent; }
+  .sidebar::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.06); border-radius: 3px; }
+</style>
+</head>
+<body>
+<div class="sidebar">
+
+  <!-- Header -->
+  <div class="sidebar-header">
+    <div class="logo-area">
+      <div class="logo-icon">📖</div>
+      <span class="logo-text">PTE score</span>
+    </div>
+    <div class="header-actions">
+      <div class="icon-btn">🌙</div>
+      <div class="icon-btn lang-btn">EN</div>
+    </div>
+  </div>
+
+  <!-- Nav -->
+  <div class="nav-content">
+
+    <!-- Home -->
+    <a class="nav-item active" onclick="setActive(this)">
+      <span class="nav-icon">🏠</span>
+      Home
+    </a>
+
+    <div class="nav-divider"></div>
+
+    <!-- Practice -->
+    <a class="nav-item open" onclick="toggleGroup(this, 'practice')">
+      <span class="nav-icon">🎯</span>
+      Practice
+      <span class="chevron">▶</span>
+    </a>
+    <div class="sub-group open" id="practice">
+      <a class="sub-item" onclick="setSubActive(this)">Speaking</a>
+      <a class="sub-item" onclick="setSubActive(this)">Writing</a>
+      <a class="sub-item" onclick="setSubActive(this)">Reading</a>
+      <a class="sub-item" onclick="setSubActive(this)">Listening</a>
+    </div>
+
+    <!-- Mock Test -->
+    <a class="nav-item" onclick="setActive(this)">
+      <span class="nav-icon">✏️</span>
+      Mock Test
+    </a>
+
+    <div class="nav-divider"></div>
+
+    <!-- Progress -->
+    <a class="nav-item" onclick="toggleGroup(this, 'progress')">
+      <span class="nav-icon">📊</span>
+      Progress
+      <span class="chevron">▶</span>
+    </a>
+    <div class="sub-group" id="progress">
+      <a class="sub-item" onclick="setSubActive(this)">Practice History</a>
+      <a class="sub-item" onclick="setSubActive(this)">Wrong Answers</a>
+      <a class="sub-item" onclick="setSubActive(this)">Saved Recordings</a>
+    </div>
+
+    <!-- Question Bank -->
+    <a class="nav-item" onclick="toggleGroup(this, 'qbank')">
+      <span class="nav-icon">📚</span>
+      Question Bank
+      <span class="chevron">▶</span>
+    </a>
+    <div class="sub-group" id="qbank">
+      <a class="sub-item" onclick="setSubActive(this)">
+        Predicted Questions
+        <span class="badge">HOT</span>
+      </a>
+      <a class="sub-item" onclick="setSubActive(this)">High-frequency Questions</a>
+    </div>
+
+    <div class="nav-divider"></div>
+
+    <!-- Tools -->
+    <a class="nav-item" onclick="toggleGroup(this, 'tools')">
+      <span class="nav-icon">🛠️</span>
+      Tools
+      <span class="chevron">▶</span>
+    </a>
+    <div class="sub-group" id="tools">
+      <a class="sub-item" onclick="setSubActive(this)">Pronunciation Training</a>
+    </div>
+
+    <div class="nav-divider"></div>
+
+    <!-- Profile -->
+    <a class="nav-item" onclick="toggleGroup(this, 'profile')">
+      <span class="nav-icon">👤</span>
+      Profile
+      <span class="chevron">▶</span>
+    </a>
+    <div class="sub-group" id="profile">
+      <a class="sub-item" onclick="setSubActive(this)">My Account</a>
+      <a class="sub-item" onclick="setSubActive(this)">Settings</a>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  function toggleGroup(el, groupId) {
+    const group = document.getElementById(groupId);
+    const isOpen = group.classList.contains('open');
+    group.classList.toggle('open', !isOpen);
+    el.classList.toggle('open', !isOpen);
+  }
+
+  function setActive(el) {
+    document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+    document.querySelectorAll('.sub-item').forEach(i => i.classList.remove('active'));
+    el.classList.add('active');
+  }
+
+  function setSubActive(el) {
+    document.querySelectorAll('.sub-item').forEach(i => i.classList.remove('active'));
+    document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+    el.classList.add('active');
+  }
+</script>
+</body>
+</html>

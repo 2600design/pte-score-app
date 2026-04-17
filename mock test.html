@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>PTE score – 模考</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { -webkit-font-smoothing: antialiased; }
+
+:root {
+  --navy:   #0f1d36;
+  --accent: #3b82f6;
+  --surface:#f8f9fc;
+  --card:   #ffffff;
+  --border: rgba(15,29,54,0.07);
+  --text:   #0f1d36;
+  --muted:  #64748b;
+  --faint:  #c0c9d8;
+  --blue:   #3b82f6; --blue-bg: #eff6ff;
+  --amber:  #f59e0b; --amber-bg: #fffbeb;
+  --green:  #10b981; --green-bg: #ecfdf5;
+  --purple: #8b5cf6; --purple-bg: #f5f3ff;
+  --red:    #ef4444; --red-bg:   #fef2f2;
+  --r-sm: 10px; --r-md: 14px; --r-lg: 18px; --r-xl: 22px; --r-full: 9999px;
+  --s-sm: 0 1px 3px rgba(15,29,54,.06), 0 1px 2px rgba(15,29,54,.04);
+  --s-md: 0 4px 16px rgba(15,29,54,.09);
+  --font: "Inter", -apple-system, sans-serif;
+}
+
+body {
+  font-family: var(--font);
+  background: var(--surface);
+  color: var(--text);
+  max-width: 430px;
+  margin: 0 auto;
+  min-height: 100dvh;
+  overflow-x: hidden;
+}
+
+/* ── TOP NAV ── */
+.top-nav {
+  background: var(--navy);
+  padding: 14px 20px;
+  display: flex; align-items: center; justify-content: space-between;
+  position: sticky; top: 0; z-index: 100;
+}
+.nav-hamburger { background: none; border: none; color: rgba(255,255,255,.7); cursor: pointer; display: flex; }
+.nav-brand { color: #fff; font-size: 16px; font-weight: 700; letter-spacing: .4px; }
+.nav-avatar {
+  width: 34px; height: 34px; border-radius: var(--r-full);
+  background: var(--accent); color: #fff; font-size: 14px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+  border: none; cursor: pointer;
+}
+
+/* ── HERO BANNER ── */
+.hero-banner {
+  background: var(--navy);
+  padding: 0 20px 24px;
+  display: flex; flex-direction: column; gap: 16px;
+}
+.hero-title { color: #fff; font-size: 22px; font-weight: 800; letter-spacing: -.3px; }
+.hero-sub { color: rgba(255,255,255,.55); font-size: 13px; line-height: 1.5; margin-top: -8px; }
+
+.score-strip {
+  display: flex; gap: 10px;
+}
+.score-pill {
+  flex: 1;
+  background: rgba(255,255,255,.08);
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: var(--r-lg);
+  padding: 12px 14px;
+  display: flex; flex-direction: column; gap: 3px;
+}
+.score-pill-label { font-size: 10px; font-weight: 600; color: rgba(255,255,255,.45); text-transform: uppercase; letter-spacing: .5px; }
+.score-pill-val { font-size: 22px; font-weight: 800; color: #fff; }
+.score-pill-sub { font-size: 11px; color: rgba(255,255,255,.4); }
+
+/* ── CONTENT ── */
+.content { padding: 20px 16px 100px; display: flex; flex-direction: column; gap: 20px; }
+
+/* ── SECTION LABEL ── */
+.section-label {
+  font-size: 12px; font-weight: 700; color: var(--muted);
+  text-transform: uppercase; letter-spacing: .6px;
+  margin-bottom: -8px;
+}
+
+/* ── MOCK TYPE SELECTOR ── */
+.mock-type-row { display: flex; gap: 10px; }
+.mock-type-btn {
+  flex: 1; border: none; cursor: pointer; border-radius: var(--r-lg);
+  padding: 14px 10px; display: flex; flex-direction: column; align-items: center;
+  gap: 8px; transition: all .18s; position: relative; overflow: hidden;
+}
+.mock-type-btn.selected { box-shadow: 0 0 0 2px var(--accent); }
+.mock-type-btn .mt-icon {
+  width: 40px; height: 40px; border-radius: var(--r-full);
+  display: flex; align-items: center; justify-content: center;
+}
+.mock-type-btn .mt-name { font-size: 13px; font-weight: 700; }
+.mock-type-btn .mt-desc { font-size: 11px; color: var(--muted); text-align: center; line-height: 1.4; }
+.mock-type-btn .mt-badge {
+  position: absolute; top: 10px; right: 10px;
+  font-size: 9px; font-weight: 700; padding: 2px 6px;
+  border-radius: var(--r-full); background: var(--amber); color: #fff;
+}
+
+/* ── EXAM CARD ── */
+.exam-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--r-xl);
+  overflow: hidden;
+  box-shadow: var(--s-sm);
+}
+.exam-card-header {
+  padding: 16px 18px 14px;
+  display: flex; align-items: flex-start; gap: 14px;
+}
+.exam-icon {
+  width: 46px; height: 46px; border-radius: var(--r-md);
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.exam-header-text { flex: 1; min-width: 0; }
+.exam-title { font-size: 15px; font-weight: 800; margin-bottom: 3px; }
+.exam-subtitle { font-size: 12px; color: var(--muted); line-height: 1.4; }
+.exam-tags { display: flex; gap: 6px; margin-top: 6px; flex-wrap: wrap; }
+.tag {
+  font-size: 10px; font-weight: 600; padding: 3px 8px;
+  border-radius: var(--r-full); border: 1px solid var(--border);
+}
+.tag-blue  { background: var(--blue-bg);   color: var(--blue);   border-color: rgba(59,130,246,.15); }
+.tag-green { background: var(--green-bg);  color: var(--green);  border-color: rgba(16,185,129,.15); }
+.tag-amber { background: var(--amber-bg);  color: var(--amber);  border-color: rgba(245,158,11,.15); }
+.tag-purple{ background: var(--purple-bg); color: var(--purple); border-color: rgba(139,92,246,.15); }
+.tag-gray  { background: #f1f5f9; color: var(--muted); }
+
+.exam-divider { height: 1px; background: var(--border); margin: 0 18px; }
+
+.exam-meta-row {
+  padding: 12px 18px;
+  display: flex; align-items: center; gap: 16px;
+}
+.exam-meta-item { display: flex; align-items: center; gap: 5px; }
+.exam-meta-item svg { color: var(--faint); flex-shrink: 0; }
+.exam-meta-text { font-size: 12px; color: var(--muted); }
+
+.exam-footer {
+  padding: 12px 18px 16px;
+  display: flex; align-items: center; gap: 10px;
+}
+.exam-footer-left { flex: 1; }
+.exam-last-score-label { font-size: 11px; color: var(--muted); margin-bottom: 1px; }
+.exam-last-score-val { font-size: 18px; font-weight: 800; color: var(--text); }
+.exam-last-score-val.none { font-size: 13px; color: var(--faint); font-weight: 500; }
+
+.btn-start {
+  background: var(--navy);
+  color: #fff; font-size: 13px; font-weight: 700;
+  padding: 10px 22px; border-radius: var(--r-full);
+  border: none; cursor: pointer;
+  display: flex; align-items: center; gap: 6px;
+  transition: background .18s, transform .12s;
+  white-space: nowrap;
+}
+.btn-start:hover { background: #162845; }
+.btn-start:active { transform: scale(.97); }
+.btn-start-free {
+  background: transparent;
+  color: var(--accent); font-size: 13px; font-weight: 700;
+  padding: 10px 18px; border-radius: var(--r-full);
+  border: 1.5px solid rgba(59,130,246,.3);
+  cursor: pointer; transition: all .18s; white-space: nowrap;
+}
+.btn-start-free:hover { background: var(--blue-bg); }
+
+/* ── PROGRESS CARD ── */
+.progress-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--r-xl);
+  padding: 18px;
+  box-shadow: var(--s-sm);
+}
+.progress-card-title { font-size: 14px; font-weight: 700; margin-bottom: 14px; }
+.progress-list { display: flex; flex-direction: column; gap: 12px; }
+.progress-item { display: flex; flex-direction: column; gap: 5px; }
+.progress-item-header { display: flex; justify-content: space-between; align-items: center; }
+.progress-item-name { font-size: 12px; font-weight: 600; color: var(--text); }
+.progress-item-score { font-size: 12px; font-weight: 700; }
+.progress-bar-bg { height: 5px; background: #f1f5f9; border-radius: var(--r-full); overflow: hidden; }
+.progress-bar-fill { height: 100%; border-radius: var(--r-full); transition: width .6s ease; }
+
+/* ── TIPS CARD ── */
+.tips-card {
+  background: linear-gradient(135deg, #0f1d36 0%, #1e3560 100%);
+  border-radius: var(--r-xl); padding: 18px;
+  display: flex; gap: 14px; align-items: flex-start;
+}
+.tips-icon-wrap {
+  width: 42px; height: 42px; border-radius: var(--r-md);
+  background: rgba(255,255,255,.1);
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.tips-text-wrap { flex: 1; }
+.tips-title { font-size: 13px; font-weight: 700; color: #fff; margin-bottom: 4px; }
+.tips-body { font-size: 12px; color: rgba(255,255,255,.55); line-height: 1.5; }
+.tips-link { font-size: 12px; font-weight: 600; color: #93c5fd; margin-top: 6px; display: inline-block; }
+
+/* ── BOTTOM NAV ── */
+.bottom-nav {
+  position: fixed; bottom: 0; left: 50%; transform: translateX(-50%);
+  width: 100%; max-width: 430px;
+  background: rgba(255,255,255,0.96);
+  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+  border-top: 1px solid rgba(15,29,54,0.07);
+  display: flex; padding: 8px 0;
+  padding-bottom: max(12px, env(safe-area-inset-bottom, 12px));
+  z-index: 200;
+  box-shadow: 0 -4px 20px rgba(15,29,54,.06);
+}
+.nav-item {
+  flex: 1; display: flex; flex-direction: column; align-items: center;
+  gap: 2px; font-size: 10px; font-weight: 500;
+  color: #b0bdd0; border: none; background: none; cursor: pointer; padding: 2px 0;
+  -webkit-tap-highlight-color: transparent; transition: color .18s;
+}
+.nav-item svg { width: 22px; height: 22px; }
+.nav-item-icon {
+  width: 44px; height: 28px; border-radius: 14px;
+  display: flex; align-items: center; justify-content: center;
+  transition: background .18s;
+}
+.nav-item.active .nav-item-icon { background: rgba(15,29,54,.09); }
+.nav-item.active { color: var(--navy); font-weight: 600; }
+</style>
+</head>
+<body>
+
+<!-- TOP NAV -->
+<nav class="top-nav">
+  <button class="nav-hamburger" aria-label="菜单">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+      <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
+    </svg>
+  </button>
+  <span class="nav-brand">PTE score</span>
+  <button class="nav-avatar">F</button>
+</nav>
+
+<!-- HERO BANNER -->
+<div class="hero-banner">
+  <div>
+    <div class="hero-title">模拟考试</div>
+    <div class="hero-sub">真实考场环境 · AI 即时评分 · 详细解析报告</div>
+  </div>
+  <div class="score-strip">
+    <div class="score-pill">
+      <span class="score-pill-label">已完成</span>
+      <span class="score-pill-val">0</span>
+      <span class="score-pill-sub">次模考</span>
+    </div>
+    <div class="score-pill">
+      <span class="score-pill-label">最高分</span>
+      <span class="score-pill-val">—</span>
+      <span class="score-pill-sub">暂无记录</span>
+    </div>
+    <div class="score-pill">
+      <span class="score-pill-label">目标分</span>
+      <span class="score-pill-val">79</span>
+      <span class="score-pill-sub">每项 65+</span>
+    </div>
+  </div>
+</div>
+
+<div class="content">
+
+  <!-- MOCK TYPE -->
+  <div class="section-label">选择模考类型</div>
+  <div class="mock-type-row">
+    <button class="mock-type-btn selected" style="background:var(--blue-bg);" onclick="selectType(this)">
+      <div class="mt-icon" style="background:rgba(59,130,246,.15)">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      </div>
+      <span class="mt-name">全真模考</span>
+      <span class="mt-desc">3 小时完整考试</span>
+    </button>
+    <button class="mock-type-btn" style="background:#f8f9fc;" onclick="selectType(this)">
+      <div class="mt-icon" style="background:var(--green-bg)">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2" stroke-linecap="round"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><polyline points="13 2 13 9 20 9"/></svg>
+      </div>
+      <span class="mt-name">专项模考</span>
+      <span class="mt-desc">单独练一个技能</span>
+    </button>
+    <button class="mock-type-btn" style="background:#f8f9fc;" onclick="selectType(this)">
+      <div class="mt-icon" style="background:var(--amber-bg)">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2" stroke-linecap="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+      </div>
+      <span class="mt-name">快速模考</span>
+      <span class="mt-desc">45 分钟精简版</span>
+      <span class="mt-badge">热门</span>
+    </button>
+  </div>
+
+  <!-- FEATURED EXAM -->
+  <div class="section-label">推荐考卷</div>
+
+  <!-- Exam 1 -->
+  <div class="exam-card">
+    <div class="exam-card-header">
+      <div class="exam-icon" style="background: linear-gradient(135deg,#0f1d36,#1e3560)">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+      </div>
+      <div class="exam-header-text">
+        <div class="exam-title">官方全真模考 · 套卷 01</div>
+        <div class="exam-subtitle">覆盖全部题型，难度与真实考场一致，含详细 AI 评分报告</div>
+        <div class="exam-tags">
+          <span class="tag tag-blue">口语</span>
+          <span class="tag tag-amber">写作</span>
+          <span class="tag tag-green">阅读</span>
+          <span class="tag tag-purple">听力</span>
+          <span class="tag tag-gray">全题型</span>
+        </div>
+      </div>
+    </div>
+    <div class="exam-divider"></div>
+    <div class="exam-meta-row">
+      <div class="exam-meta-item">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        <span class="exam-meta-text">约 180 分钟</span>
+      </div>
+      <div class="exam-meta-item">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        <span class="exam-meta-text">2,847 人已做</span>
+      </div>
+      <div class="exam-meta-item">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        <span class="exam-meta-text">难度 ★★★★</span>
+      </div>
+    </div>
+    <div class="exam-divider"></div>
+    <div class="exam-footer">
+      <div class="exam-footer-left">
+        <div class="exam-last-score-label">上次得分</div>
+        <div class="exam-last-score-val none">未练习</div>
+      </div>
+      <button class="btn-start-free">免费试做</button>
+      <button class="btn-start">
+        开始考试
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Exam 2 -->
+  <div class="exam-card">
+    <div class="exam-card-header">
+      <div class="exam-icon" style="background: linear-gradient(135deg,#1e3a5f,#2563eb)">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+      </div>
+      <div class="exam-header-text">
+        <div class="exam-title">预测套卷 · 2026 最新</div>
+        <div class="exam-subtitle">基于近期真实考题预测整理，命中率高，强烈推荐备考用</div>
+        <div class="exam-tags">
+          <span class="tag tag-blue">口语</span>
+          <span class="tag tag-amber">写作</span>
+          <span class="tag tag-green">阅读</span>
+          <span class="tag tag-purple">听力</span>
+          <span class="tag" style="background:#fef2f2;color:#ef4444;border-color:rgba(239,68,68,.15)">高频考题</span>
+        </div>
+      </div>
+    </div>
+    <div class="exam-divider"></div>
+    <div class="exam-meta-row">
+      <div class="exam-meta-item">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        <span class="exam-meta-text">约 180 分钟</span>
+      </div>
+      <div class="exam-meta-item">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        <span class="exam-meta-text">1,203 人已做</span>
+      </div>
+      <div class="exam-meta-item">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        <span class="exam-meta-text">难度 ★★★☆</span>
+      </div>
+    </div>
+    <div class="exam-divider"></div>
+    <div class="exam-footer">
+      <div class="exam-footer-left">
+        <div class="exam-last-score-label">上次得分</div>
+        <div class="exam-last-score-val none">未练习</div>
+      </div>
+      <button class="btn-start-free">免费试做</button>
+      <button class="btn-start">
+        开始考试
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Exam 3 – Speaking only -->
+  <div class="exam-card">
+    <div class="exam-card-header">
+      <div class="exam-icon" style="background: linear-gradient(135deg,#1a4731,#059669)">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
+      </div>
+      <div class="exam-header-text">
+        <div class="exam-title">口语专项模考</div>
+        <div class="exam-subtitle">RA · RS · DI · RL · ASQ 全题型，AI 实时评分流利度与发音</div>
+        <div class="exam-tags">
+          <span class="tag tag-blue">口语 Only</span>
+          <span class="tag tag-green">AI 评分</span>
+        </div>
+      </div>
+    </div>
+    <div class="exam-divider"></div>
+    <div class="exam-meta-row">
+      <div class="exam-meta-item">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        <span class="exam-meta-text">约 30 分钟</span>
+      </div>
+      <div class="exam-meta-item">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+        <span class="exam-meta-text">985 人已做</span>
+      </div>
+      <div class="exam-meta-item">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        <span class="exam-meta-text">难度 ★★★☆</span>
+      </div>
+    </div>
+    <div class="exam-divider"></div>
+    <div class="exam-footer">
+      <div class="exam-footer-left">
+        <div class="exam-last-score-label">上次得分</div>
+        <div class="exam-last-score-val none">未练习</div>
+      </div>
+      <button class="btn-start-free">免费试做</button>
+      <button class="btn-start">
+        开始考试
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- TIPS CARD -->
+  <div class="tips-card">
+    <div class="tips-icon-wrap">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#93c5fd" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+    </div>
+    <div class="tips-text-wrap">
+      <div class="tips-title">模考小贴士</div>
+      <div class="tips-body">建议在安静环境下佩戴耳机完成模考。考试期间无法暂停，请提前准备好录音设备。</div>
+      <a class="tips-link" href="https://ptescore.com.au" target="_blank" rel="noopener noreferrer">查看考试须知 →</a>
+    </div>
+  </div>
+
+</div>
+
+<!-- BOTTOM NAV -->
+<nav class="bottom-nav">
+  <button class="nav-item" aria-label="首页">
+    <div class="nav-item-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+    </div>
+    <span>首页</span>
+  </button>
+  <button class="nav-item" aria-label="练习">
+    <div class="nav-item-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/></svg>
+    </div>
+    <span>练习</span>
+  </button>
+  <button class="nav-item active" aria-current="page" aria-label="模考">
+    <div class="nav-item-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+    </div>
+    <span>模考</span>
+  </button>
+  <button class="nav-item" aria-label="我的">
+    <div class="nav-item-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+    </div>
+    <span>我的</span>
+  </button>
+</nav>
+
+<script>
+function selectType(btn) {
+  document.querySelectorAll('.mock-type-btn').forEach(b => {
+    b.classList.remove('selected');
+    b.style.background = '#f8f9fc';
+  });
+  btn.classList.add('selected');
+  btn.style.background = 'var(--blue-bg)';
+}
+</script>
+</body>
+</html>

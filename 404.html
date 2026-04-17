@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <base href="/">
+  <title>PTE Exam Practice – AI Scoring</title>
+  <link rel="stylesheet" href="styles.css?v=15">
+</head>
+<body>
+  <!-- Mobile Header -->
+  <div id="mobile-header">
+    <button id="hamburger-btn" onclick="toggleDrawer()" aria-label="Menu">
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+        <rect y="3" width="20" height="2" rx="1"/><rect y="9" width="20" height="2" rx="1"/><rect y="15" width="20" height="2" rx="1"/>
+      </svg>
+    </button>
+    <div class="mobile-header-actions">
+      <div id="mobile-lang-slot"></div>
+    </div>
+  </div>
+  <!-- Drawer Overlay -->
+  <div id="drawer-overlay" onclick="closeDrawer()"></div>
+
+  <div id="app">
+    <!-- Sidebar / Mobile Drawer -->
+    <aside id="sidebar">
+      <div class="logo">
+        <div class="sidebar-logo-img-wrap">
+          <img src="/logo_transparent_final.png" alt="PTE score" class="sidebar-logo-img">
+        </div>
+        <span class="logo-text">PTE score</span>
+        <div id="auth-slot-desktop" class="auth-slot-desktop" style="display:none"></div>
+        <button id="theme-toggle" onclick="toggleThemePanel(event)" title="切换主题" style="margin-left:auto;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.1);border-radius:999px;padding:4px 10px;cursor:pointer;font-size:14px;line-height:1;color:rgba(255,255,255,0.7);flex-shrink:0">🎨</button>
+      </div>
+      <nav id="sidebar-nav" style="flex:1;overflow-y:auto;overflow-x:hidden;scrollbar-width:none;-ms-overflow-style:none"></nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main id="main">
+      <div id="page-container"></div>
+    </main>
+  </div>
+
+  <div id="theme-panel-overlay" class="theme-panel-overlay hidden" onclick="closeThemePanel()">
+    <div class="theme-panel" role="dialog" aria-modal="true" aria-labelledby="theme-panel-title" onclick="event.stopPropagation()">
+      <div class="theme-options">
+        <button class="theme-option" type="button" data-theme-option="pink-light" onclick="selectTheme('pink-light')">
+          <span class="theme-option-preview">
+            <span class="theme-preview-bg" style="background:#fff7fb"></span>
+            <span class="theme-preview-accent" style="background:#ec4899"></span>
+          </span>
+          <span class="theme-option-check">✓</span>
+        </button>
+        <button class="theme-option" type="button" data-theme-option="pink-dark" onclick="selectTheme('pink-dark')">
+          <span class="theme-option-preview">
+            <span class="theme-preview-bg" style="background:#111111"></span>
+            <span class="theme-preview-accent" style="background:#f4b8d8"></span>
+          </span>
+          <span class="theme-option-check">✓</span>
+        </button>
+        <button class="theme-option" type="button" data-theme-option="blue-light" onclick="selectTheme('blue-light')">
+          <span class="theme-option-preview">
+            <span class="theme-preview-bg" style="background:#f7fbff"></span>
+            <span class="theme-preview-accent" style="background:#0066cc"></span>
+          </span>
+          <span class="theme-option-check">✓</span>
+        </button>
+        <button class="theme-option" type="button" data-theme-option="deep-dark" onclick="selectTheme('deep-dark')">
+          <span class="theme-option-preview">
+            <span class="theme-preview-bg" style="background:#0f1117"></span>
+            <span class="theme-preview-accent" style="background:#3b82f6"></span>
+          </span>
+          <span class="theme-option-check">✓</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom Navigation (mobile only) -->
+  <nav id="bottom-nav">
+    <button class="bottom-tab active" data-section="home" onclick="navigate('home')">
+      <span class="bottom-tab-icon">🏠</span>
+      <span class="bottom-tab-label" data-i18n="nav_home">Home</span>
+    </button>
+    <button class="bottom-tab" data-section="practice" onclick="navigate('practice-all')">
+      <span class="bottom-tab-icon">🎯</span>
+      <span class="bottom-tab-label" data-i18n="nav_practice">Practice</span>
+    </button>
+    <button class="bottom-tab" data-section="progress" onclick="navigate('progress')">
+      <span class="bottom-tab-icon">📊</span>
+      <span class="bottom-tab-label" data-i18n="nav_progress">Progress</span>
+    </button>
+    <button class="bottom-tab" data-section="study-plan" onclick="navigate('study-plan')">
+      <span class="bottom-tab-icon">🗓️</span>
+      <span class="bottom-tab-label" data-i18n="nav_study_plan_short">Plan</span>
+    </button>
+  </nav>
+
+  <script>const Pages = {};</script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <script src="data/questions.js?v=3"></script>
+  <script src="data/prediction-bank.js?v=2"></script>
+  <script src="data/di-templates.js?v=6"></script>
+  <script src="js/utils.js?v=2"></script>
+  <script src="js/utils/textDiff.js?v=1"></script>
+  <script src="js/components/question-listing.js?v=2"></script>
+  <script src="js/components/wordReview.js?v=1"></script>
+  <script src="js/scorer.js?v=2"></script>
+  <script src="js/lib/speaking-audio.js?v=1"></script>
+  <script src="env.js?v=1"></script>
+  <script src="js/config/app-config.js?v=2"></script>
+  <script src="js/config/supabase-config.js?v=1"></script>
+  <script src="js/lib/supabase-client.js?v=2"></script>
+  <script src="js/lib/progress.js?v=2"></script>
+  <script src="js/lib/auth.js?v=2"></script>
+  <script src="js/pages/home.js?v=8"></script>
+  <script src="js/pages/practice.js?v=9"></script>
+  <script src="js/pages/question-list.js?v=4"></script>
+  <script src="js/pages/study-plan.js?v=5"></script>
+  <script src="js/pages/account.js?v=2"></script>
+  <script src="js/pages/read-aloud.js?v=4"></script>
+  <script src="js/pages/repeat-sentence.js?v=4"></script>
+  <script src="js/pages/describe-image.js?v=7"></script>
+  <script src="js/pages/retell-lecture.js?v=4"></script>
+  <script src="js/pages/answer-short.js?v=4"></script>
+  <script src="js/pages/summarize-written.js?v=4"></script>
+  <script src="js/pages/write-essay.js?v=4"></script>
+  <script src="js/pages/reading.js?v=4"></script>
+  <script src="js/pages/listening.js?v=6"></script>
+  <script src="js/pages/mock-test.js?v=3"></script>
+  <script src="js/pages/progress.js?v=8"></script>
+  <script src="js/pages/settings.js?v=5"></script>
+  <script src="js/pages/walkman.js?v=4"></script>
+  <script src="js/ai-scorer.js?v=5"></script>
+  <script src="app.js?v=17"></script>
+</body>
+</html>
