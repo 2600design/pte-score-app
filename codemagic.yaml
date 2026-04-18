@@ -1,0 +1,70 @@
+workflows:
+  ios-app-store:
+    name: PTE Practice - App Store
+    max_build_duration: 60
+    instance_type: mac_mini_m2
+
+    environment:
+      ios_signing:
+        distribution_type: app_store
+        bundle_identifier: au.com.ptescore.app
+      vars:
+        XCODE_PROJECT: "ios/App/App.xcodeproj"
+        XCODE_SCHEME: "App"
+        BUNDLE_ID: "au.com.ptescore.app"
+      app_store_connect:
+        api_key: $APP_STORE_CONNECT_PRIVATE_KEY
+        key_id: $APP_STORE_CONNECT_KEY_IDENTIFIER
+        issuer_id: $APP_STORE_CONNECT_ISSUER_ID
+
+    scripts:
+      - name: Install Node & npm deps
+        script: |
+          npm install
+
+      - name: Build web assets
+        script: |
+          npm run build
+
+      - name: Install Capacitor iOS
+        script: |
+          npx cap sync ios
+
+      - name: Fix AppDelegate Swift compatibility
+        script: |
+          sed -i '' 's/return ApplicationDelegateProxy.shared.application(application, continue: userActivity, restorationHandler: restorationHandler)/return true/' ios/App/App/AppDelegate.swift
+
+      - name: Set iOS version
+        script: |
+          agvtool new-version -all $(($(app-store-version-number) + 1)) || true
+        working_directory: ios/App
+
+      - name: Build and archive
+        script: |
+          xcodebuild \
+            -project "$XCODE_PROJECT" \
+            -scheme "$XCODE_SCHEME" \
+            -configuration Release \
+            -destination "generic/platform=iOS" \
+            -archivePath "$CM_BUILD_DIR/App.xcarchive" \
+            archive \
+            -allowProvisioningUpdates \
+            CODE_SIGN_STYLE=Automatic
+
+      - name: Export IPA
+        script: |
+          xcodebuild \
+            -exportArchive \
+            -archivePath "$CM_BUILD_DIR/App.xcarchive" \
+            -exportOptionsPlist ios/ExportOptions.plist \
+            -exportPath "$CM_BUILD_DIR/export" \
+            -allowProvisioningUpdates
+
+    artifacts:
+      - build/export/*.ipa
+      - $CM_BUILD_DIR/export/*.ipa
+
+    publishing:
+      app_store_connect:
+        auth: integration
+        submit_to_testflight: true

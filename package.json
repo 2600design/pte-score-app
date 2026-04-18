@@ -1,0 +1,29 @@
+{
+  "name": "pte",
+  "version": "1.0.0",
+  "description": "A lightweight PTE Academic practice app for speaking, writing, reading, and listening, now with backend-managed AI scoring and audio transcription for speaking tasks.",
+  "main": "app.js",
+  "scripts": {
+    "build": "rm -rf www && mkdir -p www && cp -r index.html app.js styles.css env.js 404.html js public data logo_transparent_final.png logo.jpg www/ 2>/dev/null; true",
+    "sync": "npm run build && npx cap sync",
+    "open:ios": "npm run sync && npx cap open ios",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/2600design/pte-practice-app.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/2600design/pte-practice-app/issues"
+  },
+  "homepage": "https://github.com/2600design/pte-practice-app#readme",
+  "dependencies": {
+    "@capacitor/cli": "^8.3.0",
+    "@capacitor/core": "^8.3.0",
+    "@capacitor/ios": "^8.3.0"
+  }
+}

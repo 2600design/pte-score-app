@@ -1,0 +1,35 @@
+[
+  {
+    "sourceName": "April 2026 Repeat Sentence Prediction Set",
+    "sourceUrl": "https://www.ptesmart.com.au/pte-academic-strategies-write-from-dictation-x-repeat-sentence/",
+    "monthTag": "2026-04",
+    "type": "repeat_sentence",
+    "items": [
+      { "content": "The museum exhibition explores how technology has influenced contemporary art." },
+      { "content": "The final budget proposal will be reviewed at the next committee meeting." },
+      { "content": "Public libraries provide free access to information and community services." }
+    ]
+  },
+  {
+    "sourceName": "April 2026 Write From Dictation Prediction Set",
+    "sourceUrl": "https://www.ptesmart.com.au/pte-academic-strategies-write-from-dictation-x-repeat-sentence/",
+    "monthTag": "2026-04",
+    "type": "write_from_dictation",
+    "items": [
+      { "content": "The lecture highlighted the importance of critical thinking in higher education." },
+      { "content": "Researchers must consider both ethical and practical implications of new technology." },
+      { "content": "Urban planners are developing smarter transport systems to reduce congestion." }
+    ]
+  },
+  {
+    "sourceName": "April 2026 Answer Short Question Prediction Set",
+    "sourceUrl": "https://www.reddit.com/r/pte/comments/1s8i8xa/repeat_sentence_in_pte/",
+    "monthTag": "2026-04",
+    "type": "answer_short_question",
+    "items": [
+      { "content": "What is the device called that measures atmospheric pressure?", "answer": "Barometer" },
+      { "content": "What do we call the study of stars, planets, and the universe?", "answer": "Astronomy" },
+      { "content": "What is the process called when plants lose water through their leaves?", "answer": "Transpiration" }
+    ]
+  }
+]

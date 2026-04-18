@@ -1,0 +1,32 @@
+[
+  {
+    "type": "repeat_sentence",
+    "content": "The museum exhibition explores how technology has influenced contemporary art.",
+    "answer": "",
+    "matchedId": "rs16",
+    "similarity": 1,
+    "reason": "exact",
+    "monthTag": "2026-04",
+    "sourceName": "April 2026 Repeat Sentence Prediction Set"
+  },
+  {
+    "type": "write_from_dictation",
+    "content": "The lecture highlighted the importance of critical thinking in higher education.",
+    "answer": "",
+    "matchedId": "wfd16",
+    "similarity": 1,
+    "reason": "exact",
+    "monthTag": "2026-04",
+    "sourceName": "April 2026 Write From Dictation Prediction Set"
+  },
+  {
+    "type": "answer_short_question",
+    "content": "What is the device called that measures atmospheric pressure?",
+    "answer": "Barometer",
+    "matchedId": "asq19",
+    "similarity": 1,
+    "reason": "exact",
+    "monthTag": "2026-04",
+    "sourceName": "April 2026 Answer Short Question Prediction Set"
+  }
+]

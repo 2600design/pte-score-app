@@ -1,0 +1,36 @@
+options:
+  logging: CLOUD_LOGGING_ONLY
+
+steps:
+  - name: gcr.io/cloud-builders/docker
+    args:
+      - build
+      - -f
+      - backend/Dockerfile
+      - -t
+      - gcr.io/$PROJECT_ID/pte-backend:$COMMIT_SHA
+      - backend
+
+  - name: gcr.io/cloud-builders/docker
+    args:
+      - push
+      - gcr.io/$PROJECT_ID/pte-backend:$COMMIT_SHA
+
+  - name: gcr.io/google.com/cloudsdktool/cloud-sdk
+    entrypoint: gcloud
+    args:
+      - run
+      - deploy
+      - pte-backend
+      - --image
+      - gcr.io/$PROJECT_ID/pte-backend:$COMMIT_SHA
+      - --region
+      - australia-southeast1
+      - --platform
+      - managed
+      - --allow-unauthenticated
+      - --port
+      - "8080"
+
+images:
+  - gcr.io/$PROJECT_ID/pte-backend:$COMMIT_SHA

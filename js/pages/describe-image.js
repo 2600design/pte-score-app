@@ -112,6 +112,28 @@ Pages['describe-image'] = function() {
   }
 
   function renderSubmissionPanel(message = t('panel_record_answer')) {
+    if (Scorer.shouldUseCompactSpeakingUI() && window.AIScorer) {
+      const activeAudio = getActiveAudio();
+      const canSubmit = !!activeAudio && activeAudio.source === 'recording' && !!String(finalText || '').trim();
+      const actionHtml = [
+        `<label class="btn btn-secondary compact-upload-btn">${uploadedAudio ? t('panel_upload_another') : t('btn_upload_audio')}<input type="file" accept="audio/*" onchange="DI_handleUpload(event)" hidden></label>`,
+        uploadedAudio ? `<button class="btn btn-secondary" onclick="DI_clearUpload()">${t('btn_clear') || 'Clear'}</button>` : '',
+        recordingBlob ? `<button class="btn btn-secondary" onclick="DI_startRecord()">${t('btn_re_record')}</button>` : '',
+        `<button class="btn btn-primary" onclick="DI_submitAudio()" ${canSubmit ? '' : 'disabled'}>${t('btn_submit')}</button>`,
+      ].filter(Boolean).join('');
+      $('#score-area').innerHTML = AIScorer.renderCompactSubmissionCard({
+        title: t('di_title'),
+        subtitle: canSubmit ? t('panel_recording_ready') : message,
+        audioUrl: activeAudio?.previewUrl || '',
+        feedback: [
+          AIScorer.renderFeedbackBlock(canSubmit ? 'strength' : 'suggestion', message),
+          activeAudio && activeAudio.source !== 'recording' ? AIScorer.renderFeedbackBlock('suggestion', t('toast_local_record_only')) : '',
+          !AppAuth.isLoggedIn() && canSubmit ? AIScorer.renderFeedbackBlock('suggestion', t('rs_signin_save')) : '',
+        ],
+        actionHtml,
+      });
+      return;
+    }
     $('#score-area').innerHTML = SpeakingAudio.renderCapturePanel({
       title: 'Speaking audio',
       helperText: message,
@@ -190,40 +212,40 @@ Pages['describe-image'] = function() {
     const q = questions[qIndex];
     syncSelectedQuestion(q);
     if (window.PracticeTracker) PracticeTracker.setCurrentQuestion({ questionId: q.id, questionType: 'describeImage', questionText: `${q.title} ${q.hint}` });
-    $('#page-container').innerHTML = `
-<div class="page-header">
-  <div style="margin-bottom:10px">
-    <button class="btn btn-secondary" onclick="backToQuestionList('practice-describe-image')">${t('btn_back_to_list')}</button>
-  </div>
-  <h1>${t('di_title')} <span class="badge badge-speaking">${t('badge_speaking')}</span></h1>
-  <p>${t('di_subtitle')}</p>
+    const promptHtml = `
+<div style="display:flex;gap:8px;flex-wrap:wrap">
+  <span class="speaking-exam-badge">${Scorer.escapeHtml(usingPredictionBank ? t('prediction_high_badge') : t('di_template_bank'))}</span>
+  <span class="speaking-exam-badge">${Scorer.escapeHtml(`${t('di_type_badge')}: ${q.isPrediction ? q.type.replace(/_/g, ' ') : getDiTemplateTypeLabel(q.type)}`)}</span>
+  <span class="speaking-exam-badge">${Scorer.escapeHtml(`${t('di_difficulty_badge')}: ${q.difficulty || 'medium'}`)}</span>
 </div>
-<div class="card">
-  <div class="question-nav">
-    <span class="q-number">${t('question_label')} ${qIndex+1} ${t('question_of')} ${questions.length}</span>
-    <div id="timer-el" class="timer"><span class="timer-dot"></span>00:40</div>
-  </div>
-  <div style="display:flex;gap:8px;flex-wrap:wrap;margin:6px 0 10px">
-    <span class="badge" style="background:rgba(37,99,235,0.1);color:#1d4ed8">${usingPredictionBank ? t('prediction_high_badge') : t('di_template_bank')}</span>
-    <span class="badge" style="background:rgba(15,23,42,0.06);color:var(--text-light)">${t('di_type_badge')}: ${q.isPrediction ? q.type.replace(/_/g, ' ') : getDiTemplateTypeLabel(q.type)}</span>
-    <span class="badge" style="background:rgba(15,23,42,0.06);color:var(--text-light)">${t('di_difficulty_badge')}: ${q.difficulty || 'medium'}</span>
-  </div>
-  <div class="q-instruction">${t('di_instruction')}</div>
-  <div style="text-align:center;margin-bottom:20px">
-    <div style="font-weight:600;margin-bottom:10px;font-size:15px">${q.title}</div>
-    ${q.image ? `<img src="${q.image}" alt="${q.title}" style="width:min(100%, 860px);border-radius:16px;border:1px solid var(--border);background:#fff;box-shadow:0 10px 24px rgba(15,23,42,0.06)">` : q.imageSvg}
-    <div style="font-size:12px;color:var(--text-light);margin-top:8px">${q.hint}</div>
-  </div>
-  <div id="saved-audio-area"></div>
-  <div id="recorder-area"></div>
-  <div id="score-area"></div>
-  <hr class="section-divider">
+<div class="speaking-prompt-copy" style="font-size:15px;font-weight:700">${Scorer.escapeHtml(q.title)}</div>
+<div style="text-align:center">
+  ${q.image ? `<img src="${q.image}" alt="${Scorer.escapeHtml(q.title)}" style="width:min(100%, 860px);border-radius:14px;border:1px solid var(--border);background:#fff">` : q.imageSvg}
+</div>
+${q.hint ? `<div class="speaking-prompt-caption">${Scorer.escapeHtml(q.hint)}</div>` : ''}`;
+    const recordingHtml = AIScorer.renderRecordingCard({
+      state: phase,
+      promptHtml,
+      contentHtml: '<div id="recorder-area"></div><div id="score-area"></div>',
+    });
+    const footerHtml = `
+<div class="speaking-exam-footer">
   <div class="btn-group">
     <button class="btn btn-secondary" onclick="DI_prev()" ${qIndex===0 ? 'disabled' : ''}>${t('btn_prev')}</button>
     ${qIndex===questions.length-1 ? renderTodayPlanAction('practice-describe-image') || `<button class="btn btn-primary" onclick="DI_next()" disabled>${t('btn_next')}</button>` : `<button class="btn btn-primary" onclick="DI_next()">${t('btn_next')}</button>`}
   </div>
   ${renderGuestPracticeUpsell(totalQuestions, questions.length)}
 </div>`;
+    $('#page-container').innerHTML = AIScorer.renderSpeakingQuestionLayout({
+      title: t('di_title'),
+      badge: t('badge_speaking'),
+      progressLabel: `${qIndex + 1} / ${questions.length}`,
+      timerHtml: '<div id="timer-el" class="timer"><span class="timer-dot"></span>00:40</div>',
+      instruction: t('di_instruction'),
+      recordingHtml,
+      recentHtml: '<div id="saved-audio-area"></div>',
+      footerHtml,
+    });
     $('#saved-audio-area').innerHTML = AIScorer.renderQuestionRecordingHistory(getQuestionRecordingKey(q));
     startPrep();
     restoreSavedUi(q);
@@ -407,10 +429,36 @@ Pages['describe-image'] = function() {
 </div>`;
     if (failedStartWindow) {
       Stats.record('describeImage', 0, 90, { transcript: finalText || '', ai_feedback: 'You must start speaking within 5 seconds after recording begins.' });
+      if (Scorer.shouldUseCompactSpeakingUI() && window.AIScorer) {
+        $('#score-area').innerHTML = AIScorer.renderCompactStateCard({
+          score: 10,
+          title: t('di_title'),
+          subtitle: t('result_failed_start'),
+          feedback: [
+            AIScorer.renderFeedbackBlock('improve', t('score_fail_no_start')),
+            AIScorer.renderFeedbackBlock('suggestion', t('result_failed_sub')),
+          ],
+          actionHtml: `<button class="btn btn-primary" onclick="DI_startRecord()">${t('btn_re_record')}</button>`,
+        });
+        return;
+      }
       $('#score-area').innerHTML = `<div style="background:#fff8ed;border:1px solid #f59e0b;border-radius:8px;padding:14px;font-size:13.5px;color:#92400e"><strong>${t('score_10_label')}</strong><br>${t('score_fail_no_start')}</div>`;
       return;
     }
     if (!recordingBlob && (!finalText || !finalText.trim())) {
+      if (Scorer.shouldUseCompactSpeakingUI() && window.AIScorer) {
+        $('#score-area').innerHTML = AIScorer.renderCompactStateCard({
+          score: 10,
+          title: t('di_title'),
+          subtitle: t('result_no_speech'),
+          feedback: [
+            AIScorer.renderFeedbackBlock('improve', t('score_no_speech')),
+            AIScorer.renderFeedbackBlock('suggestion', t('result_no_speech_sub')),
+          ],
+          actionHtml: `<button class="btn btn-primary" onclick="DI_startRecord()">${t('btn_re_record')}</button>`,
+        });
+        return;
+      }
       $('#score-area').innerHTML = `<div style="background:#fff8ed;border:1px solid #fcd34d;border-radius:8px;padding:14px;font-size:13.5px;color:#92400e">${t('score_no_speech')}</div>`;
       return;
     }

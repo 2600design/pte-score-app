@@ -1,0 +1,14 @@
+{
+  "appId": "com.pte2600.practiceapp",
+  "appName": "PTE Practice",
+  "webDir": "www",
+  "server": {
+    "androidScheme": "https"
+  },
+  "plugins": {
+    "SplashScreen": {
+      "launchShowDuration": 2000,
+      "backgroundColor": "#ffffff"
+    }
+  }
+}

@@ -25,7 +25,7 @@ window.I18N = {
     btn_prev: '上一题', btn_next: '下一题', btn_submit: '提交', btn_submit_answer: '提交答案', btn_submit_essay: '提交作文',
     btn_back_to_list: '返回题目列表',
     btn_re_record: '重新录音', btn_done: '完成', btn_cancel: '取消', btn_skip: '跳过', btn_finish: '完成录音',
-    btn_start_recording: '开始录音', btn_play_audio: '播放音频', btn_play_system_voice: '使用系统语音播放', btn_pause_audio: '暂停音频', btn_sign_in: '登录', btn_sign_in_google: '用 Google 登录', btn_continue_guest: '游客继续',
+    btn_start_recording: '开始录音', btn_play_audio: '播放音频', btn_play_system_voice: '使用系统语音播放', btn_pause_audio: '暂停音频', btn_sign_in: '登录', btn_sign_in_google: '登录', btn_continue_guest: '游客继续',
     btn_continue_practice: '继续练习', btn_my_progress: '我的进度', btn_start_practice: '开始练习', btn_explore_tasks: '探索练习题',
     badge_speaking: '口语', badge_writing: '写作', badge_reading: '阅读', badge_listening: '听力', badge_ai: 'AI 评分',
     word_count_label: '词', words: '词', question_label: '第', question_of: '/',
@@ -302,7 +302,14 @@ window.I18N = {
     auth_modal_eyebrow: '账号', auth_modal_title_login: '欢迎回来', auth_modal_title_signup: '创建账号',
     auth_modal_copy_login: '登录以同步练习进度。',
     auth_modal_copy_signup: '用邮箱和密码注册，跨会话保存进度。',
-    auth_google_btn: '使用 Google 继续', auth_divider: '或',
+    auth_google_btn: '使用 Google 继续', auth_apple_btn: '使用 Apple 继续', auth_divider: '或',
+    auth_forgot_link: '忘记密码？', auth_forgot_title: '重置密码', auth_forgot_copy: '输入邮箱，我们将发送重置链接。',
+    auth_forgot_send: '发送重置链接', auth_forgot_sending: '发送中……', auth_forgot_sent: '重置链接已发送，请查收邮件。',
+    auth_forgot_back: '返回登录',
+    auth_reset_title: '设置新密码', auth_reset_copy: '请输入新密码。',
+    auth_new_password_label: '新密码', auth_confirm_password_label: '确认密码',
+    auth_reset_save: '保存新密码', auth_reset_saving: '保存中……',
+    auth_reset_success: '密码已成功更新。', auth_reset_mismatch: '两次输入的密码不一致。', auth_reset_short: '密码至少需要 6 位。',
     auth_tab_login: '登录', auth_tab_signup: '注册',
     auth_email_label: '邮箱', auth_password_label: '密码',
     auth_btn_login: '登录', auth_btn_signup: '创建账号',
@@ -315,6 +322,10 @@ window.I18N = {
     auth_confirmed_success: '邮箱已确认，注册成功，您现在已登录。',
     auth_confirmed_error: '邮箱确认失败或链接已失效，请重新注册或再次请求确认邮件。',
     auth_avatar_title: '点击退出登录',
+    delete_account_btn: '删除账号', delete_account_dialog_title: '删除账号？',
+    delete_account_dialog_copy: '此操作永久不可撤销。所有练习记录、AI 评分及录音将被彻底删除。',
+    delete_account_confirm: '确认删除', delete_account_deleting: '删除中……',
+    delete_account_success: '账号已成功删除。', delete_account_error: '删除账号失败，请重试。',
     // Speaking audio capture panel
     audio_recorded: '录音', audio_uploaded: '上传的音频',
     btn_remove_upload: '移除上传', btn_upload_audio: '上传音频',
@@ -408,7 +419,7 @@ window.I18N = {
     btn_prev: 'Previous', btn_next: 'Next', btn_submit: 'Submit', btn_submit_answer: 'Submit Answer', btn_submit_essay: 'Submit Essay',
     btn_back_to_list: 'Back to Question List',
     btn_re_record: 'Re-record', btn_done: 'Done', btn_cancel: 'Cancel', btn_skip: 'Skip', btn_finish: 'FINISH',
-    btn_start_recording: 'Start Recording', btn_play_audio: 'Play Audio', btn_play_system_voice: 'Play with system voice', btn_pause_audio: 'Pause Audio', btn_sign_in: 'Sign in', btn_sign_in_google: 'Sign in with Google', btn_continue_guest: 'Continue as guest',
+    btn_start_recording: 'Start Recording', btn_play_audio: 'Play Audio', btn_play_system_voice: 'Play with system voice', btn_pause_audio: 'Pause Audio', btn_sign_in: 'Sign in', btn_sign_in_google: 'Sign in', btn_continue_guest: 'Continue as guest',
     btn_continue_practice: 'Continue Practice', btn_my_progress: 'My Progress', btn_start_practice: 'Start Practice', btn_explore_tasks: 'Explore Practice Tasks',
     badge_speaking: 'Speaking', badge_writing: 'Writing', badge_reading: 'Reading', badge_listening: 'Listening', badge_ai: 'AI Scoring',
     word_count_label: 'words', words: 'words', question_label: 'Question', question_of: '/',
@@ -686,7 +697,14 @@ window.I18N = {
     auth_modal_eyebrow: 'Account', auth_modal_title_login: 'Welcome back', auth_modal_title_signup: 'Create your account',
     auth_modal_copy_login: 'Log in to sync your practice progress.',
     auth_modal_copy_signup: 'Sign up with email and password to save progress across sessions.',
-    auth_google_btn: 'Continue with Google', auth_divider: 'or',
+    auth_google_btn: 'Continue with Google', auth_apple_btn: 'Continue with Apple', auth_divider: 'or',
+    auth_forgot_link: 'Forgot password?', auth_forgot_title: 'Reset your password', auth_forgot_copy: 'Enter your email and we\'ll send you a reset link.',
+    auth_forgot_send: 'Send reset link', auth_forgot_sending: 'Sending...', auth_forgot_sent: 'Reset link sent! Check your email.',
+    auth_forgot_back: 'Back to login',
+    auth_reset_title: 'Set new password', auth_reset_copy: 'Enter your new password below.',
+    auth_new_password_label: 'New password', auth_confirm_password_label: 'Confirm password',
+    auth_reset_save: 'Save new password', auth_reset_saving: 'Saving...',
+    auth_reset_success: 'Password updated successfully.', auth_reset_mismatch: 'Passwords do not match.', auth_reset_short: 'Password must be at least 6 characters.',
     auth_tab_login: 'Log in', auth_tab_signup: 'Sign up',
     auth_email_label: 'Email', auth_password_label: 'Password',
     auth_btn_login: 'Log in', auth_btn_signup: 'Create account',
@@ -699,6 +717,10 @@ window.I18N = {
     auth_confirmed_success: 'Email confirmed. Your account is ready and you are now logged in.',
     auth_confirmed_error: 'Email confirmation failed or the link has expired. Please sign up again or request a new confirmation email.',
     auth_avatar_title: 'Click to log out',
+    delete_account_btn: 'Delete Account', delete_account_dialog_title: 'Delete Account?',
+    delete_account_dialog_copy: 'This is permanent and cannot be undone. All your practice history, scores, and recordings will be deleted.',
+    delete_account_confirm: 'Delete', delete_account_deleting: 'Deleting...',
+    delete_account_success: 'Account deleted successfully.', delete_account_error: 'Failed to delete account. Please try again.',
     // Speaking audio capture panel
     audio_recorded: 'Recorded audio', audio_uploaded: 'Uploaded audio',
     btn_remove_upload: 'Remove upload', btn_upload_audio: 'Upload audio',
@@ -1183,7 +1205,7 @@ function closeDrawer() {
 }
 
 function getAppLang() {
-  return localStorage.getItem('pte_lang') || 'zh';
+  return localStorage.getItem('pte_lang') || 'en';
 }
 
 const GUEST_FREE_QUESTION_LIMIT = 2;

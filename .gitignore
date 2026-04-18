@@ -1,0 +1,34 @@
+.env
+backend/.env
+.venv/
+backend/.venv/
+__pycache__/
+*.pyc
+*.swp
+
+# macOS / local editor files
+.DS_Store
+.claude/
+supabase/.DS_Store
+supabase/.temp/
+
+# Local service-account / secret files
+pte-practice-493007-80597ff45ee7.json
+AuthKey*.p8
+*.p12
+*.mobileprovision
+*.cer
+*.certSigningRequest
+ios/ExportOptions.plist
+ios/debug.xcconfig
+
+# Large local packaging assets
+AppIcons.zip
+
+# Node
+node_modules/
+package-lock.json
+
+# Build output
+build/
+www/

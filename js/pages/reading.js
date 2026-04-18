@@ -55,7 +55,7 @@ ${b.options.map(o=>`<option value="${o}">${o}</option>`).join('')}
     });
     const pct=Math.round(correct/q.blanks.length*100);
     Stats.record('rwFillBlanks',pct,100);
-    $('#feedback-area').innerHTML=`<div class="score-panel" style="margin-top:16px"><div class="score-big">${correct}/${q.blanks.length}</div><div class="score-label">${pct}% ${t('score_correct')}</div></div><div class="retry-row"><button class="btn btn-refresh" onclick="RWFIB_retry()">${t('btn_retry')}</button></div>`;
+    $('#feedback-area').innerHTML=`<div class="score-panel" style="margin-top:16px"><div class="score-big">${correct}/${q.blanks.length}</div><div class="score-label">${pct}% ${t('score_correct')}</div></div>${window.AIScorer ? AIScorer.renderTaskFeedbackChips('rwFillBlanks', {extra:{correct,total:q.blanks.length}}) : ''}<div class="retry-row"><button class="btn btn-refresh" onclick="RWFIB_retry()">${t('btn_retry')}</button></div>`;
   };
   window.RWFIB_retry=()=>{ render(); };
   window.RWFIB_prev=()=>{qIndex=Math.max(0,qIndex-1);render();};
@@ -98,9 +98,9 @@ Pages['mc-single-reading'] = function() {
     const q=questions[qIndex]; const correct=q.answer;
     $$('.choice').forEach(c=>c.classList.remove('selected','correct','incorrect'));
     if(i===correct){ $('#c'+i).classList.add('correct'); Stats.record('mcSingleReading',100,100);
-      $('#feedback-area').innerHTML=`<div style="color:var(--success);font-weight:600">${t('answer_correct')}</div><div class="retry-row"><button class="btn btn-refresh" onclick="MCSR_retry()">${t('btn_retry')}</button></div>`; }
+      $('#feedback-area').innerHTML=`${window.AIScorer ? AIScorer.renderTaskFeedbackChips('mcSingleReading', {extra:{isCorrect:true}}) : ''}<div style="color:var(--success);font-weight:600">${t('answer_correct')}</div><div class="retry-row"><button class="btn btn-refresh" onclick="MCSR_retry()">${t('btn_retry')}</button></div>`; }
     else { $('#c'+i).classList.add('incorrect'); $('#c'+correct).classList.add('correct'); Stats.record('mcSingleReading',0,100);
-      $('#feedback-area').innerHTML=`<div style="color:var(--danger);font-weight:600">${t('answer_incorrect_highlighted')}</div><div class="retry-row"><button class="btn btn-refresh" onclick="MCSR_retry()">${t('btn_retry')}</button></div>`; }
+      $('#feedback-area').innerHTML=`${window.AIScorer ? AIScorer.renderTaskFeedbackChips('mcSingleReading', {extra:{isCorrect:false}}) : ''}<div style="color:var(--danger);font-weight:600">${t('answer_incorrect_highlighted')}</div><div class="retry-row"><button class="btn btn-refresh" onclick="MCSR_retry()">${t('btn_retry')}</button></div>`; }
   };
   window.MCSR_retry=()=>{ render(); };
   window.MCSR_prev=()=>{qIndex=Math.max(0,qIndex-1);render();};
@@ -155,7 +155,9 @@ Pages['mc-multiple-reading'] = function() {
     pts=Math.max(0,pts);
     const pct=Math.round(pts/correct.length*100);
     Stats.record('mcMultipleReading',pct,100);
-    $('#feedback-area').innerHTML=`<div class="score-panel" style="margin-top:16px"><div class="score-big">${pts}/${correct.length}</div><div class="score-label">${t('score_correct')}</div></div><div class="retry-row"><button class="btn btn-refresh" onclick="MCMR_retry()">${t('btn_retry')}</button></div>`;
+    const _mcmr_missed=correct.filter(i=>!selected.includes(i)).length;
+    const _mcmr_wrong=selected.filter(i=>!correct.includes(i)).length;
+    $('#feedback-area').innerHTML=`<div class="score-panel" style="margin-top:16px"><div class="score-big">${pts}/${correct.length}</div><div class="score-label">${t('score_correct')}</div></div>${window.AIScorer ? AIScorer.renderTaskFeedbackChips('mcMultipleReading', {extra:{pts,total:correct.length,missed:_mcmr_missed,wrong:_mcmr_wrong}}) : ''}<div class="retry-row"><button class="btn btn-refresh" onclick="MCMR_retry()">${t('btn_retry')}</button></div>`;
   };
   window.MCMR_retry=()=>{ render(); };
   window.MCMR_prev=()=>{qIndex=Math.max(0,qIndex-1);render();};
@@ -246,7 +248,8 @@ Pages['reorder-paragraphs'] = function() {
       $('#feedback-area').innerHTML=`<div style="color:var(--warning);margin-top:8px">⚠️ Move all sentences to the answer box first.</div>`;
       return;
     }
-    $('#feedback-area').innerHTML=`<div class="score-panel" style="margin-top:16px"><div class="score-big">${correct}/${maxPairs}</div><div class="score-label">${t('score_correct')} — ${Scorer.gradeLabel(pct)}</div></div><div class="retry-row"><button class="btn btn-refresh" onclick="ROP_retry()">${t('btn_retry')}</button></div>`;
+    const _rop_first=order.length>0&&order[0]===q.correctOrder[0];
+    $('#feedback-area').innerHTML=`<div class="score-panel" style="margin-top:16px"><div class="score-big">${correct}/${maxPairs}</div><div class="score-label">${t('score_correct')} — ${Scorer.gradeLabel(pct)}</div></div>${window.AIScorer ? AIScorer.renderTaskFeedbackChips('reorderParagraphs', {extra:{correct,maxPairs,firstCorrect:_rop_first}}) : ''}<div class="retry-row"><button class="btn btn-refresh" onclick="ROP_retry()">${t('btn_retry')}</button></div>`;
   };
   window.ROP_retry=()=>{ render(); };
   window.ROP_prev=()=>{qIndex=Math.max(0,qIndex-1);render();};
@@ -297,7 +300,7 @@ Pages['r-fill-blanks'] = function() {
     });
     const pct=Math.round(correct/q.blanks.length*100);
     Stats.record('rFillBlanks',pct,100);
-    $('#feedback-area').innerHTML=`<div class="score-panel" style="margin-top:16px"><div class="score-big">${correct}/${q.blanks.length}</div><div class="score-label">${pct}% ${t('score_correct')}</div></div><div class="retry-row"><button class="btn btn-refresh" onclick="RFIB_retry()">${t('btn_retry')}</button></div>`;
+    $('#feedback-area').innerHTML=`<div class="score-panel" style="margin-top:16px"><div class="score-big">${correct}/${q.blanks.length}</div><div class="score-label">${pct}% ${t('score_correct')}</div></div>${window.AIScorer ? AIScorer.renderTaskFeedbackChips('rFillBlanks', {extra:{correct,total:q.blanks.length}}) : ''}<div class="retry-row"><button class="btn btn-refresh" onclick="RFIB_retry()">${t('btn_retry')}</button></div>`;
   };
   window.RFIB_retry=()=>{ render(); };
   window.RFIB_prev=()=>{qIndex=Math.max(0,qIndex-1);render();};

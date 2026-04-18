@@ -101,6 +101,28 @@ Pages['retell-lecture'] = function() {
   }
 
   function renderSubmissionPanel(message = t('panel_record_answer')) {
+    if (Scorer.shouldUseCompactSpeakingUI() && window.AIScorer) {
+      const activeAudio = getActiveAudio();
+      const canSubmit = !!activeAudio && activeAudio.source === 'recording' && !!String(finalText || '').trim();
+      const actionHtml = [
+        `<label class="btn btn-secondary compact-upload-btn">${uploadedAudio ? t('panel_upload_another') : t('btn_upload_audio')}<input type="file" accept="audio/*" onchange="RL_handleUpload(event)" hidden></label>`,
+        uploadedAudio ? `<button class="btn btn-secondary" onclick="RL_clearUpload()">${t('btn_clear') || 'Clear'}</button>` : '',
+        recordingBlob ? `<button class="btn btn-secondary" onclick="RL_startRecord()">${t('btn_re_record')}</button>` : '',
+        `<button class="btn btn-primary" onclick="RL_submitAudio()" ${canSubmit ? '' : 'disabled'}>${t('btn_submit')}</button>`,
+      ].filter(Boolean).join('');
+      $('#score-area').innerHTML = AIScorer.renderCompactSubmissionCard({
+        title: t('rl_title'),
+        subtitle: canSubmit ? t('panel_recording_ready') : message,
+        audioUrl: activeAudio?.previewUrl || '',
+        feedback: [
+          AIScorer.renderFeedbackBlock(canSubmit ? 'strength' : 'suggestion', message),
+          activeAudio && activeAudio.source !== 'recording' ? AIScorer.renderFeedbackBlock('suggestion', t('toast_local_record_only')) : '',
+          !AppAuth.isLoggedIn() && canSubmit ? AIScorer.renderFeedbackBlock('suggestion', t('rs_signin_save')) : '',
+        ],
+        actionHtml,
+      });
+      return;
+    }
     $('#score-area').innerHTML = SpeakingAudio.renderCapturePanel({
       title: 'Speaking audio',
       helperText: message,
@@ -161,45 +183,48 @@ Pages['retell-lecture'] = function() {
     const q = questions[qIndex];
     syncSelectedQuestion(q);
     if (window.PracticeTracker) PracticeTracker.setCurrentQuestion({ questionId: q.id, questionType: 'retellLecture', questionText: q.transcript });
-    $('#page-container').innerHTML = `
-<div class="page-header">
-  <h1>${t('rl_title')} <span class="badge badge-speaking">${t('badge_speaking')}</span></h1>
-  <p>${t('rl_subtitle')}</p>
+    const promptHtml = `
+<div class="audio-widget">
+  <button class="audio-btn" id="play-btn" onclick="RL_play()" aria-label="${t('btn_play_audio')}">▶</button>
+  <div class="audio-progress">
+    <div class="audio-label">${Scorer.escapeHtml(q.title)}</div>
+    <div class="audio-progress-bar"><div class="audio-progress-fill" id="ap-fill" style="width:0%"></div></div>
+    <div class="audio-time"><span>0:00</span><span id="dur-label">${formatTime(q.duration)}</span></div>
+  </div>
 </div>
-<div class="card">
-  <div class="question-nav">
-    <span class="q-number">${t('question_label')} ${qIndex+1} ${t('question_of')} ${questions.length}</span>
-    <div id="timer-el" class="timer"><span class="timer-dot"></span>00:00</div>
-  </div>
-  <div class="q-instruction">${t('rl_instruction')}</div>
-  <div class="audio-widget">
-    <button class="audio-btn" id="play-btn" onclick="RL_play()" aria-label="${t('btn_play_audio')}">▶</button>
-    <div class="audio-progress">
-      <div class="audio-label">${q.title}</div>
-      <div class="audio-progress-bar"><div class="audio-progress-fill" id="ap-fill" style="width:0%"></div></div>
-      <div class="audio-time"><span>0:00</span><span id="dur-label">${formatTime(q.duration)}</span></div>
-    </div>
-  </div>
-  <div id="notes-area" style="margin-bottom:16px">
-    <div class="card-title" style="margin-bottom:8px">📝 Notes</div>
-    <textarea class="textarea" id="notes" rows="3" placeholder="Take notes while listening..."></textarea>
-  </div>
-  <div id="saved-audio-area"></div>
-  <div id="recorder-area">
-    <div class="recorder-widget">
-      <button class="record-btn idle" id="rec-btn" disabled>🎤</button>
-      <div class="record-status" id="rec-status">${t('status_play_first')}</div>
-    </div>
-  </div>
-  <div id="score-area"></div>
-  <hr class="section-divider">
+<div id="notes-area">
+  <div class="card-title" style="margin-bottom:8px">Notes</div>
+  <textarea class="textarea" id="notes" rows="3" placeholder="Take notes while listening..."></textarea>
+</div>`;
+    const recordingHtml = AIScorer.renderRecordingCard({
+      state: phase,
+      promptHtml,
+      contentHtml: '<div id="recorder-area"></div><div id="score-area"></div>',
+    });
+    const footerHtml = `
+<div class="speaking-exam-footer">
   <div class="btn-group">
     <button class="btn btn-secondary" onclick="RL_prev()" ${qIndex===0 ? 'disabled' : ''}>${t('btn_prev')}</button>
     <button class="btn btn-primary" onclick="RL_next()" ${qIndex===questions.length-1 ? 'disabled' : ''}>${t('btn_next')}</button>
   </div>
   ${renderGuestPracticeUpsell(totalQuestions, questions.length)}
 </div>`;
+    $('#page-container').innerHTML = AIScorer.renderSpeakingQuestionLayout({
+      title: t('rl_title'),
+      badge: t('badge_speaking'),
+      progressLabel: `${qIndex + 1} / ${questions.length}`,
+      timerHtml: '<div id="timer-el" class="timer"><span class="timer-dot"></span>00:00</div>',
+      instruction: t('rl_instruction'),
+      recordingHtml,
+      recentHtml: '<div id="saved-audio-area"></div>',
+      footerHtml,
+    });
     $('#saved-audio-area').innerHTML = AIScorer.renderQuestionRecordingHistory(getQuestionRecordingKey(q));
+    $('#recorder-area').innerHTML = `
+<div class="recorder-widget">
+  <button class="record-btn idle" id="rec-btn" disabled>🎤</button>
+  <div class="record-status" id="rec-status">${t('status_play_first')}</div>
+</div>`;
     renderSubmissionPanel(t('panel_study_then_record'));
     updateAudioButton($('#play-btn'), { mode: getPlaybackMode({ source: getQuestionAudioSource(q), fallbackText: q.transcript }) });
     restoreSavedUi(q);
@@ -409,10 +434,36 @@ Pages['retell-lecture'] = function() {
 </div>`;
     if (failedStartWindow) {
       Stats.record('retellLecture', 0, 90, { transcript: finalText || '', ai_feedback: 'You must start speaking within 5 seconds after recording begins.' });
+      if (Scorer.shouldUseCompactSpeakingUI() && window.AIScorer) {
+        $('#score-area').innerHTML = AIScorer.renderCompactStateCard({
+          score: 10,
+          title: t('rl_title'),
+          subtitle: t('result_failed_start'),
+          feedback: [
+            AIScorer.renderFeedbackBlock('improve', t('score_fail_no_start')),
+            AIScorer.renderFeedbackBlock('suggestion', t('result_failed_sub')),
+          ],
+          actionHtml: `<button class="btn btn-primary" onclick="RL_startRecord()">${t('btn_re_record')}</button>`,
+        });
+        return;
+      }
       $('#score-area').innerHTML = `<div style="background:#fff8ed;border:1px solid #f59e0b;border-radius:8px;padding:14px;font-size:13.5px;color:#92400e"><strong>${t('score_10_label')}</strong><br>${t('score_fail_no_start')}</div>`;
       return;
     }
     if (!recordingBlob && (!finalText || !finalText.trim())) {
+      if (Scorer.shouldUseCompactSpeakingUI() && window.AIScorer) {
+        $('#score-area').innerHTML = AIScorer.renderCompactStateCard({
+          score: 10,
+          title: t('rl_title'),
+          subtitle: t('result_no_speech'),
+          feedback: [
+            AIScorer.renderFeedbackBlock('improve', t('score_no_speech')),
+            AIScorer.renderFeedbackBlock('suggestion', t('result_no_speech_sub')),
+          ],
+          actionHtml: `<button class="btn btn-primary" onclick="RL_startRecord()">${t('btn_re_record')}</button>`,
+        });
+        return;
+      }
       $('#score-area').innerHTML = `<div style="background:#fff8ed;border:1px solid #fcd34d;border-radius:8px;padding:14px;color:#92400e">${t('score_no_speech')}</div>`;
       return;
     }

@@ -93,6 +93,27 @@ Pages['read-aloud'] = function() {
 
   function renderSubmissionPanel(message = t('panel_record_or_upload')) {
     const activeAudio = getActiveAudio();
+    if (Scorer.shouldUseCompactSpeakingUI() && window.AIScorer) {
+      const canSubmit = !!activeAudio && activeAudio.source === 'recording' && !!String(finalText || '').trim();
+      const actionHtml = [
+        `<label class="btn btn-secondary compact-upload-btn">${uploadedAudio ? t('panel_upload_another') : t('btn_upload_audio')}<input type="file" accept="audio/*" onchange="RA_handleUpload(event)" hidden></label>`,
+        uploadedAudio ? `<button class="btn btn-secondary" onclick="RA_clearUpload()">${t('btn_clear') || 'Clear'}</button>` : '',
+        recordingBlob ? `<button class="btn btn-secondary" onclick="RA_startRecord()">${t('btn_re_record')}</button>` : '',
+        `<button class="btn btn-primary" onclick="RA_submitAudio()" ${canSubmit ? '' : 'disabled'}>${t('btn_submit')}</button>`,
+      ].filter(Boolean).join('');
+      $('#score-area').innerHTML = AIScorer.renderCompactSubmissionCard({
+        title: t('ra_title'),
+        subtitle: canSubmit ? t('panel_recording_ready') : message,
+        audioUrl: activeAudio?.previewUrl || '',
+        feedback: [
+          AIScorer.renderFeedbackBlock(canSubmit ? 'strength' : 'suggestion', message),
+          activeAudio && activeAudio.source !== 'recording' ? AIScorer.renderFeedbackBlock('suggestion', t('toast_local_record_only')) : '',
+          !AppAuth.isLoggedIn() && canSubmit ? AIScorer.renderFeedbackBlock('suggestion', t('rs_signin_save')) : '',
+        ],
+        actionHtml,
+      });
+      return;
+    }
     $('#score-area').innerHTML = SpeakingAudio.renderCapturePanel({
       title: 'Speaking audio',
       helperText: message,
@@ -208,28 +229,32 @@ Pages['read-aloud'] = function() {
     const q = questions[qIndex];
     syncSelectedQuestion(q);
     if (window.PracticeTracker) PracticeTracker.setCurrentQuestion({ questionId: q.id, questionType: 'readAloud', questionText: q.text });
-    $('#page-container').innerHTML = `
-<div class="page-header">
-  <h1>${t('ra_title')} <span class="badge badge-speaking">${t('badge_speaking')}</span></h1>
-  <p>${t('ra_subtitle')}</p>
-</div>
-<div class="card">
-  <div class="question-nav">
-    <span class="q-number">${t('question_label')} ${qIndex+1} ${t('question_of')} ${questions.length} ${q.tag ? `<span style="background:#fef3c7;color:#92400e;font-size:11px;padding:2px 8px;border-radius:10px;margin-left:6px">${q.tag}</span>` : ''}</span>
-    <div id="timer-el" class="timer"><span class="timer-dot"></span>00:00</div>
-  </div>
-  <div class="q-instruction">${t('ra_instruction')}</div>
-  <div class="q-text" id="q-text">${q.text}</div>
-  <div id="recorder-area"></div>
-  <div id="score-area"></div>
-  <div id="saved-audio-area"></div>
-  <hr class="section-divider">
+    const promptHtml = `
+<div class="speaking-prompt-copy">${Scorer.escapeHtml(q.text)}</div>
+${q.tag ? `<div class="speaking-prompt-caption">${Scorer.escapeHtml(q.tag)}</div>` : ''}`;
+    const recordingHtml = AIScorer.renderRecordingCard({
+      state: phase,
+      promptHtml,
+      contentHtml: '<div id="recorder-area"></div><div id="score-area"></div>',
+    });
+    const footerHtml = `
+<div class="speaking-exam-footer">
   <div class="btn-group">
     <button class="btn btn-secondary" onclick="RA_prev()" ${qIndex===0 ? 'disabled' : ''}>${t('btn_prev')}</button>
     <button class="btn btn-primary" onclick="RA_next()" ${qIndex===questions.length-1 ? 'disabled' : ''}>${t('btn_next')}</button>
   </div>
   ${renderGuestPracticeUpsell(totalQuestions, questions.length)}
 </div>`;
+    $('#page-container').innerHTML = AIScorer.renderSpeakingQuestionLayout({
+      title: t('ra_title'),
+      badge: t('badge_speaking'),
+      progressLabel: `${qIndex + 1} / ${questions.length}`,
+      timerHtml: '<div id="timer-el" class="timer"><span class="timer-dot"></span>00:00</div>',
+      instruction: t('ra_instruction'),
+      recordingHtml,
+      recentHtml: '<div id="saved-audio-area"></div>',
+      footerHtml,
+    });
     $('#saved-audio-area').innerHTML = AIScorer.renderQuestionRecordingHistory(getQuestionRecordingKey(q));
     showPrepState();
     restoreSavedUi(q);
@@ -475,11 +500,37 @@ Pages['read-aloud'] = function() {
 </div>`;
     if (failedStartWindow) {
       Stats.record('readAloud', 0, 90, { transcript: finalText || '', ai_feedback: 'You must start speaking within 5 seconds after recording begins.' });
+      if (Scorer.shouldUseCompactSpeakingUI() && window.AIScorer) {
+        $('#score-area').innerHTML = AIScorer.renderCompactStateCard({
+          score: 10,
+          title: t('ra_title'),
+          subtitle: t('result_failed_start'),
+          feedback: [
+            AIScorer.renderFeedbackBlock('improve', t('score_fail_no_start')),
+            AIScorer.renderFeedbackBlock('suggestion', t('result_failed_sub')),
+          ],
+          actionHtml: `<button class="btn btn-primary" onclick="RA_startRecord()">${t('btn_re_record')}</button>`,
+        });
+        return;
+      }
       $('#score-area').innerHTML = `<div style="background:#fff8ed;border:1px solid #f59e0b;border-radius:8px;padding:14px;font-size:13.5px;color:#92400e;margin-top:8px"><strong>${t('score_10_label')}</strong><br>${t('score_fail_no_start')}</div>`;
       return;
     }
 
     if (!recordingBlob && (!finalText || finalText.trim().length < 3)) {
+      if (Scorer.shouldUseCompactSpeakingUI() && window.AIScorer) {
+        $('#score-area').innerHTML = AIScorer.renderCompactStateCard({
+          score: 10,
+          title: t('ra_title'),
+          subtitle: t('result_no_speech'),
+          feedback: [
+            AIScorer.renderFeedbackBlock('improve', t('score_no_speech')),
+            AIScorer.renderFeedbackBlock('suggestion', t('result_no_speech_sub')),
+          ],
+          actionHtml: `<button class="btn btn-primary" onclick="RA_startRecord()">${t('btn_re_record')}</button>`,
+        });
+        return;
+      }
       $('#score-area').innerHTML = `<div style="background:#fff8ed;border:1px solid #fcd34d;border-radius:8px;padding:14px;font-size:13.5px;color:#92400e;margin-top:8px">${t('score_no_speech')}</div>`;
       return;
     }
