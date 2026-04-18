@@ -114,7 +114,7 @@ Pages['describe-image'] = function() {
   function renderSubmissionPanel(message = t('panel_record_answer')) {
     if (Scorer.shouldUseCompactSpeakingUI() && window.AIScorer) {
       const activeAudio = getActiveAudio();
-      const canSubmit = !!activeAudio && activeAudio.source === 'recording' && !!String(finalText || '').trim();
+      const canSubmit = !!activeAudio && activeAudio.source === 'recording' && (!!String(finalText || '').trim() || !!window.Capacitor?.isNativePlatform?.());
       const actionHtml = [
         `<label class="btn btn-secondary compact-upload-btn">${uploadedAudio ? t('panel_upload_another') : t('btn_upload_audio')}<input type="file" accept="audio/*" onchange="DI_handleUpload(event)" hidden></label>`,
         uploadedAudio ? `<button class="btn btn-secondary" onclick="DI_clearUpload()">${t('btn_clear') || 'Clear'}</button>` : '',
@@ -386,6 +386,44 @@ ${q.hint ? `<div class="speaking-prompt-caption">${Scorer.escapeHtml(q.hint)}</d
       return;
     }
     const transcript = activeAudio.source === 'recording' ? (finalText || '').trim() : '';
+    if (!transcript && activeAudio.source === 'recording' && window.Capacitor?.isNativePlatform?.() && window.AIScorer) {
+      const reference = `${q.title} ${q.hint}`;
+      const stopLoader = SpeakingAudio.mountStageLoader($('#score-area'));
+      try {
+        const aiResult = await AIScorer.scoreAudio({
+          file: activeAudio.file,
+          mimeType: activeAudio.mimeType,
+          durationSeconds: activeAudio.durationSeconds || 1,
+          task: 'speaking',
+          promptType: 'Describe Image',
+          questionText: q.title || '',
+          referenceAnswer: reference,
+        });
+        Stats.record('describeImage', aiResult.overall || 0, 90, {
+          transcript: aiResult.transcript || '',
+          ai_feedback: aiResult.feedback?.summary || '',
+        });
+        AIScorer.saveQuestionRecording(getQuestionRecordingKey(q), {
+          audioUrl: activeAudio.previewUrl || '',
+          score: aiResult.overall || null,
+          createdAt: new Date().toLocaleString(),
+        });
+        $('#saved-audio-area').innerHTML = AIScorer.renderQuestionRecordingHistory(getQuestionRecordingKey(q));
+        $('#score-area').innerHTML = AIScorer.renderSpeakingResult(aiResult, {
+          promptType: t('di_title'),
+          referenceText: reference,
+          audioUrl: activeAudio.previewUrl || '',
+          retryAction: 'DI_startRecord()',
+          nextAction: qIndex < questions.length - 1 ? 'DI_next()' : '',
+        });
+        persistUi(q);
+      } catch (error) {
+        $('#score-area').innerHTML = AIScorer.renderError(AIScorer.getErrorMessage(error));
+      } finally {
+        stopLoader && stopLoader();
+      }
+      return;
+    }
     if (!transcript) {
       showToast(t('toast_local_record_only'));
       return;

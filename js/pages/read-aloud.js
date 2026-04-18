@@ -94,7 +94,7 @@ Pages['read-aloud'] = function() {
   function renderSubmissionPanel(message = t('panel_record_or_upload')) {
     const activeAudio = getActiveAudio();
     if (Scorer.shouldUseCompactSpeakingUI() && window.AIScorer) {
-      const canSubmit = !!activeAudio && activeAudio.source === 'recording' && !!String(finalText || '').trim();
+      const canSubmit = !!activeAudio && activeAudio.source === 'recording' && (!!String(finalText || '').trim() || !!window.Capacitor?.isNativePlatform?.());
       const actionHtml = [
         `<label class="btn btn-secondary compact-upload-btn">${uploadedAudio ? t('panel_upload_another') : t('btn_upload_audio')}<input type="file" accept="audio/*" onchange="RA_handleUpload(event)" hidden></label>`,
         uploadedAudio ? `<button class="btn btn-secondary" onclick="RA_clearUpload()">${t('btn_clear') || 'Clear'}</button>` : '',
@@ -436,6 +436,62 @@ ${q.tag ? `<div class="speaking-prompt-caption">${Scorer.escapeHtml(q.tag)}</div
       return;
     }
     const transcript = activeAudio.source === 'recording' ? (finalText || '').trim() : '';
+    if (!transcript && activeAudio.source === 'recording' && window.Capacitor?.isNativePlatform?.() && window.AIScorer) {
+      const stopLoader = SpeakingAudio.mountStageLoader($('#score-area'));
+      try {
+        const aiResult = await AIScorer.scoreAudio({
+          file: activeAudio.file,
+          mimeType: activeAudio.mimeType,
+          durationSeconds: activeAudio.durationSeconds || recordingDurationSeconds || 1,
+          task: 'speaking',
+          promptType: 'Read Aloud',
+          questionText: q.text,
+          referenceAnswer: q.text,
+        });
+        Stats.record('readAloud', aiResult.overall || 0, 90, {
+          transcript: aiResult.transcript || '',
+          ai_feedback: aiResult.feedback?.summary || '',
+        });
+        if (activeAudio.source === 'recording' && window.RecordingArchive && recordingBlob instanceof Blob && recordingBlob.size > 0) {
+          try {
+            if (!currentDraftId) {
+              const saved = await window.RecordingArchive.saveDraftForUser({
+                userId: AppAuth.user?.id,
+                questionId: q.id,
+                blob: recordingBlob,
+                duration: recordingDurationSeconds || activeAudio.durationSeconds || 1,
+                localScore: aiResult.overall || null,
+                mimeType: recordingBlob.type || activeAudio.mimeType || 'audio/webm',
+              });
+              currentDraftId = saved?.id || '';
+            } else {
+              await window.RecordingArchive.updateScore(currentDraftId, aiResult.overall || null);
+            }
+          } catch (error) {
+            console.error('[ReadAloud] Failed to sync AI-scored recording to archive.', error);
+          }
+        }
+        AIScorer.saveQuestionRecording(getQuestionRecordingKey(q), {
+          audioUrl: activeAudio.previewUrl || '',
+          score: aiResult.overall || null,
+          createdAt: new Date().toLocaleString(),
+        });
+        $('#saved-audio-area').innerHTML = AIScorer.renderQuestionRecordingHistory(getQuestionRecordingKey(q));
+        $('#score-area').innerHTML = AIScorer.renderSpeakingResult(aiResult, {
+          promptType: t('ra_title'),
+          referenceText: q.text,
+          audioUrl: activeAudio.previewUrl || '',
+          retryAction: 'RA_startRecord()',
+          nextAction: qIndex < questions.length - 1 ? 'RA_next()' : '',
+        });
+        persistUi(q);
+      } catch (error) {
+        $('#score-area').innerHTML = AIScorer.renderError(AIScorer.getErrorMessage(error));
+      } finally {
+        stopLoader && stopLoader();
+      }
+      return;
+    }
     if (!transcript) {
       showToast(t('toast_local_record_only'));
       return;

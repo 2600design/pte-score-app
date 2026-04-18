@@ -103,7 +103,7 @@ Pages['retell-lecture'] = function() {
   function renderSubmissionPanel(message = t('panel_record_answer')) {
     if (Scorer.shouldUseCompactSpeakingUI() && window.AIScorer) {
       const activeAudio = getActiveAudio();
-      const canSubmit = !!activeAudio && activeAudio.source === 'recording' && !!String(finalText || '').trim();
+      const canSubmit = !!activeAudio && activeAudio.source === 'recording' && (!!String(finalText || '').trim() || !!window.Capacitor?.isNativePlatform?.());
       const actionHtml = [
         `<label class="btn btn-secondary compact-upload-btn">${uploadedAudio ? t('panel_upload_another') : t('btn_upload_audio')}<input type="file" accept="audio/*" onchange="RL_handleUpload(event)" hidden></label>`,
         uploadedAudio ? `<button class="btn btn-secondary" onclick="RL_clearUpload()">${t('btn_clear') || 'Clear'}</button>` : '',
@@ -392,6 +392,43 @@ Pages['retell-lecture'] = function() {
       return;
     }
     const transcript = activeAudio.source === 'recording' ? (finalText || '').trim() : '';
+    if (!transcript && activeAudio.source === 'recording' && window.Capacitor?.isNativePlatform?.() && window.AIScorer) {
+      const stopLoader = SpeakingAudio.mountStageLoader($('#score-area'));
+      try {
+        const aiResult = await AIScorer.scoreAudio({
+          file: activeAudio.file,
+          mimeType: activeAudio.mimeType,
+          durationSeconds: activeAudio.durationSeconds || 1,
+          task: 'speaking',
+          promptType: 'Retell Lecture',
+          questionText: q.prompt || q.title || '',
+          referenceAnswer: q.transcript,
+        });
+        Stats.record('retellLecture', aiResult.overall || 0, 90, {
+          transcript: aiResult.transcript || '',
+          ai_feedback: aiResult.feedback?.summary || '',
+        });
+        AIScorer.saveQuestionRecording(getQuestionRecordingKey(q), {
+          audioUrl: activeAudio.previewUrl || '',
+          score: aiResult.overall || null,
+          createdAt: new Date().toLocaleString(),
+        });
+        $('#saved-audio-area').innerHTML = AIScorer.renderQuestionRecordingHistory(getQuestionRecordingKey(q));
+        $('#score-area').innerHTML = AIScorer.renderSpeakingResult(aiResult, {
+          promptType: t('rl_title'),
+          referenceText: q.transcript,
+          audioUrl: activeAudio.previewUrl || '',
+          retryAction: 'RL_startRecord()',
+          nextAction: qIndex < questions.length - 1 ? 'RL_next()' : '',
+        });
+        persistUi(q);
+      } catch (error) {
+        $('#score-area').innerHTML = AIScorer.renderError(AIScorer.getErrorMessage(error));
+      } finally {
+        stopLoader && stopLoader();
+      }
+      return;
+    }
     if (!transcript) {
       showToast(t('toast_local_record_only'));
       return;

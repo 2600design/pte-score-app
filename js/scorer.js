@@ -56,8 +56,8 @@ const Scorer = {
 
   shouldUseCompactSpeakingUI() {
     if (typeof window === 'undefined') return false;
-    if (window.matchMedia) return window.matchMedia('(max-width: 1024px)').matches;
-    return (window.innerWidth || 0) <= 1024;
+    if (window.matchMedia) return window.matchMedia('(max-width: 768px)').matches;
+    return (window.innerWidth || 0) <= 768;
   },
 
   rubricKey(name = '') {

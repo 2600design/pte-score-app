@@ -9119,6 +9119,154 @@ input[type="password"] {
   border-color: rgba(34, 197, 94, 0.2);
 }
 
+@media (min-width: 769px) {
+  .speaking-exam-container {
+    max-width: 1180px;
+    padding: 28px 32px 36px;
+    gap: 20px;
+  }
+
+  .speaking-exam-header-row {
+    align-items: center;
+  }
+
+  .speaking-exam-title {
+    font-size: 34px;
+  }
+
+  .speaking-exam-card {
+    padding: 18px 20px;
+    border-radius: 20px;
+  }
+
+  .speaking-exam-instruction {
+    font-size: 15px;
+  }
+
+  .speaking-record-card {
+    gap: 16px;
+  }
+
+  .speaking-record-card .speaking-record-prompt {
+    gap: 14px;
+  }
+
+  .speaking-record-card .speaking-record-content {
+    display: grid;
+    grid-template-columns: minmax(0, 1.65fr) minmax(340px, 0.92fr);
+    gap: 18px;
+    align-items: start;
+  }
+
+  .speaking-record-card #recorder-area,
+  .speaking-record-card #score-area {
+    min-width: 0;
+  }
+
+  .speaking-record-card .status-card,
+  .speaking-record-card .rs-status-card,
+  .speaking-record-card .recorder-widget,
+  .speaking-record-card .speaking-audio-panel {
+    min-height: 220px;
+  }
+
+  .speaking-exam-footer {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 16px;
+  }
+}
+
+body.dark .speaking-exam-card,
+body.dark .speaking-result-card,
+body.dark .speaking-audio-panel,
+body.dark .speaking-inline-notice,
+body.dark .speaking-inline-recording,
+body.dark .speaking-inline-recording.card {
+  background: #141824;
+  border-color: #2b3345;
+  box-shadow: none;
+}
+
+body.dark .speaking-inline-notice.warning {
+  background: #241c12;
+  border-color: rgba(245, 158, 11, 0.28);
+}
+
+body.dark .speaking-inline-notice.success {
+  background: #132017;
+  border-color: rgba(74, 222, 128, 0.22);
+}
+
+body.dark .speaking-exam-badge,
+body.dark .speaking-exam-progress {
+  background: #1b2232;
+  border-color: #2b3345;
+  color: #c4cede;
+}
+
+body.dark .speaking-exam-instruction,
+body.dark .speaking-prompt-copy,
+body.dark .speaking-inline-notice-title,
+body.dark .speaking-inline-result-title,
+body.dark .speaking-inline-result-score,
+body.dark .speaking-result-card .card-title {
+  color: #f5f7fb;
+}
+
+body.dark .speaking-inline-notice-copy,
+body.dark .speaking-prompt-caption,
+body.dark .speaking-audio-panel-copy,
+body.dark .speaking-feedback-summary,
+body.dark .speaking-saved-copy,
+body.dark .speaking-saved-summary {
+  color: #aab4c6;
+}
+
+body.dark .speaking-record-card .audio-widget,
+body.dark .speaking-record-card .rs-audio-widget,
+body.dark .speaking-record-card #notes-area,
+body.dark .speaking-record-card .status-card,
+body.dark .speaking-record-card .rs-status-card,
+body.dark .speaking-record-card .recorder-widget {
+  background: #171c28;
+  border-color: #2b3345;
+  box-shadow: none;
+}
+
+body.dark .speaking-record-card .recorder-widget.recording {
+  background: #2a1820;
+  border-color: rgba(248, 113, 113, 0.32);
+}
+
+body.dark .speaking-record-card .recorder-widget.done {
+  background: #14241b;
+  border-color: rgba(74, 222, 128, 0.24);
+}
+
+body.dark .speaking-record-card .record-status,
+body.dark .speaking-record-card .status-title,
+body.dark .speaking-record-card .rs-status-title,
+body.dark .speaking-record-card .recorder-result-title {
+  color: #eef2f8;
+}
+
+body.dark .speaking-record-card .rs-status-sub,
+body.dark .speaking-record-card .recorder-result-sub,
+body.dark .speaking-record-card .audio-time,
+body.dark .speaking-record-card .audio-label {
+  color: #aab4c6;
+}
+
+body.dark .speaking-exam-footer .card,
+body.dark .speaking-exam-footer .render-guest-upsell,
+body.dark .speaking-exam-footer .guest-upsell-card,
+body.dark .speaking-exam-footer .practice-guest-gate {
+  background: #1b1f2d;
+  border-color: #2b3345;
+  box-shadow: none;
+}
+
 .speaking-inline-notice-title {
   font-size: 15px;
   font-weight: 800;

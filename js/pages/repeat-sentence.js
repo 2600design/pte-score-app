@@ -608,6 +608,51 @@ ${AIScorer.renderMetricCards(metrics)}
     }
     if (!currentDraftId) await saveDraftRecordingIfNeeded();
     const transcript = String(finalText || '').trim();
+    if ((!transcript || failedStartWindow) && window.Capacitor?.isNativePlatform?.() && window.AIScorer && recordingBlob) {
+      const q = getCurrentQuestion();
+      const stopLoader = SpeakingAudio.mountStageLoader($('#score-area'));
+      try {
+        const aiResult = await AIScorer.scoreAudio({
+          file: new File([recordingBlob], 'repeat-sentence.wav', { type: recordingBlob.type || 'audio/webm' }),
+          mimeType: recordingBlob.type || 'audio/webm',
+          durationSeconds: recordingDurationSeconds || 1,
+          task: 'speaking',
+          promptType: 'Repeat Sentence',
+          questionText: q.text,
+          referenceAnswer: q.text,
+        });
+        latestResult = {
+          pte: aiResult.overall || 0,
+          rubric: Array.isArray(aiResult.breakdown) ? aiResult.breakdown : [],
+        };
+        latestInsight = {
+          suggestion: aiResult.feedback?.summary || '',
+          issues: Array.isArray(aiResult.feedback?.issues) ? aiResult.feedback.issues : [],
+        };
+        submitState = 'submitted';
+        Stats.record('repeatSentence', aiResult.overall || 0, 90, {
+          transcript: aiResult.transcript || '',
+          ai_feedback: aiResult.feedback?.summary || '',
+        });
+        if (currentDraftId && window.RecordingArchive) {
+          await window.RecordingArchive.updateScore(currentDraftId, aiResult.overall || null);
+          await loadHistory();
+        }
+        $('#score-area').innerHTML = AIScorer.renderSpeakingResult(aiResult, {
+          promptType: t('rs_title'),
+          referenceText: q.text,
+          audioUrl: recordingUrl,
+          retryAction: 'RS_tryAgain()',
+          nextAction: qIndex < questions.length - 1 ? 'RS_next()' : '',
+        });
+        renderBottomActions();
+      } catch (error) {
+        $('#score-area').innerHTML = AIScorer.renderError(AIScorer.getErrorMessage(error));
+      } finally {
+        stopLoader && stopLoader();
+      }
+      return;
+    }
     if (!transcript || failedStartWindow) {
       latestResult = null;
       latestInsight = null;
