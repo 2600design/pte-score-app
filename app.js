@@ -2505,7 +2505,10 @@ function isTabletLikeDevice() {
   if (isNativeIPad()) return true;
   if (typeof window === 'undefined') return false;
   const minViewport = Math.min(window.innerWidth || 0, window.innerHeight || 0);
-  return minViewport >= 768;
+  const hasTouch = (navigator.maxTouchPoints || 0) > 1;
+  const hasCoarsePointer = typeof window.matchMedia === 'function'
+    && window.matchMedia('(pointer: coarse)').matches;
+  return minViewport >= 768 && (hasTouch || hasCoarsePointer);
 }
 
 function syncTabletSidebarButton() {
