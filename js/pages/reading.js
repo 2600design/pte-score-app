@@ -1,8 +1,9 @@
 // ── R&W Fill in Blanks ─────────────────────────────────────────────────────
 Pages['rw-fill-blanks'] = function() {
   let qIndex=0;
-  const totalQuestions=DB.rwFillBlanks.length;
-  const questions=getAccessibleQuestions(DB.rwFillBlanks);
+  const sourceQuestions = getMockQuestionSet('rwFillBlanks', DB.rwFillBlanks);
+  const totalQuestions=sourceQuestions.length;
+  const questions=getTodayPlanQuestions('practice-rw-fill-blanks', getAccessibleQuestions(sourceQuestions));
   qIndex = getInitialQuestionIndex(questions);
 
   function render(){
@@ -36,11 +37,13 @@ ${b.options.map(o=>`<option value="${o}">${o}</option>`).join('')}
   <div class="btn-group">
     <button class="btn btn-primary" onclick="RWFIB_submit()">Check Answers</button>
     <button class="btn btn-secondary" onclick="RWFIB_prev()" ${qIndex===0?'disabled':''}>${t('btn_prev')}</button>
-    <button class="btn btn-secondary" onclick="RWFIB_next()" ${qIndex===questions.length-1?'disabled':''}>${t('btn_next')}</button>
+    ${qIndex===questions.length-1 ? renderTodayPlanAction('practice-rw-fill-blanks') || `<button class="btn btn-secondary" onclick="RWFIB_next()" disabled>${t('btn_next')}</button>` : `<button class="btn btn-secondary" onclick="RWFIB_next()">${t('btn_next')}</button>`}
   </div>
   ${renderGuestPracticeUpsell(totalQuestions, questions.length)}
 </div>`;
     $('#page-container').innerHTML=html;
+    mountMockProgressHeader({ pageKey: 'practice-rw-fill-blanks', qIndex, question: q, detailPage: 'rw-fill-blanks' });
+    bindMockDraftPersistence({ pageKey: 'practice-rw-fill-blanks', question: q, questionType: 'rwFillBlanks', title: 'Reading & Writing Fill in the Blanks', section: 'reading', sectionLabel: 'Reading', promptText: q.parts.join(' ') });
   }
 
   window.RWFIB_update=function(){};
@@ -65,7 +68,7 @@ ${b.options.map(o=>`<option value="${o}">${o}</option>`).join('')}
 
 // ── MC Single Answer (Reading) ─────────────────────────────────────────────
 Pages['mc-single-reading'] = function() {
-  let qIndex=0; const totalQuestions=DB.mcSingleReading.length; const questions=getAccessibleQuestions(DB.mcSingleReading);
+  let qIndex=0; const sourceQuestions=getMockQuestionSet('mcSingleReading', DB.mcSingleReading); const totalQuestions=sourceQuestions.length; const questions=getTodayPlanQuestions('practice-mc-single-reading', getAccessibleQuestions(sourceQuestions));
   qIndex = getInitialQuestionIndex(questions);
 
   function render(){
@@ -88,10 +91,12 @@ Pages['mc-single-reading'] = function() {
   <hr class="section-divider">
   <div class="btn-group">
     <button class="btn btn-secondary" onclick="MCSR_prev()" ${qIndex===0?'disabled':''}>${t('btn_prev')}</button>
-    <button class="btn btn-primary" onclick="MCSR_next()" ${qIndex===questions.length-1?'disabled':''}>${t('btn_next')}</button>
+    ${qIndex===questions.length-1 ? renderTodayPlanAction('practice-mc-single-reading') || `<button class="btn btn-primary" onclick="MCSR_next()" disabled>${t('btn_next')}</button>` : `<button class="btn btn-primary" onclick="MCSR_next()">${t('btn_next')}</button>`}
   </div>
   ${renderGuestPracticeUpsell(totalQuestions, questions.length)}
 </div>`;
+    mountMockProgressHeader({ pageKey: 'practice-mc-single-reading', qIndex, question: q, detailPage: 'mc-single-reading' });
+    bindMockDraftPersistence({ pageKey: 'practice-mc-single-reading', question: q, questionType: 'mcSingleReading', title: 'Multiple Choice Single Answer', section: 'reading', sectionLabel: 'Reading', promptText: `${q.passage} ${q.question}` });
   }
 
   window.MCSR_check=function(i){
@@ -110,7 +115,7 @@ Pages['mc-single-reading'] = function() {
 
 // ── MC Multiple Answer (Reading) ──────────────────────────────────────────
 Pages['mc-multiple-reading'] = function() {
-  let qIndex=0; const totalQuestions=DB.mcMultipleReading.length; const questions=getAccessibleQuestions(DB.mcMultipleReading);
+  let qIndex=0; const sourceQuestions=getMockQuestionSet('mcMultipleReading', DB.mcMultipleReading); const totalQuestions=sourceQuestions.length; const questions=getTodayPlanQuestions('practice-mc-multiple-reading', getAccessibleQuestions(sourceQuestions));
   qIndex = getInitialQuestionIndex(questions);
 
   function render(){
@@ -134,10 +139,12 @@ Pages['mc-multiple-reading'] = function() {
   <div class="btn-group">
     <button class="btn btn-primary" onclick="MCMR_submit()">Check Answers</button>
     <button class="btn btn-secondary" onclick="MCMR_prev()" ${qIndex===0?'disabled':''}>${t('btn_prev')}</button>
-    <button class="btn btn-secondary" onclick="MCMR_next()" ${qIndex===questions.length-1?'disabled':''}>${t('btn_next')}</button>
+    ${qIndex===questions.length-1 ? renderTodayPlanAction('practice-mc-multiple-reading') || `<button class="btn btn-secondary" onclick="MCMR_next()" disabled>${t('btn_next')}</button>` : `<button class="btn btn-secondary" onclick="MCMR_next()">${t('btn_next')}</button>`}
   </div>
   ${renderGuestPracticeUpsell(totalQuestions, questions.length)}
 </div>`;
+    mountMockProgressHeader({ pageKey: 'practice-mc-multiple-reading', qIndex, question: q, detailPage: 'mc-multiple-reading' });
+    bindMockDraftPersistence({ pageKey: 'practice-mc-multiple-reading', question: q, questionType: 'mcMultipleReading', title: 'Multiple Choice Multiple Answers', section: 'reading', sectionLabel: 'Reading', promptText: `${q.passage} ${q.question}` });
   }
 
   window.MCMR_toggle=function(i){ $('#cm'+i).classList.toggle('selected'); };
@@ -167,15 +174,335 @@ Pages['mc-multiple-reading'] = function() {
 
 // ── Re-order Paragraphs ────────────────────────────────────────────────────
 Pages['reorder-paragraphs'] = function() {
-  let qIndex=0; const totalQuestions=DB.reorderParagraphs.length; const questions=getAccessibleQuestions(DB.reorderParagraphs);
+  let qIndex=0; const sourceQuestions=getMockQuestionSet('reorderParagraphs', DB.reorderParagraphs); const totalQuestions=sourceQuestions.length; const questions=getTodayPlanQuestions('practice-reorder-paragraphs', getAccessibleQuestions(sourceQuestions));
   qIndex = getInitialQuestionIndex(questions);
-  let dragged=null;
+  let sourceOrder = [];
+  let answerOrder = [];
+  let dragState = null;
+  let sortableInstances = [];
+
+  function getCurrentQuestion() {
+    return questions[qIndex];
+  }
+
+  function getSentenceMap(q) {
+    return new Map(q.sentences.map(sentence => [String(sentence.id), sentence]));
+  }
+
+  function isTouchReorderMode() {
+    if (!!window.Capacitor) return true;
+    if (window.matchMedia?.('(pointer: coarse)').matches) return true;
+    return (navigator.maxTouchPoints || 0) > 0;
+  }
+
+  function teardownReorderInteractions() {
+    sortableInstances.forEach(instance => {
+      try { instance.destroy(); } catch (_error) {}
+    });
+    sortableInstances = [];
+    if (dragState?.cleanup) dragState.cleanup();
+    dragState = null;
+  }
+
+  function resetQuestionState() {
+    teardownReorderInteractions();
+    const q = getCurrentQuestion();
+    const shuffled = shuffle([...q.sentences]);
+    sourceOrder = shuffled.map(item => String(item.id));
+    answerOrder = [];
+  }
+
+  function renderZoneItems(ids, sentenceMap, emptyCopy) {
+    if (!ids.length) {
+      return `<div class="reorder-empty" data-empty="true">${emptyCopy}</div>`;
+    }
+    return ids.map(id => {
+      const sentence = sentenceMap.get(String(id));
+      if (!sentence) return '';
+      return `<div class="reorder-item" data-id="${Scorer.escapeHtml(String(sentence.id))}" tabindex="0">${Scorer.escapeHtml(sentence.text)}</div>`;
+    }).join('');
+  }
+
+  function getZone(box) {
+    return box === 'answer' ? $('#answer-box') : $('#source-box');
+  }
+
+  function clearReorderFeedback() {
+    const feedback = $('#feedback-area');
+    if (feedback) feedback.innerHTML = '';
+  }
+
+  function syncOrderFromDom() {
+    const sourceBox = $('#source-box');
+    const answerBox = $('#answer-box');
+    if (!sourceBox || !answerBox) return;
+    sourceOrder = $$('#source-box .reorder-item').map(item => String(item.dataset.id));
+    answerOrder = $$('#answer-box .reorder-item').map(item => String(item.dataset.id));
+  }
+
+  function ensureEmptyState() {
+    ['source', 'answer'].forEach(box => {
+      const zone = getZone(box);
+      if (!zone) return;
+      const existingEmpty = zone.querySelector('.reorder-empty');
+      const hasItems = zone.querySelector('.reorder-item');
+      const copy = box === 'answer'
+        ? 'Drop sentences here in order...'
+        : 'Drag or tap items back here.';
+      if (!hasItems && !existingEmpty) {
+        zone.insertAdjacentHTML('beforeend', `<div class="reorder-empty" data-empty="true">${copy}</div>`);
+      }
+      if (hasItems && existingEmpty) existingEmpty.remove();
+    });
+  }
+
+  function refreshZonesFromState() {
+    const q = getCurrentQuestion();
+    const sentenceMap = getSentenceMap(q);
+    const sourceBox = $('#source-box');
+    const answerBox = $('#answer-box');
+    if (!sourceBox || !answerBox) return;
+    sourceBox.innerHTML = renderZoneItems(sourceOrder, sentenceMap, 'Drag or tap items back here.');
+    answerBox.innerHTML = renderZoneItems(answerOrder, sentenceMap, 'Drop sentences here in order...');
+    clearReorderFeedback();
+  }
+
+  function moveItemBetweenZones(itemId, targetBox, insertIndex = null) {
+    const id = String(itemId);
+    sourceOrder = sourceOrder.filter(value => value !== id);
+    answerOrder = answerOrder.filter(value => value !== id);
+    const nextList = targetBox === 'answer' ? answerOrder : sourceOrder;
+    const index = typeof insertIndex === 'number' ? Math.max(0, Math.min(insertIndex, nextList.length)) : nextList.length;
+    nextList.splice(index, 0, id);
+    refreshZonesFromState();
+    setupReorderInteractions();
+  }
+
+  function getDropReference(zone, clientY, excludeEl = null) {
+    const items = [...zone.querySelectorAll('.reorder-item')].filter(item => item !== excludeEl);
+    for (const item of items) {
+      const rect = item.getBoundingClientRect();
+      if (clientY < rect.top + rect.height / 2) return item;
+    }
+    return null;
+  }
+
+  function setupDesktopHtmlDrag() {
+    const sourceBox = $('#source-box');
+    const answerBox = $('#answer-box');
+    if (!sourceBox || !answerBox) return;
+    let dragged = null;
+
+    const clearOverStates = () => {
+      [sourceBox, answerBox].forEach(zone => zone.classList.remove('over'));
+    };
+
+    $$('.reorder-item').forEach(item => {
+      item.setAttribute('draggable', 'true');
+      item.addEventListener('dragstart', event => {
+        dragged = item;
+        item.classList.add('dragging');
+        if (event.dataTransfer) {
+          event.dataTransfer.effectAllowed = 'move';
+          event.dataTransfer.setData('text/plain', item.dataset.id || '');
+        }
+      });
+      item.addEventListener('dragend', () => {
+        item.classList.remove('dragging');
+        dragged = null;
+        clearOverStates();
+        syncOrderFromDom();
+        ensureEmptyState();
+      });
+      item.addEventListener('click', () => {
+        const currentBox = item.closest('#answer-box') ? 'answer' : 'source';
+        moveItemBetweenZones(item.dataset.id, currentBox === 'answer' ? 'source' : 'answer');
+      });
+    });
+
+    [sourceBox, answerBox].forEach(zone => {
+      zone.addEventListener('dragover', event => {
+        event.preventDefault();
+        zone.classList.add('over');
+        if (!dragged) return;
+        const reference = getDropReference(zone, event.clientY, dragged);
+        const empty = zone.querySelector('.reorder-empty');
+        if (empty) empty.remove();
+        if (reference) zone.insertBefore(dragged, reference);
+        else zone.appendChild(dragged);
+      });
+      zone.addEventListener('dragleave', event => {
+        if (!zone.contains(event.relatedTarget)) zone.classList.remove('over');
+      });
+      zone.addEventListener('drop', event => {
+        event.preventDefault();
+        zone.classList.remove('over');
+        if (!dragged) return;
+        const reference = getDropReference(zone, event.clientY, dragged);
+        if (reference) zone.insertBefore(dragged, reference);
+        else zone.appendChild(dragged);
+        dragged.classList.remove('dragging');
+        dragged = null;
+        syncOrderFromDom();
+        ensureEmptyState();
+      });
+    });
+  }
+
+  function setupSortableTouch() {
+    if (typeof window.Sortable !== 'function') return false;
+    const sortableConfig = {
+      group: 'reorder',
+      animation: 150,
+      forceFallback: true,
+      fallbackOnBody: true,
+      fallbackTolerance: 3,
+      emptyInsertThreshold: 10,
+      onStart: () => {
+        clearReorderFeedback();
+      },
+      onEnd: () => {
+        syncOrderFromDom();
+        ensureEmptyState();
+      },
+      onAdd: () => {
+        syncOrderFromDom();
+        ensureEmptyState();
+      },
+      onUpdate: () => {
+        syncOrderFromDom();
+        ensureEmptyState();
+      },
+    };
+    const sourceBox = $('#source-box');
+    const answerBox = $('#answer-box');
+    if (!sourceBox || !answerBox) return false;
+    sortableInstances = [
+      new window.Sortable(sourceBox, sortableConfig),
+      new window.Sortable(answerBox, sortableConfig),
+    ];
+    $$('.reorder-item').forEach(item => {
+      item.addEventListener('click', () => {
+        const currentBox = item.closest('#answer-box') ? 'answer' : 'source';
+        moveItemBetweenZones(item.dataset.id, currentBox === 'answer' ? 'source' : 'answer');
+      });
+    });
+    ensureEmptyState();
+    return true;
+  }
+
+  function setupPointerTouchFallback() {
+    const sourceBox = $('#source-box');
+    const answerBox = $('#answer-box');
+    if (!sourceBox || !answerBox) return;
+
+    const zones = [sourceBox, answerBox];
+    const clearOverStates = () => zones.forEach(zone => zone.classList.remove('over'));
+
+    $$('.reorder-item').forEach(item => {
+      item.addEventListener('click', () => {
+        if (dragState?.moved) return;
+        const currentBox = item.closest('#answer-box') ? 'answer' : 'source';
+        moveItemBetweenZones(item.dataset.id, currentBox === 'answer' ? 'source' : 'answer');
+      });
+
+      item.addEventListener('pointerdown', event => {
+        if (event.pointerType === 'mouse' && event.button !== 0) return;
+        const pointerId = event.pointerId;
+        const startX = event.clientX;
+        const startY = event.clientY;
+        const originZone = item.closest('.reorder-drop-zone');
+        let moved = false;
+        let ghost = null;
+
+        const updateGhost = moveEvent => {
+          if (!ghost) {
+            ghost = item.cloneNode(true);
+            ghost.classList.add('reorder-ghost');
+            ghost.style.width = `${item.getBoundingClientRect().width}px`;
+            document.body.appendChild(ghost);
+          }
+          ghost.style.left = `${moveEvent.clientX}px`;
+          ghost.style.top = `${moveEvent.clientY}px`;
+        };
+
+        const moveHandler = moveEvent => {
+          if (moveEvent.pointerId !== pointerId) return;
+          const deltaX = Math.abs(moveEvent.clientX - startX);
+          const deltaY = Math.abs(moveEvent.clientY - startY);
+          if (!moved && Math.max(deltaX, deltaY) < 8) return;
+          moved = true;
+          if (dragState) dragState.moved = true;
+          clearReorderFeedback();
+          item.classList.add('dragging');
+          moveEvent.preventDefault();
+          updateGhost(moveEvent);
+          const target = document.elementFromPoint(moveEvent.clientX, moveEvent.clientY)?.closest('.reorder-drop-zone');
+          clearOverStates();
+          if (!target) return;
+          target.classList.add('over');
+          const empty = target.querySelector('.reorder-empty');
+          if (empty) empty.remove();
+          const reference = getDropReference(target, moveEvent.clientY, item);
+          if (reference) target.insertBefore(item, reference);
+          else target.appendChild(item);
+        };
+
+        const endHandler = endEvent => {
+          if (endEvent.pointerId !== pointerId) return;
+          item.releasePointerCapture?.(pointerId);
+          item.classList.remove('dragging');
+          clearOverStates();
+          window.removeEventListener('pointermove', moveHandler);
+          window.removeEventListener('pointerup', endHandler);
+          window.removeEventListener('pointercancel', endHandler);
+          if (ghost) ghost.remove();
+          if (!moved) {
+            const currentBox = originZone?.id === 'answer-box' ? 'answer' : 'source';
+            moveItemBetweenZones(item.dataset.id, currentBox === 'answer' ? 'source' : 'answer');
+            return;
+          }
+          syncOrderFromDom();
+          ensureEmptyState();
+        };
+
+        dragState = {
+          moved: false,
+          cleanup: () => {
+            window.removeEventListener('pointermove', moveHandler);
+            window.removeEventListener('pointerup', endHandler);
+            window.removeEventListener('pointercancel', endHandler);
+            if (ghost) ghost.remove();
+            clearOverStates();
+          },
+        };
+
+        item.setPointerCapture?.(pointerId);
+        window.addEventListener('pointermove', moveHandler, { passive: false });
+        window.addEventListener('pointerup', endHandler);
+        window.addEventListener('pointercancel', endHandler);
+      });
+    });
+
+    ensureEmptyState();
+  }
+
+  function setupReorderInteractions() {
+    teardownReorderInteractions();
+    ensureEmptyState();
+    if (isTouchReorderMode()) {
+      if (setupSortableTouch()) return;
+      setupPointerTouchFallback();
+      return;
+    }
+    setupDesktopHtmlDrag();
+  }
 
   function render(){
     const q=questions[qIndex];
+    const sentenceMap = getSentenceMap(q);
     syncSelectedQuestion(q);
     if (window.PracticeTracker) PracticeTracker.setCurrentQuestion({ questionId: q.id, questionType: 'reorderParagraphs', questionText: q.sentences.map(s => s.text).join(' ') });
-    const shuffled=shuffle([...q.sentences]);
     $('#page-container').innerHTML=`
 <div class="page-header">
   <h1>Re-order Paragraphs <span class="badge badge-reading">Reading</span></h1>
@@ -187,20 +514,14 @@ Pages['reorder-paragraphs'] = function() {
   <div class="reorder-area">
     <div class="reorder-col">
       <div class="reorder-col-title">Source</div>
-      <div id="source-box" class="reorder-drop-zone"
-        ondragover="event.preventDefault();this.classList.add('over')"
-        ondragleave="this.classList.remove('over')"
-        ondrop="ROP_drop(event,'source')">
-        ${shuffled.map(s=>`<div class="reorder-item" draggable="true" data-id="${s.id}" ondragstart="ROP_drag(event)">${s.text}</div>`).join('')}
+      <div id="source-box" class="reorder-drop-zone" data-box="source">
+        ${renderZoneItems(sourceOrder, sentenceMap, 'Drag or tap items back here.')}
       </div>
     </div>
     <div class="reorder-col">
       <div class="reorder-col-title">Your Answer</div>
-      <div id="answer-box" class="reorder-drop-zone"
-        ondragover="event.preventDefault();this.classList.add('over')"
-        ondragleave="this.classList.remove('over')"
-        ondrop="ROP_drop(event,'answer')">
-        <div style="color:var(--text-light);font-size:13px;padding:8px">Drop sentences here in order...</div>
+      <div id="answer-box" class="reorder-drop-zone" data-box="answer">
+        ${renderZoneItems(answerOrder, sentenceMap, 'Drop sentences here in order...')}
       </div>
     </div>
   </div>
@@ -210,56 +531,51 @@ Pages['reorder-paragraphs'] = function() {
     <button class="btn btn-primary" onclick="ROP_submit()">Check Order</button>
     <button class="btn btn-secondary" onclick="ROP_reset()">Reset</button>
     <button class="btn btn-secondary" onclick="ROP_prev()" ${qIndex===0?'disabled':''}>${t('btn_prev')}</button>
-    <button class="btn btn-secondary" onclick="ROP_next()" ${qIndex===questions.length-1?'disabled':''}>${t('btn_next')}</button>
+    ${qIndex===questions.length-1 ? renderTodayPlanAction('practice-reorder-paragraphs') || `<button class="btn btn-secondary" onclick="ROP_next()" disabled>${t('btn_next')}</button>` : `<button class="btn btn-secondary" onclick="ROP_next()">${t('btn_next')}</button>`}
   </div>
   ${renderGuestPracticeUpsell(totalQuestions, questions.length)}
 </div>`;
+    mountMockProgressHeader({ pageKey: 'practice-reorder-paragraphs', qIndex, question: q, detailPage: 'reorder-paragraphs' });
+    bindMockDraftPersistence({ pageKey: 'practice-reorder-paragraphs', question: q, questionType: 'reorderParagraphs', title: 'Re-order Paragraphs', section: 'reading', sectionLabel: 'Reading', promptText: q.sentences.map(item => item.text).join(' ') });
+    setupReorderInteractions();
   }
 
-  window.ROP_drag=function(e){ dragged=e.target; e.target.classList.add('dragging'); };
-  window.ROP_drop=function(e,box){
-    e.preventDefault(); e.currentTarget.classList.remove('over');
-    if(!dragged) return;
-    // Remove placeholder
-    const ph=e.currentTarget.querySelector('div[style*="color"]');
-    if(ph) ph.remove();
-    dragged.classList.remove('dragging');
-    e.currentTarget.appendChild(dragged);
-    dragged=null;
-  };
-  window.ROP_reset=function(){ render(); };
+  window.ROP_reset=function(){ resetQuestionState(); render(); };
   window.ROP_submit=function(){
     const q=questions[qIndex];
+    const correctOrder = q.correctOrder.map(id => String(id));
+    syncOrderFromDom();
     const items=$$('#answer-box .reorder-item');
-    const order=items.map(el=>el.dataset.id);
+    const order=[...answerOrder];
     let correct=0;
     for(let i=0;i<order.length-1;i++){
-      const currentIndex=q.correctOrder.indexOf(order[i]);
-      const expectedNext=q.correctOrder[currentIndex+1];
+      const currentIndex=correctOrder.indexOf(order[i]);
+      const expectedNext=correctOrder[currentIndex+1];
       if(expectedNext && order[i+1]===expectedNext) correct++;
     }
-    const maxPairs=Math.max(q.correctOrder.length-1,1);
+    const maxPairs=Math.max(correctOrder.length-1,1);
     const pct=Math.round(correct/maxPairs*100);
     Stats.record('reorderParagraphs',pct,100);
     items.forEach((el,i)=>{
-      el.style.borderColor = el.dataset.id===q.correctOrder[i] ? 'var(--success)' : 'var(--danger)';
+      el.style.borderColor = el.dataset.id===correctOrder[i] ? 'var(--success)' : 'var(--danger)';
     });
-    if(order.length<q.correctOrder.length){
+    if(order.length<correctOrder.length){
       $('#feedback-area').innerHTML=`<div style="color:var(--warning);margin-top:8px">⚠️ Move all sentences to the answer box first.</div>`;
       return;
     }
-    const _rop_first=order.length>0&&order[0]===q.correctOrder[0];
+    const _rop_first=order.length>0&&order[0]===correctOrder[0];
     $('#feedback-area').innerHTML=`<div class="score-panel" style="margin-top:16px"><div class="score-big">${correct}/${maxPairs}</div><div class="score-label">${t('score_correct')} — ${Scorer.gradeLabel(pct)}</div></div>${window.AIScorer ? AIScorer.renderTaskFeedbackChips('reorderParagraphs', {extra:{correct,maxPairs,firstCorrect:_rop_first}}) : ''}<div class="retry-row"><button class="btn btn-refresh" onclick="ROP_retry()">${t('btn_retry')}</button></div>`;
   };
-  window.ROP_retry=()=>{ render(); };
-  window.ROP_prev=()=>{qIndex=Math.max(0,qIndex-1);render();};
-  window.ROP_next=()=>{qIndex=Math.min(questions.length-1,qIndex+1);render();};
+  window.ROP_retry=()=>{ resetQuestionState(); render(); };
+  window.ROP_prev=()=>{ teardownReorderInteractions(); qIndex=Math.max(0,qIndex-1); resetQuestionState(); render();};
+  window.ROP_next=()=>{ teardownReorderInteractions(); qIndex=Math.min(questions.length-1,qIndex+1); resetQuestionState(); render();};
+  resetQuestionState();
   render();
 };
 
 // ── Reading Fill Blanks ────────────────────────────────────────────────────
 Pages['r-fill-blanks'] = function() {
-  let qIndex=0; const totalQuestions=DB.rFillBlanks.length; const questions=getAccessibleQuestions(DB.rFillBlanks);
+  let qIndex=0; const sourceQuestions=getMockQuestionSet('rFillBlanks', DB.rFillBlanks); const totalQuestions=sourceQuestions.length; const questions=getTodayPlanQuestions('practice-r-fill-blanks', getAccessibleQuestions(sourceQuestions));
   qIndex = getInitialQuestionIndex(questions);
 
   function render(){
@@ -282,10 +598,12 @@ Pages['r-fill-blanks'] = function() {
   <div class="btn-group">
     <button class="btn btn-primary" onclick="RFIB_submit()">Check Answers</button>
     <button class="btn btn-secondary" onclick="RFIB_prev()" ${qIndex===0?'disabled':''}>${t('btn_prev')}</button>
-    <button class="btn btn-secondary" onclick="RFIB_next()" ${qIndex===questions.length-1?'disabled':''}>${t('btn_next')}</button>
+    ${qIndex===questions.length-1 ? renderTodayPlanAction('practice-r-fill-blanks') || `<button class="btn btn-secondary" onclick="RFIB_next()" disabled>${t('btn_next')}</button>` : `<button class="btn btn-secondary" onclick="RFIB_next()">${t('btn_next')}</button>`}
   </div>
   ${renderGuestPracticeUpsell(totalQuestions, questions.length)}
 </div>`;
+    mountMockProgressHeader({ pageKey: 'practice-r-fill-blanks', qIndex, question: q, detailPage: 'r-fill-blanks' });
+    bindMockDraftPersistence({ pageKey: 'practice-r-fill-blanks', question: q, questionType: 'rFillBlanks', title: 'Fill in the Blanks', section: 'reading', sectionLabel: 'Reading', promptText: q.fullText });
   }
 
   window.RFIB_submit=function(){

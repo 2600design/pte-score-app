@@ -1,0 +1,26 @@
+[
+  {
+    "id": "smw1",
+    "title": "Scientific Method",
+    "transcript": "The scientific method is a systematic process for acquiring knowledge. A scientist begins by making an observation, which leads to a question. A hypothesis — a testable prediction — is then formulated. Experiments are designed to test the hypothesis, and data is collected and analysed. Based on the results, the hypothesis is either supported or",
+    "options": [
+      "celebrated publicly",
+      "rejected and revised",
+      "kept confidential",
+      "applied to industry"
+    ],
+    "answer": 1
+  },
+  {
+    "id": "smw2",
+    "title": "Academic Integrity",
+    "transcript": "Academic integrity is based on honesty, trust, fairness, respect, and responsibility. Universities expect students to acknowledge sources correctly, complete their own work, and avoid plagiarism. When these principles are followed, qualifications retain their value and learning becomes more meaningful. If academic misconduct occurs, institutions may impose penalties ranging from formal warnings to",
+    "options": [
+      "graduation ceremonies",
+      "scholarship increases",
+      "disciplinary suspension",
+      "public celebrations"
+    ],
+    "answer": 2
+  }
+]

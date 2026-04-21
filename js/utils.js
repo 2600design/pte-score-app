@@ -525,11 +525,13 @@ class SpeechRecorder {
     this.onResult=onResult; this.onEnd=onEnd; this.onError=onError;
     this.onCapture=onCapture;
     this.continuous=continuous; this.keepAlive=keepAlive; this.recognition=null; this.isRunning=false;
-    this.shouldStop=false; this.finalTranscript=''; this.restartTimer=null;
+    this.shouldStop=false; this.finalTranscript=''; this.restartTimer=null; this.stopSafetyTimer=null;
     this.captureAudio=captureAudio; this.mediaRecorder=null; this.audioChunks=[]; this.audioUrl=''; this.captureStream=null;
     this.recognitionEnded=false; this.captureEnded=true;
   }
   _teardownCapture() {
+    clearTimeout(this.stopSafetyTimer);
+    this.stopSafetyTimer = null;
     if(this.captureStream) {
       this.captureStream.getTracks().forEach(track => track.stop());
       this.captureStream = null;
@@ -562,6 +564,11 @@ class SpeechRecorder {
           this.audioUrl = URL.createObjectURL(blob);
           this.onCapture && this.onCapture({ url:this.audioUrl, blob });
         }
+        this.captureEnded = true;
+        this._teardownCapture();
+        this._maybeFinish();
+      };
+      this.mediaRecorder.onerror = () => {
         this.captureEnded = true;
         this._teardownCapture();
         this._maybeFinish();
@@ -638,6 +645,13 @@ class SpeechRecorder {
   stop() {
     this.shouldStop=true;
     clearTimeout(this.restartTimer);
+    clearTimeout(this.stopSafetyTimer);
+    this.stopSafetyTimer = setTimeout(() => {
+      this.captureEnded = true;
+      this.recognitionEnded = true;
+      this._teardownCapture();
+      this._maybeFinish();
+    }, 5000);
     if(this.mediaRecorder && this.mediaRecorder.state !== 'inactive') this.mediaRecorder.stop();
     else this.captureEnded = true;
     if(this.recognition) this.recognition.stop();

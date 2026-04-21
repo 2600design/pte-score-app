@@ -1,0 +1,110 @@
+[
+  {
+    "id": "fbl1",
+    "title": "Photosynthesis",
+    "transcript": "Photosynthesis is the process by which green plants convert sunlight into chemical energy. Plants absorb carbon dioxide from the air through tiny pores called stomata, and water from the soil through their roots. Using energy from sunlight, they convert these ingredients into glucose, which fuels plant growth. Oxygen is released as a byproduct, making photosynthesis essential to life on Earth.",
+    "blanks": [
+      {
+        "before": "Plants absorb ",
+        "key": "carbon dioxide",
+        "after": " from the air"
+      },
+      {
+        "before": "through tiny pores called ",
+        "key": "stomata",
+        "after": ", and water from the soil"
+      },
+      {
+        "before": "they convert these ingredients into ",
+        "key": "glucose",
+        "after": ", which fuels plant growth"
+      },
+      {
+        "before": "Oxygen is released as a ",
+        "key": "byproduct",
+        "after": ", making photosynthesis essential"
+      }
+    ]
+  },
+  {
+    "id": "fbl2",
+    "title": "Renewable Electricity",
+    "transcript": "Electricity generated from renewable sources such as wind and solar has grown rapidly in recent years. Falling technology costs and stronger climate policies have encouraged governments and businesses to invest in cleaner energy systems. However, because renewable power generation can vary according to weather conditions, electricity grids must become more flexible. Energy storage, smarter networks, and better forecasting all help maintain reliability.",
+    "blanks": [
+      {
+        "before": "Electricity generated from renewable ",
+        "key": "sources",
+        "after": " such as wind and solar"
+      },
+      {
+        "before": "Falling technology costs and stronger climate ",
+        "key": "policies",
+        "after": " have encouraged governments"
+      },
+      {
+        "before": "renewable power generation can vary according to ",
+        "key": "weather",
+        "after": " conditions"
+      },
+      {
+        "before": "Energy storage, smarter networks, and better ",
+        "key": "forecasting",
+        "after": " all help maintain reliability"
+      }
+    ]
+  },
+  {
+    "id": "fbl3",
+    "title": "Urban Water Supply",
+    "transcript": "Cities depend on complex water supply systems to deliver clean drinking water to homes and businesses. Water is usually collected from reservoirs, rivers, or underground sources, then treated to remove harmful bacteria and impurities. After treatment, it is pumped through a network of pipes and storage facilities. Regular monitoring is essential to maintain safety, efficiency, and long-term reliability.",
+    "blanks": [
+      {
+        "before": "Water is usually collected from ",
+        "key": "reservoirs",
+        "after": ", rivers, or underground sources"
+      },
+      {
+        "before": "then treated to remove harmful bacteria and ",
+        "key": "impurities",
+        "after": "."
+      },
+      {
+        "before": "it is pumped through a network of pipes and ",
+        "key": "storage facilities",
+        "after": "."
+      },
+      {
+        "before": "Regular monitoring is essential to maintain safety, efficiency, and long-term ",
+        "key": "reliability",
+        "after": "."
+      }
+    ]
+  },
+  {
+    "id": "fbl4",
+    "title": "Marine Ecosystems",
+    "transcript": "Marine ecosystems support an enormous variety of life and provide important benefits to human societies. Coral reefs, mangroves, and seagrass beds offer habitats for fish and other species, while also protecting coastlines from erosion. However, pollution, overfishing, and rising ocean temperatures are placing these environments under increasing pressure. Conservation efforts therefore focus on restoration, regulation, and public awareness.",
+    "blanks": [
+      {
+        "before": "Marine ecosystems support an enormous variety of life and provide important ",
+        "key": "benefits",
+        "after": " to human societies."
+      },
+      {
+        "before": "offer ",
+        "key": "habitats",
+        "after": " for fish and other species"
+      },
+      {
+        "before": "protecting coastlines from ",
+        "key": "erosion",
+        "after": "."
+      },
+      {
+        "before": "Conservation efforts therefore focus on restoration, regulation, and public ",
+        "key": "awareness",
+        "after": "."
+      }
+    ]
+  }
+]

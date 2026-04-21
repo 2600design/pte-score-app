@@ -1,6 +1,28 @@
 window.renderPracticeDirectoryPage = function () {
   const guest = isGuestUser();
-  const isMobile = window.innerWidth <= 640;
+  const isNativeIPad = typeof window.isNativeIPad === 'function'
+      ? window.isNativeIPad()
+      : (() => {
+        if (window.__NATIVE_IOS_IPAD__ === true) return true;
+        const ua = navigator.userAgent || '';
+        const capacitorPlatform = typeof window.Capacitor?.getPlatform === 'function'
+          ? window.Capacitor.getPlatform()
+          : (window.Capacitor?.platform || '');
+        const maxScreenEdge = Math.max(window.screen?.width || 0, window.screen?.height || 0);
+        return /iPad/.test(ua)
+          || /PTEscoreNativeiPad/i.test(ua)
+          || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1)
+          || (!!window.Capacitor && /iPad/i.test(ua))
+          || (!!window.Capacitor && capacitorPlatform === 'ios' && navigator.maxTouchPoints > 1 && maxScreenEdge >= 1024);
+      })();
+  const isTabletLikeDevice = typeof window.isTabletLikeDevice === 'function'
+    ? window.isTabletLikeDevice()
+    : (() => {
+        if (isNativeIPad) return true;
+        const minViewport = Math.min(window.innerWidth || 0, window.innerHeight || 0);
+        return minViewport >= 768;
+      })();
+  const isMobile = window.innerWidth <= 640 && !isNativeIPad && !isTabletLikeDevice;
   const currentLang = getAppLang();
   const currentPage = window.__currentPage || sessionStorage.getItem('pte_page') || 'practice-all';
   const practiceView = window.__practiceCategory
@@ -37,7 +59,7 @@ window.renderPracticeDirectoryPage = function () {
       title: t('label_speaking'),
       icon: '🎤',
       desc: t('practice_speaking_desc'),
-      badge: t('badge_ai'),
+      badge: '',
       tasks: [
         { key: 'readAloud', title: t('ra_title'), page: 'read-aloud', icon: '📖', count: DB.readAloud.length },
         { key: 'repeatSentence', title: t('rs_title'), page: 'repeat-sentence', icon: '🔁', count: DB.repeatSentence.length },
@@ -50,7 +72,7 @@ window.renderPracticeDirectoryPage = function () {
       title: t('label_writing'),
       icon: '✍️',
       desc: t('practice_writing_desc'),
-      badge: t('badge_ai'),
+      badge: '',
       tasks: [
         { key: 'summarizeWritten', title: t('swt_title'), page: 'summarize-written', icon: '📝', count: DB.summarizeWritten.length },
         { key: 'writeEssay', title: t('we_title'), page: 'write-essay', icon: '✍️', count: DB.writeEssay.length },
@@ -73,7 +95,7 @@ window.renderPracticeDirectoryPage = function () {
       title: t('label_listening'),
       icon: '🎧',
       desc: t('practice_listening_desc'),
-      badge: t('badge_ai'),
+      badge: '',
       tasks: [
         { key: 'summarizeSpoken', title: t('sst_title'), page: 'summarize-spoken', icon: '🎧', count: DB.summarizeSpoken.length },
         { key: 'mcSingleListening', title: t('mcsl_title'), page: 'mc-single-listening', icon: '🔘', count: DB.mcSingleListening.length },

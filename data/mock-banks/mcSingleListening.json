@@ -1,0 +1,28 @@
+[
+  {
+    "id": "mcsl1",
+    "title": "University Funding",
+    "transcript": "Many universities are facing significant funding pressures as government grants decline. As a result, institutions are increasingly reliant on tuition fees, industry partnerships, and alumni donations. Some experts argue that this shift risks compromising academic independence, as research agendas may be influenced by commercial interests. Others suggest that industry collaboration enhances the relevance of university research to real-world problems.",
+    "question": "What concern do some experts raise about universities relying on industry funding?",
+    "options": [
+      "It leads to lower tuition fees",
+      "It may compromise academic independence",
+      "It increases government grants",
+      "It reduces alumni donations"
+    ],
+    "answer": 1
+  },
+  {
+    "id": "mcsl2",
+    "title": "Recycling Policy",
+    "transcript": "Several cities have introduced stricter recycling regulations in response to rising landfill costs and environmental concerns. Households are now required to separate food waste, paper, glass, and plastics into different bins. Local authorities argue that better sorting improves the quality of recycled materials and reduces contamination. However, some residents complain that the system is confusing and time-consuming, especially where public guidance is limited.",
+    "question": "Why do local authorities support better household sorting?",
+    "options": [
+      "It lowers electricity prices",
+      "It improves recycling quality",
+      "It reduces public guidance",
+      "It eliminates all waste"
+    ],
+    "answer": 1
+  }
+]

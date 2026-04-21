@@ -1,0 +1,42 @@
+[
+  {
+    "id": "mcml1",
+    "title": "Benefits of Exercise",
+    "transcript": "Regular physical exercise provides a wide range of health benefits. Cardiovascular exercise such as running and cycling strengthens the heart and reduces the risk of heart disease. Resistance training builds muscle mass and increases metabolic rate. Exercise also releases endorphins, which improve mood and reduce anxiety and depression. Furthermore, studies show that physically active individuals tend to sleep better and have stronger immune systems.",
+    "question": "Which benefits of exercise are mentioned in the talk?",
+    "options": [
+      "Improved cardiovascular health",
+      "Better academic performance",
+      "Reduced anxiety",
+      "Stronger immune system",
+      "Improved balance",
+      "Better sleep"
+    ],
+    "answers": [
+      0,
+      2,
+      3,
+      5
+    ]
+  },
+  {
+    "id": "mcml2",
+    "title": "Urban Gardening",
+    "transcript": "Urban gardening is becoming increasingly popular in cities around the world. Community gardens can provide fresh produce, create social connections among residents, and offer educational opportunities for children. Green spaces of this kind may also support biodiversity by attracting insects and birds. However, urban gardening projects often depend on volunteer labour and may struggle if long-term funding and land access are uncertain.",
+    "question": "Which benefits of urban gardening are mentioned in the recording?",
+    "options": [
+      "Fresh produce",
+      "Social connection",
+      "Educational opportunities",
+      "Guaranteed profit",
+      "Support for biodiversity",
+      "Free public transport"
+    ],
+    "answers": [
+      0,
+      1,
+      2,
+      4
+    ]
+  }
+]

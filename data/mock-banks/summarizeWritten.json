@@ -1,0 +1,72 @@
+[
+  {
+    "id": "swt1",
+    "tag": "★ 高频真题",
+    "title": "Biodiversity Loss",
+    "text": "Biodiversity — the variety of life on Earth — is declining at an unprecedented rate. Human activities such as deforestation, pollution, overfishing, and climate change are driving species to extinction far faster than natural processes would. Scientists estimate that species are disappearing at up to one thousand times the background extinction rate. The consequences extend beyond the natural world: healthy ecosystems provide clean water, regulate climate, pollinate crops, and support countless industries. Conservation efforts, including protected areas, habitat restoration, and international agreements such as the Convention on Biological Diversity, aim to slow this decline, but experts agree that transformative changes in how we produce food and energy are essential.",
+    "wordRange": [
+      25,
+      50
+    ]
+  },
+  {
+    "id": "swt2",
+    "tag": "★ 高频真题",
+    "title": "Digital Privacy",
+    "text": "In the digital age, personal data has become one of the most valuable commodities in the global economy. Every online interaction generates data points that companies harvest, analyse, and monetise. Social media platforms, search engines, and mobile applications continuously track user behaviour, preferences, and location. While users often receive free services in exchange, many are unaware of the extent to which their information is collected and sold. Regulators in Europe have responded with legislation such as the General Data Protection Regulation, which grants citizens greater control over their data. However, enforcement remains inconsistent, and technology often evolves faster than the laws designed to govern it.",
+    "wordRange": [
+      25,
+      50
+    ]
+  },
+  {
+    "id": "swt3",
+    "tag": "真题",
+    "title": "Microplastics in the Ocean",
+    "text": "Microplastics — plastic fragments smaller than five millimetres — have been detected throughout the world's oceans, from surface waters to deep-sea sediments. They originate from the breakdown of larger plastic items and from manufactured microbeads used in personal care products. Marine organisms from plankton to whales ingest these particles, which can accumulate toxins and enter the food chain. Human consumption of seafood means that microplastics are now regularly detected in human tissue. While awareness has grown, reducing plastic production and improving waste management remain formidable global challenges.",
+    "wordRange": [
+      25,
+      50
+    ]
+  },
+  {
+    "id": "swt4",
+    "tag": "预测题",
+    "title": "The Rise of Remote Work",
+    "text": "The COVID-19 pandemic accelerated an existing trend toward remote working, with millions of employees worldwide shifting to home-based arrangements almost overnight. For many workers and employers, this experience revealed previously untapped productivity gains and cost savings. However, remote work also highlighted issues such as digital inequality, the erosion of work-life boundaries, and reduced opportunities for collaboration and mentorship. As organisations consider permanent hybrid arrangements, they must weigh these competing factors to design work environments that support both performance and employee wellbeing.",
+    "wordRange": [
+      25,
+      50
+    ]
+  },
+  {
+    "id": "swt5",
+    "tag": "★ 高频真题",
+    "title": "Artificial Intelligence in Healthcare",
+    "text": "Artificial intelligence is transforming healthcare by enabling faster and more accurate diagnosis, personalised treatment plans, and more efficient management of clinical data. Machine learning algorithms trained on large medical datasets can detect cancers, diabetic retinopathy, and other conditions with accuracy comparable to or exceeding that of experienced clinicians. AI-powered tools also assist in drug discovery, reducing the time and cost of bringing new treatments to market. Nevertheless, concerns remain about data privacy, algorithmic bias, and the potential displacement of healthcare workers.",
+    "wordRange": [
+      25,
+      50
+    ]
+  },
+  {
+    "id": "swt6",
+    "tag": "★ 高频预测题",
+    "title": "Urban Public Transport",
+    "text": "Efficient public transport systems are central to reducing traffic congestion, improving air quality, and increasing access to employment and education. Cities with reliable buses, trains, and cycling infrastructure tend to experience lower car dependency and more inclusive economic growth. However, building and maintaining such systems requires substantial investment, long-term planning, and public trust. Transport experts argue that integrated networks and affordable fares are essential to attracting sustained ridership.",
+    "wordRange": [
+      25,
+      50
+    ]
+  },
+  {
+    "id": "swt7",
+    "tag": "预测题",
+    "title": "Online Misinformation",
+    "text": "The rapid spread of misinformation online has emerged as a major challenge for democratic societies. False or misleading content can travel faster than verified information, particularly when amplified by social media algorithms designed to maximise engagement. During elections, public health emergencies, and natural disasters, misinformation can undermine trust in institutions and influence harmful behaviour. Researchers argue that improving media literacy, increasing transparency in digital platforms, and strengthening independent journalism are all necessary to address this problem.",
+    "wordRange": [
+      25,
+      50
+    ]
+  }
+]

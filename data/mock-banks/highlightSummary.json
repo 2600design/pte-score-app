@@ -1,0 +1,24 @@
+[
+  {
+    "id": "hcs1",
+    "title": "The Sharing Economy",
+    "transcript": "The sharing economy describes a system where individuals share access to goods and services, often facilitated by digital platforms. Companies like Airbnb and Uber have disrupted traditional industries by enabling peer-to-peer transactions. Supporters highlight the efficiency gains from better resource utilisation — an idle car or spare room can now generate income. Critics, however, point to concerns about worker rights, safety regulations, and the impact on local communities, particularly rising housing costs in cities where short-term rentals proliferate.",
+    "summaries": [
+      "The sharing economy uses platforms to enable resource sharing but raises concerns about worker rights and housing costs.",
+      "Digital platforms have completely eliminated traditional industries by offering cheaper alternatives to consumers.",
+      "Sharing economy companies operate without any regulatory oversight and offer no benefits to local communities."
+    ],
+    "answer": 0
+  },
+  {
+    "id": "hcs2",
+    "title": "Online Education",
+    "transcript": "Universities have expanded their use of online education over the past decade, and this trend accelerated sharply during the pandemic. Online delivery offers flexibility and can widen access for students who live far from campus or who balance study with work. At the same time, educators warn that online learning may reduce spontaneous interaction, weaken a sense of community, and disadvantage students with poor internet access. As a result, many institutions are moving toward blended models that combine digital convenience with face-to-face engagement.",
+    "summaries": [
+      "Online education increases flexibility and access, but many institutions now prefer blended models because fully online learning also has limitations.",
+      "Universities have replaced all face-to-face teaching with online platforms because students strongly prefer digital classes.",
+      "Online education is mainly useful because it removes the need for teachers and campus facilities altogether."
+    ],
+    "answer": 0
+  }
+]

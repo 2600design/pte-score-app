@@ -1,0 +1,386 @@
+[
+  {
+    "id": "asq1",
+    "tag": "★ 高频真题",
+    "question": "What is the largest planet in our solar system?",
+    "answer": "Jupiter"
+  },
+  {
+    "id": "asq2",
+    "tag": "★ 高频真题",
+    "question": "What gas do plants absorb from the atmosphere?",
+    "answer": "Carbon dioxide"
+  },
+  {
+    "id": "asq3",
+    "tag": "真题",
+    "question": "How many sides does a hexagon have?",
+    "answer": "Six"
+  },
+  {
+    "id": "asq4",
+    "tag": "★ 高频真题",
+    "question": "What is the capital city of Australia?",
+    "answer": "Canberra"
+  },
+  {
+    "id": "asq5",
+    "tag": "真题",
+    "question": "What instrument is used to measure temperature?",
+    "answer": "Thermometer"
+  },
+  {
+    "id": "asq6",
+    "tag": "真题",
+    "question": "What is the chemical symbol for gold?",
+    "answer": "Au"
+  },
+  {
+    "id": "asq7",
+    "tag": "★ 高频真题",
+    "question": "Which ocean is the largest?",
+    "answer": "Pacific Ocean"
+  },
+  {
+    "id": "asq8",
+    "tag": "真题",
+    "question": "What do we call the study of living organisms?",
+    "answer": "Biology"
+  },
+  {
+    "id": "asq9",
+    "tag": "★ 高频真题",
+    "question": "What is the name of the process by which plants make food using sunlight?",
+    "answer": "Photosynthesis"
+  },
+  {
+    "id": "asq10",
+    "tag": "★ 高频真题",
+    "question": "How many chambers does the human heart have?",
+    "answer": "Four"
+  },
+  {
+    "id": "asq11",
+    "tag": "真题",
+    "question": "What do we call a scientist who studies earthquakes?",
+    "answer": "Seismologist"
+  },
+  {
+    "id": "asq12",
+    "tag": "★ 高频真题",
+    "question": "What is the boiling point of water in degrees Celsius?",
+    "answer": "One hundred degrees"
+  },
+  {
+    "id": "asq13",
+    "tag": "预测题",
+    "question": "What is the term for an economy where goods are shared rather than owned outright?",
+    "answer": "Sharing economy"
+  },
+  {
+    "id": "asq14",
+    "tag": "★ 高频真题",
+    "question": "Which gas makes up the majority of the Earth's atmosphere?",
+    "answer": "Nitrogen"
+  },
+  {
+    "id": "asq15",
+    "tag": "预测题",
+    "question": "What do we call the study of the universe and its contents?",
+    "answer": "Astronomy"
+  },
+  {
+    "id": "asq16",
+    "tag": "真题",
+    "question": "What type of energy does the sun provide?",
+    "answer": "Solar energy"
+  },
+  {
+    "id": "asq17",
+    "tag": "★ 高频真题",
+    "question": "What is the most widely spoken language in the world by number of native speakers?",
+    "answer": "Mandarin Chinese"
+  },
+  {
+    "id": "asq18",
+    "tag": "预测题",
+    "question": "What is the name of the layer of gas surrounding the Earth?",
+    "answer": "Atmosphere"
+  },
+  {
+    "id": "asq19",
+    "tag": "★ 高频预测题",
+    "question": "What is the device called that measures atmospheric pressure?",
+    "answer": "Barometer"
+  },
+  {
+    "id": "asq20",
+    "tag": "预测题",
+    "question": "Which part of the plant conducts photosynthesis most actively?",
+    "answer": "Leaf"
+  },
+  {
+    "id": "asq21",
+    "tag": "预测题",
+    "question": "What do we call water in its gas form?",
+    "answer": "Water vapor"
+  },
+  {
+    "id": "asq22",
+    "tag": "★ 高频预测题",
+    "question": "What branch of science studies weather and climate?",
+    "answer": "Meteorology"
+  },
+  {
+    "id": "asq23",
+    "tag": "预测题",
+    "question": "What is the opposite of import in international trade?",
+    "answer": "Export"
+  },
+  {
+    "id": "asq24",
+    "tag": "预测题",
+    "question": "What is the hardest natural substance on Earth?",
+    "answer": "Diamond"
+  },
+  {
+    "id": "asq25",
+    "tag": "新增题",
+    "question": "What do we call a place where books are kept?",
+    "answer": "Library"
+  },
+  {
+    "id": "asq26",
+    "tag": "新增题",
+    "question": "What is the process of water turning into vapor?",
+    "answer": "Evaporation"
+  },
+  {
+    "id": "asq27",
+    "tag": "新增题",
+    "question": "What do bees produce?",
+    "answer": "Honey"
+  },
+  {
+    "id": "asq28",
+    "tag": "新增题",
+    "question": "Which planet is known as the Red Planet?",
+    "answer": "Mars"
+  },
+  {
+    "id": "asq29",
+    "tag": "新增题",
+    "question": "What do we use to measure temperature?",
+    "answer": "Thermometer"
+  },
+  {
+    "id": "asq30",
+    "tag": "新增题",
+    "question": "What is the capital of France?",
+    "answer": "Paris"
+  },
+  {
+    "id": "asq31",
+    "tag": "新增题",
+    "question": "What do we call a person who teaches at university?",
+    "answer": "Professor"
+  },
+  {
+    "id": "asq32",
+    "tag": "新增题",
+    "question": "What is H2O commonly known as?",
+    "answer": "Water"
+  },
+  {
+    "id": "asq33",
+    "tag": "新增题",
+    "question": "Which organ pumps blood?",
+    "answer": "Heart"
+  },
+  {
+    "id": "asq34",
+    "tag": "新增题",
+    "question": "What do we call written laws of a country?",
+    "answer": "Constitution"
+  },
+  {
+    "id": "asq35",
+    "tag": "新增题",
+    "question": "What is the opposite of increase?",
+    "answer": "Decrease"
+  },
+  {
+    "id": "asq36",
+    "tag": "新增题",
+    "question": "What do we call animals that eat only plants?",
+    "answer": "Herbivores"
+  },
+  {
+    "id": "asq37",
+    "tag": "新增题",
+    "question": "What do you use to cut paper?",
+    "answer": "Scissors"
+  },
+  {
+    "id": "asq38",
+    "tag": "新增题",
+    "question": "What is the largest ocean?",
+    "answer": "Pacific Ocean"
+  },
+  {
+    "id": "asq39",
+    "tag": "新增题",
+    "question": "What do we call a baby dog?",
+    "answer": "Puppy"
+  },
+  {
+    "id": "asq40",
+    "tag": "新增题",
+    "question": "What is used to write on a blackboard?",
+    "answer": "Chalk"
+  },
+  {
+    "id": "asq41",
+    "tag": "新增题",
+    "question": "What do we call a scientist who studies weather?",
+    "answer": "Meteorologist"
+  },
+  {
+    "id": "asq42",
+    "tag": "新增题",
+    "question": "What is the freezing point of water?",
+    "answer": "Zero degrees"
+  },
+  {
+    "id": "asq43",
+    "tag": "新增题",
+    "question": "What do we call a person who designs buildings?",
+    "answer": "Architect"
+  },
+  {
+    "id": "asq44",
+    "tag": "新增题",
+    "question": "What is the currency of the United States?",
+    "answer": "Dollar"
+  },
+  {
+    "id": "asq45",
+    "tag": "新增题",
+    "question": "What do we call a person who drives a bus?",
+    "answer": "Driver"
+  },
+  {
+    "id": "asq46",
+    "tag": "新增题",
+    "question": "What is the opposite of fast?",
+    "answer": "Slow"
+  },
+  {
+    "id": "asq47",
+    "tag": "新增题",
+    "question": "What do we call a group of stars forming a pattern?",
+    "answer": "Constellation"
+  },
+  {
+    "id": "asq48",
+    "tag": "新增题",
+    "question": "What is used to measure time?",
+    "answer": "Clock"
+  },
+  {
+    "id": "asq49",
+    "tag": "新增题",
+    "question": "What do we call a person who writes books?",
+    "answer": "Author"
+  },
+  {
+    "id": "asq50",
+    "tag": "新增题",
+    "question": "What is the main gas in the air we breathe?",
+    "answer": "Nitrogen"
+  },
+  {
+    "id": "asq51",
+    "tag": "新增题",
+    "question": "What do we call a person who flies an airplane?",
+    "answer": "Pilot"
+  },
+  {
+    "id": "asq52",
+    "tag": "新增题",
+    "question": "What is the boiling point of water?",
+    "answer": "100 degrees"
+  },
+  {
+    "id": "asq53",
+    "tag": "新增题",
+    "question": "What do we call a place where people watch movies?",
+    "answer": "Cinema"
+  },
+  {
+    "id": "asq54",
+    "tag": "新增题",
+    "question": "What is the hardest natural substance?",
+    "answer": "Diamond"
+  },
+  {
+    "id": "asq55",
+    "tag": "新增题",
+    "question": "What do we call a person who studies history?",
+    "answer": "Historian"
+  },
+  {
+    "id": "asq56",
+    "tag": "新增题",
+    "question": "What is used to open a lock?",
+    "answer": "Key"
+  },
+  {
+    "id": "asq57",
+    "tag": "新增题",
+    "question": "What do we call a baby cat?",
+    "answer": "Kitten"
+  },
+  {
+    "id": "asq58",
+    "tag": "新增题",
+    "question": "What is the opposite of hot?",
+    "answer": "Cold"
+  },
+  {
+    "id": "asq59",
+    "tag": "新增题",
+    "question": "What do we call a place where planes land?",
+    "answer": "Airport"
+  },
+  {
+    "id": "asq60",
+    "tag": "新增题",
+    "question": "What is the largest land animal?",
+    "answer": "Elephant"
+  },
+  {
+    "id": "asq61",
+    "tag": "新增题",
+    "question": "What do we call a person who paints?",
+    "answer": "Painter"
+  },
+  {
+    "id": "asq62",
+    "tag": "新增题",
+    "question": "What is used to measure weight?",
+    "answer": "Scale"
+  },
+  {
+    "id": "asq63",
+    "tag": "新增题",
+    "question": "What do we call a person who fixes cars?",
+    "answer": "Mechanic"
+  },
+  {
+    "id": "asq64",
+    "tag": "新增题",
+    "question": "What is the center of the solar system?",
+    "answer": "Sun"
+  }
+]

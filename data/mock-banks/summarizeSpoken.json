@@ -1,0 +1,79 @@
+[
+  {
+    "id": "sst1",
+    "tag": "★ 高频真题",
+    "title": "Urban Heat Islands",
+    "transcript": "Cities are typically warmer than surrounding rural areas due to a phenomenon known as the urban heat island effect. Dark surfaces such as asphalt and concrete absorb solar radiation and release it as heat. The absence of vegetation removes the cooling effect of evapotranspiration. This effect can raise urban temperatures by up to five degrees Celsius, increasing energy consumption for cooling, worsening air quality, and posing health risks particularly for elderly populations. Urban planners are responding by increasing green spaces and mandating cool roofs.",
+    "wordRange": [
+      50,
+      70
+    ],
+    "duration": 55
+  },
+  {
+    "id": "sst2",
+    "tag": "★ 高频真题",
+    "title": "The Gig Economy",
+    "transcript": "The gig economy refers to a labour market characterised by short-term contracts and freelance work rather than permanent employment. Technology platforms such as ride-sharing and food delivery apps have dramatically expanded this sector. Proponents argue that gig work offers flexibility and low barriers to entry, benefiting workers who prefer non-traditional arrangements. Critics, however, point out that gig workers typically lack benefits such as paid leave, healthcare, and retirement savings, and may be vulnerable to income instability.",
+    "wordRange": [
+      50,
+      70
+    ],
+    "duration": 52
+  },
+  {
+    "id": "sst3",
+    "tag": "真题",
+    "title": "Ocean Plastic Pollution",
+    "transcript": "Every year, an estimated eight million tonnes of plastic waste enters the world's oceans, threatening marine ecosystems and the communities that depend on them. The majority comes from land-based sources — rivers carry waste from cities and agricultural areas into coastal waters. Once in the ocean, plastic breaks down into microplastics that are ingested by fish, birds, and marine mammals. Scientists are developing biodegradable alternatives to conventional plastics, but widespread adoption requires both regulatory support and changes in consumer behaviour.",
+    "wordRange": [
+      50,
+      70
+    ],
+    "duration": 58
+  },
+  {
+    "id": "sst4",
+    "tag": "预测题",
+    "title": "Sleep and Memory",
+    "transcript": "Research in neuroscience has established a strong link between sleep and memory consolidation. During sleep, the brain replays the day's experiences and transfers information from short-term to long-term memory. Studies show that people who sleep well after learning new material retain significantly more information than those who are sleep-deprived. The hippocampus plays a central role in this process, acting as a temporary storage site before memories are distributed across the cortex. These findings have practical implications for students and for the treatment of memory disorders.",
+    "wordRange": [
+      50,
+      70
+    ],
+    "duration": 54
+  },
+  {
+    "id": "sst5",
+    "tag": "预测题",
+    "title": "Sustainable Agriculture",
+    "transcript": "Conventional agriculture relies heavily on synthetic fertilisers, pesticides, and large amounts of water, contributing to soil degradation, water pollution, and greenhouse gas emissions. Sustainable agriculture seeks to produce food in ways that preserve natural resources and maintain ecological balance. Techniques include crop rotation, organic farming, agroforestry, and precision irrigation. While sustainable methods can yield comparable results to conventional farming over time, the transition requires investment in training, technology, and supportive policies. Food security for a growing global population depends on making this transition at scale.",
+    "wordRange": [
+      50,
+      70
+    ],
+    "duration": 60
+  },
+  {
+    "id": "sst6",
+    "tag": "★ 高频预测题",
+    "title": "Cybersecurity Awareness",
+    "transcript": "As more personal and professional activities move online, cybersecurity has become a basic requirement for individuals and organisations alike. Many data breaches do not result from highly sophisticated attacks, but from simple human errors such as weak passwords, phishing emails, or failure to install updates. Experts therefore emphasise that cybersecurity is not only a technical issue, but also an educational one. Regular training, multi-factor authentication, and clear security policies can significantly reduce digital risks.",
+    "wordRange": [
+      50,
+      70
+    ],
+    "duration": 52
+  },
+  {
+    "id": "sst7",
+    "tag": "预测题",
+    "title": "Food Waste",
+    "transcript": "A significant proportion of the food produced globally is never eaten. Food waste occurs at every stage of the supply chain, from farm losses and transportation problems to supermarket standards and household behaviour. This waste represents not only a moral issue in a world where many people remain undernourished, but also an environmental one, because producing food consumes land, water, and energy. Reducing food waste requires coordinated action by producers, retailers, governments, and consumers.",
+    "wordRange": [
+      50,
+      70
+    ],
+    "duration": 56
+  }
+]

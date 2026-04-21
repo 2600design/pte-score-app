@@ -1,7 +1,8 @@
 Pages['write-essay'] = function() {
   let qIndex=0, timerObj=null;
-  const totalQuestions=DB.writeEssay.length;
-  const questions=getAccessibleQuestions(DB.writeEssay);
+  const sourceQuestions = getMockQuestionSet('writeEssay', DB.writeEssay);
+  const totalQuestions=sourceQuestions.length;
+  const questions=getTodayPlanQuestions('practice-write-essay', getAccessibleQuestions(sourceQuestions));
   qIndex = getInitialQuestionIndex(questions);
   const pageStatePage = 'write-essay';
 
@@ -59,10 +60,12 @@ Pages['write-essay'] = function() {
   <div class="btn-group">
     <button class="btn btn-primary" onclick="WE_submit()">${t('btn_submit_essay')}</button>
     <button class="btn btn-secondary" onclick="WE_prev()" ${qIndex===0?'disabled':''}>${t('btn_prev')}</button>
-    <button class="btn btn-secondary" onclick="WE_next()" ${qIndex===questions.length-1?'disabled':''}>${t('btn_next')}</button>
+    ${qIndex===questions.length-1 ? renderTodayPlanAction('practice-write-essay') || `<button class="btn btn-secondary" onclick="WE_next()" disabled>${t('btn_next')}</button>` : `<button class="btn btn-secondary" onclick="WE_next()">${t('btn_next')}</button>`}
   </div>
   ${renderGuestPracticeUpsell(totalQuestions, questions.length)}
 </div>`;
+    mountMockProgressHeader({ pageKey: 'practice-write-essay', qIndex, question: q, detailPage: 'write-essay' });
+    bindMockDraftPersistence({ pageKey: 'practice-write-essay', question: q, questionType: 'writeEssay', title: t('we_title'), section: 'speakingWriting', sectionLabel: 'Speaking & Writing', promptText: q.prompt });
     timerObj=new CountdownTimer($('#timer-el'),1200,null,()=>WE_submit(true)); timerObj.start();
     if (!restoreSavedUi(q)) WE_update();
   }
@@ -89,7 +92,7 @@ Pages['write-essay'] = function() {
     const paragraphs=text.split(/\n\n+/).filter(p=>p.trim()).length;
     const wc = countWords(text);
     $('#feedback-area').innerHTML=`
-${Scorer.renderLocalStructuredResult({ questionType: 'writeEssay', title: t('we_title'), result, retryAction: 'WE_retry()', nextAction: qIndex < questions.length-1 ? 'WE_next()' : '' })}
+${Scorer.renderLocalStructuredResult({ questionType: 'writeEssay', title: t('we_title'), result, retryAction: 'WE_retry()', nextAction: qIndex < questions.length-1 ? 'WE_next()' : getTodayPlanNextAction('practice-write-essay') })}
 <div class="card" style="margin-top:12px">
   <div style="display:flex;gap:20px;flex-wrap:wrap;font-size:13px">
     <span>Words: <strong>${wc}</strong></span>

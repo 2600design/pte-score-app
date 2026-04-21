@@ -2,7 +2,29 @@ Pages.home = function () {
   const isLoggedIn = !!(window.AppAuth && AppAuth.isLoggedIn());
   const currentLang = getAppLang();
   const isEn = currentLang === 'en';
-  const isMobile = window.innerWidth <= 640;
+  const isNativeIPad = typeof window.isNativeIPad === 'function'
+      ? window.isNativeIPad()
+      : (() => {
+        if (window.__NATIVE_IOS_IPAD__ === true) return true;
+        const ua = navigator.userAgent || '';
+        const capacitorPlatform = typeof window.Capacitor?.getPlatform === 'function'
+          ? window.Capacitor.getPlatform()
+          : (window.Capacitor?.platform || '');
+        const maxScreenEdge = Math.max(window.screen?.width || 0, window.screen?.height || 0);
+        return /iPad/.test(ua)
+          || /PTEscoreNativeiPad/i.test(ua)
+          || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1)
+          || (!!window.Capacitor && /iPad/i.test(ua))
+          || (!!window.Capacitor && capacitorPlatform === 'ios' && navigator.maxTouchPoints > 1 && maxScreenEdge >= 1024);
+      })();
+  const isTabletLikeDevice = typeof window.isTabletLikeDevice === 'function'
+    ? window.isTabletLikeDevice()
+    : (() => {
+        if (isNativeIPad) return true;
+        const minViewport = Math.min(window.innerWidth || 0, window.innerHeight || 0);
+        return minViewport >= 768;
+      })();
+  const isMobile = window.innerWidth <= 640 && !isNativeIPad && !isTabletLikeDevice;
 
   // Calculate today's practice count and streak
   const allHistory = Object.values(Stats.get())
@@ -176,6 +198,15 @@ Pages.home = function () {
           <div class="mob-quick-text">
             <div class="mob-quick-name">${currentLang === 'zh' ? '语音训练' : 'Audio Trainer'}</div>
             <div class="mob-quick-sub">${currentLang === 'zh' ? '口语跟读训练' : 'Pronunciation drills'}</div>
+          </div>
+        </div>
+        <div class="mob-quick-card" onclick="navigate('mock-test')">
+          <div class="mob-quick-icon" style="background:#eff6ff">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2" stroke-linecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="13" y2="17"/></svg>
+          </div>
+          <div class="mob-quick-text">
+            <div class="mob-quick-name">${currentLang === 'zh' ? '完整模考' : 'Mock Test'}</div>
+            <div class="mob-quick-sub">${currentLang === 'zh' ? '全真考试流程' : 'Full exam simulation'}</div>
           </div>
         </div>
       </div>

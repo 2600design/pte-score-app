@@ -21,8 +21,9 @@ Pages['answer-short'] = function() {
     audio: item.audio || item.audioUrl || '',
     isPrediction: true,
   }));
-  const totalQuestions = sourceQuestions.length;
-  const questions = getAccessibleQuestions(sourceQuestions);
+  const mockQuestions = getMockQuestionSet('answerShort', sourceQuestions);
+  const totalQuestions = mockQuestions.length;
+  const questions = getTodayPlanQuestions('practice-answer-short', getAccessibleQuestions(mockQuestions));
   qIndex = getInitialQuestionIndex(questions);
   const isEn = () => typeof getAppLang === 'function' && getAppLang() === 'en';
   const getQuestionRecordingKey = (question) => `answerShort:${question?.id || qIndex}`;
@@ -95,13 +96,23 @@ Pages['answer-short'] = function() {
 
   function render() {
     const q = questions[qIndex];
+    const isApp = !!window.Capacitor;
     syncSelectedQuestion(q);
     if (window.PracticeTracker) PracticeTracker.setCurrentQuestion({ questionId: q.id, questionType: 'answerShort', questionText: q.question });
-    const promptHtml = `
+    const promptHtml = isApp
+      ? `
 <div class="audio-widget">
   <button class="audio-btn" id="play-btn" onclick="ASQ_play()" aria-label="${t('btn_play_audio')}">▶</button>
   <div class="audio-progress">
-    <div class="audio-label">${t('asq_listen_label')}</div>
+    <div class="audio-progress-bar"><div class="audio-progress-fill" id="ap-fill" style="width:0%"></div></div>
+  </div>
+</div>`
+      : `
+<div class="audio-section asq-wide-audio-shell">
+  <div class="audio-section-inner">
+    <button class="audio-btn play-btn asq-wide-play-btn" id="play-btn" onclick="ASQ_play()" aria-label="${t('btn_play_audio')}">▶</button>
+  </div>
+  <div class="audio-progress asq-wide-audio-progress">
     <div class="audio-progress-bar"><div class="audio-progress-fill" id="ap-fill" style="width:0%"></div></div>
   </div>
 </div>`;
@@ -117,10 +128,10 @@ Pages['answer-short'] = function() {
 <div id="result-area"></div>`,
     });
     const footerHtml = `
-<div class="speaking-exam-footer">
+  <div class="speaking-exam-footer">
   <div class="btn-group">
     <button class="btn btn-secondary" onclick="ASQ_prev()" ${qIndex===0 ? 'disabled' : ''}>${t('btn_prev')}</button>
-    <button class="btn btn-primary" onclick="ASQ_next()" ${qIndex===questions.length-1 ? 'disabled' : ''}>${t('btn_next')}</button>
+    ${qIndex===questions.length-1 ? renderTodayPlanAction('practice-answer-short') || `<button class="btn btn-primary" onclick="ASQ_next()" disabled>${t('btn_next')}</button>` : `<button class="btn btn-primary" onclick="ASQ_next()">${t('btn_next')}</button>`}
   </div>
   ${renderGuestPracticeUpsell(totalQuestions, questions.length)}
 </div>`;
@@ -134,6 +145,8 @@ Pages['answer-short'] = function() {
       recentHtml: '<div id="saved-audio-area"></div>',
       footerHtml,
     });
+    mountMockProgressHeader({ pageKey: 'practice-answer-short', qIndex, question: q, detailPage: 'answer-short' });
+    bindMockDraftPersistence({ pageKey: 'practice-answer-short', question: q, questionType: 'answerShort', title: t('asq_title'), section: 'speakingWriting', sectionLabel: 'Speaking & Writing', promptText: q.content || q.question || '' });
     $('#saved-audio-area').innerHTML = AIScorer.renderQuestionRecordingHistory(getQuestionRecordingKey(q));
     updateAudioButton($('#play-btn'), { mode: getPlaybackMode({ source: getQuestionAudioSource(q), fallbackText: q.question }) });
   }

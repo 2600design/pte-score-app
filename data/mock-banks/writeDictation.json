@@ -1,0 +1,402 @@
+[
+  {
+    "id": "wfd1",
+    "tag": "★ 高频真题",
+    "sentence": "The government has announced a new policy to reduce carbon emissions by 2035."
+  },
+  {
+    "id": "wfd2",
+    "tag": "★ 高频真题",
+    "sentence": "Students are advised to arrive at least thirty minutes before the examination begins."
+  },
+  {
+    "id": "wfd3",
+    "tag": "★ 高频真题",
+    "sentence": "The discovery of antibiotics transformed modern medicine and saved millions of lives."
+  },
+  {
+    "id": "wfd4",
+    "tag": "真题",
+    "sentence": "Researchers have found a strong correlation between exercise and improved mental health."
+  },
+  {
+    "id": "wfd5",
+    "tag": "真题",
+    "sentence": "The committee will review all applications before making a final decision next month."
+  },
+  {
+    "id": "wfd6",
+    "tag": "★ 高频真题",
+    "sentence": "Biodiversity is essential to the health and stability of ecosystems around the world."
+  },
+  {
+    "id": "wfd7",
+    "tag": "★ 高频真题",
+    "sentence": "The university library provides access to thousands of academic journals and research papers."
+  },
+  {
+    "id": "wfd8",
+    "tag": "真题",
+    "sentence": "Climate models predict that sea levels could rise by up to one metre by the end of the century."
+  },
+  {
+    "id": "wfd9",
+    "tag": "★ 高频真题",
+    "sentence": "Regular physical activity is one of the most effective ways to maintain both physical and mental health."
+  },
+  {
+    "id": "wfd10",
+    "tag": "预测题",
+    "sentence": "Artificial intelligence is rapidly transforming the way businesses operate and make decisions."
+  },
+  {
+    "id": "wfd11",
+    "tag": "★ 高频真题",
+    "sentence": "The experiment demonstrated a clear relationship between diet and cognitive performance in children."
+  },
+  {
+    "id": "wfd12",
+    "tag": "预测题",
+    "sentence": "International cooperation is essential to addressing the challenges posed by climate change."
+  },
+  {
+    "id": "wfd13",
+    "tag": "真题",
+    "sentence": "Many students struggle to balance academic responsibilities with part-time employment."
+  },
+  {
+    "id": "wfd14",
+    "tag": "★ 高频真题",
+    "sentence": "The findings of the study were consistent with previous research conducted in this field."
+  },
+  {
+    "id": "wfd15",
+    "tag": "预测题",
+    "sentence": "Access to clean water and sanitation remains a critical challenge in many developing nations."
+  },
+  {
+    "id": "wfd16",
+    "tag": "★ 高频预测题",
+    "sentence": "The lecture highlighted the importance of critical thinking in higher education."
+  },
+  {
+    "id": "wfd17",
+    "tag": "预测题",
+    "sentence": "Improving public transport can reduce both pollution and travel time in major cities."
+  },
+  {
+    "id": "wfd18",
+    "tag": "预测题",
+    "sentence": "Scientists are investigating how sleep quality affects memory and learning performance."
+  },
+  {
+    "id": "wfd19",
+    "tag": "★ 高频预测题",
+    "sentence": "The company introduced flexible working hours to improve employee wellbeing and productivity."
+  },
+  {
+    "id": "wfd20",
+    "tag": "预测题",
+    "sentence": "International students should familiarize themselves with local laws and university policies."
+  },
+  {
+    "id": "WFD-001",
+    "tag": "新增题",
+    "sentence": "Education plays a vital role in economic development."
+  },
+  {
+    "id": "WFD-002",
+    "tag": "新增题",
+    "sentence": "The results should be submitted by the end of the week."
+  },
+  {
+    "id": "WFD-003",
+    "tag": "新增题",
+    "sentence": "Technological advancements improve efficiency."
+  },
+  {
+    "id": "WFD-004",
+    "tag": "新增题",
+    "sentence": "The research focuses on environmental sustainability."
+  },
+  {
+    "id": "WFD-005",
+    "tag": "新增题",
+    "sentence": "Students must attend all scheduled classes."
+  },
+  {
+    "id": "WFD-006",
+    "tag": "新增题",
+    "sentence": "The lecture covered important theoretical concepts."
+  },
+  {
+    "id": "WFD-007",
+    "tag": "新增题",
+    "sentence": "The company aims to expand its global presence."
+  },
+  {
+    "id": "WFD-008",
+    "tag": "新增题",
+    "sentence": "The policy addresses key social issues."
+  },
+  {
+    "id": "WFD-009",
+    "tag": "新增题",
+    "sentence": "The experiment produced accurate results."
+  },
+  {
+    "id": "WFD-010",
+    "tag": "新增题",
+    "sentence": "The system requires regular updates."
+  },
+  {
+    "id": "WFD-011",
+    "tag": "新增题",
+    "sentence": "The professor explained the concept clearly."
+  },
+  {
+    "id": "WFD-012",
+    "tag": "新增题",
+    "sentence": "The study examines economic growth patterns."
+  },
+  {
+    "id": "WFD-013",
+    "tag": "新增题",
+    "sentence": "The data was collected over several years."
+  },
+  {
+    "id": "WFD-014",
+    "tag": "新增题",
+    "sentence": "The results indicate a positive trend."
+  },
+  {
+    "id": "WFD-015",
+    "tag": "新增题",
+    "sentence": "The research contributes to scientific knowledge."
+  },
+  {
+    "id": "WFD-016",
+    "tag": "新增题",
+    "sentence": "The lecture was informative and engaging."
+  },
+  {
+    "id": "WFD-017",
+    "tag": "新增题",
+    "sentence": "Students should review the material carefully."
+  },
+  {
+    "id": "WFD-018",
+    "tag": "新增题",
+    "sentence": "The company focuses on customer satisfaction."
+  },
+  {
+    "id": "WFD-019",
+    "tag": "新增题",
+    "sentence": "The system improves operational efficiency."
+  },
+  {
+    "id": "WFD-020",
+    "tag": "新增题",
+    "sentence": "The policy supports sustainable development."
+  },
+  {
+    "id": "WFD-021",
+    "tag": "新增题",
+    "sentence": "The experiment was conducted successfully."
+  },
+  {
+    "id": "WFD-022",
+    "tag": "新增题",
+    "sentence": "The results were published in a journal."
+  },
+  {
+    "id": "WFD-023",
+    "tag": "新增题",
+    "sentence": "The lecture included practical examples."
+  },
+  {
+    "id": "WFD-024",
+    "tag": "新增题",
+    "sentence": "The research highlights important findings."
+  },
+  {
+    "id": "WFD-025",
+    "tag": "新增题",
+    "sentence": "Students are encouraged to participate actively."
+  },
+  {
+    "id": "WFD-026",
+    "tag": "新增题",
+    "sentence": "The system needs to be maintained regularly."
+  },
+  {
+    "id": "WFD-027",
+    "tag": "新增题",
+    "sentence": "The company plans to increase investment."
+  },
+  {
+    "id": "WFD-028",
+    "tag": "新增题",
+    "sentence": "The policy aims to reduce pollution."
+  },
+  {
+    "id": "WFD-029",
+    "tag": "新增题",
+    "sentence": "The results were consistent across groups."
+  },
+  {
+    "id": "WFD-030",
+    "tag": "新增题",
+    "sentence": "The lecture focused on key issues."
+  },
+  {
+    "id": "WFD-031",
+    "tag": "新增题",
+    "sentence": "The research was funded by the government."
+  },
+  {
+    "id": "WFD-032",
+    "tag": "新增题",
+    "sentence": "Students must follow the guidelines carefully."
+  },
+  {
+    "id": "WFD-033",
+    "tag": "新增题",
+    "sentence": "The system improves productivity significantly."
+  },
+  {
+    "id": "WFD-034",
+    "tag": "新增题",
+    "sentence": "The company adopted new strategies."
+  },
+  {
+    "id": "WFD-035",
+    "tag": "新增题",
+    "sentence": "The policy promotes environmental awareness."
+  },
+  {
+    "id": "WFD-036",
+    "tag": "新增题",
+    "sentence": "The results show a clear improvement."
+  },
+  {
+    "id": "WFD-037",
+    "tag": "新增题",
+    "sentence": "The lecture provided useful insights."
+  },
+  {
+    "id": "WFD-038",
+    "tag": "新增题",
+    "sentence": "The research examines global trends."
+  },
+  {
+    "id": "WFD-039",
+    "tag": "新增题",
+    "sentence": "Students should complete the assignment on time."
+  },
+  {
+    "id": "WFD-040",
+    "tag": "新增题",
+    "sentence": "The system is designed to be efficient."
+  },
+  {
+    "id": "WFD-041",
+    "tag": "新增题",
+    "sentence": "The company aims to expand internationally."
+  },
+  {
+    "id": "WFD-042",
+    "tag": "新增题",
+    "sentence": "The policy addresses economic challenges."
+  },
+  {
+    "id": "WFD-043",
+    "tag": "新增题",
+    "sentence": "The results were analyzed carefully."
+  },
+  {
+    "id": "WFD-044",
+    "tag": "新增题",
+    "sentence": "The lecture covered various topics."
+  },
+  {
+    "id": "WFD-045",
+    "tag": "新增题",
+    "sentence": "The research contributes to innovation."
+  },
+  {
+    "id": "WFD-046",
+    "tag": "新增题",
+    "sentence": "Students must attend the workshop."
+  },
+  {
+    "id": "WFD-047",
+    "tag": "新增题",
+    "sentence": "The system requires technical support."
+  },
+  {
+    "id": "WFD-048",
+    "tag": "新增题",
+    "sentence": "The company focuses on long-term growth."
+  },
+  {
+    "id": "WFD-049",
+    "tag": "新增题",
+    "sentence": "The policy encourages sustainable practices."
+  },
+  {
+    "id": "WFD-050",
+    "tag": "新增题",
+    "sentence": "The results indicate strong performance."
+  },
+  {
+    "id": "WFD-051",
+    "tag": "新增题",
+    "sentence": "The lecture emphasized critical thinking."
+  },
+  {
+    "id": "WFD-052",
+    "tag": "新增题",
+    "sentence": "The research provides valuable data."
+  },
+  {
+    "id": "WFD-053",
+    "tag": "新增题",
+    "sentence": "Students should prepare for the exam."
+  },
+  {
+    "id": "WFD-054",
+    "tag": "新增题",
+    "sentence": "The system helps improve performance."
+  },
+  {
+    "id": "WFD-055",
+    "tag": "新增题",
+    "sentence": "The company plans to increase revenue."
+  },
+  {
+    "id": "WFD-056",
+    "tag": "新增题",
+    "sentence": "The policy supports innovation."
+  },
+  {
+    "id": "WFD-057",
+    "tag": "新增题",
+    "sentence": "The results were statistically significant."
+  },
+  {
+    "id": "WFD-058",
+    "tag": "新增题",
+    "sentence": "The lecture included case studies."
+  },
+  {
+    "id": "WFD-059",
+    "tag": "新增题",
+    "sentence": "The research explores new ideas."
+  },
+  {
+    "id": "WFD-060",
+    "tag": "新增题",
+    "sentence": "Students must submit the report on time."
+  }
+]

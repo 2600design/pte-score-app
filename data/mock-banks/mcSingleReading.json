@@ -1,0 +1,146 @@
+[
+  {
+    "id": "mcsr1",
+    "passage": "Microplastics — tiny plastic particles less than five millimetres in size — have been found in every corner of the planet, from the deepest ocean trenches to the highest mountain peaks. These particles originate from the breakdown of larger plastic items and from microbeads used in cosmetics. Recent research has detected microplastics in human blood, lungs, and even placentas, raising serious concerns about potential health effects.",
+    "question": "According to the passage, where have microplastics been found?",
+    "options": [
+      "Only in ocean environments",
+      "Exclusively in cosmetic products",
+      "Everywhere from deep ocean to high mountains",
+      "Only in urban areas"
+    ],
+    "answer": 2
+  },
+  {
+    "id": "mcsr2",
+    "passage": "Urban planners increasingly argue that cities should be designed around people rather than cars. Walkable neighbourhoods with mixed land use, accessible public transport, and nearby services can reduce commuting times and lower emissions. Such designs may also promote healthier lifestyles by encouraging walking and cycling. However, implementing these changes often requires rethinking existing road networks and zoning policies.",
+    "question": "What is one benefit of walkable neighbourhoods mentioned in the passage?",
+    "options": [
+      "Higher fuel consumption",
+      "Longer commuting times",
+      "Healthier lifestyles",
+      "Reduced access to services"
+    ],
+    "answer": 2
+  },
+  {
+    "id": "mcsr3",
+    "passage": "Businesses across many industries are adopting digital tools to streamline routine tasks and improve decision-making. Automated systems can process information quickly, reduce repetitive manual work, and help staff focus on more complex responsibilities. For many organisations, the main benefit of technology lies in making daily operations more efficient.",
+    "question": "What is the main idea of the passage?",
+    "options": [
+      "Technology is harmful",
+      "Technology improves efficiency",
+      "Technology is limited",
+      "Technology is expensive"
+    ],
+    "answer": 1
+  },
+  {
+    "id": "mcsr4",
+    "passage": "The passage explains how public health campaigns encourage healthier behaviour through education, community programs, and better access to information. It describes the methods used and outlines why these efforts matter for society.",
+    "question": "What is the author's purpose?",
+    "options": [
+      "To criticize",
+      "To inform",
+      "To entertain",
+      "To confuse"
+    ],
+    "answer": 1
+  },
+  {
+    "id": "mcsr5",
+    "passage": "Governments and citizens are placing greater emphasis on reducing pollution, conserving natural resources, and protecting biodiversity. The passage discusses practical steps that can support cleaner air, safer water, and healthier ecosystems.",
+    "question": "What is the main focus of the passage?",
+    "options": [
+      "Environmental protection",
+      "Historical events",
+      "Travel advice",
+      "Personal finance"
+    ],
+    "answer": 0
+  },
+  {
+    "id": "mcsr6",
+    "passage": "Higher education often gives students specialised knowledge, transferable skills, and better access to professional networks. These advantages can improve long-term employment prospects and support career development.",
+    "question": "Which statement best matches the passage?",
+    "options": [
+      "Education reduces opportunity",
+      "Education supports career development",
+      "Education has little value",
+      "Education should be avoided"
+    ],
+    "answer": 1
+  },
+  {
+    "id": "mcsr7",
+    "passage": "A new transport policy was introduced in several districts to reduce congestion and improve service reliability. Early reports suggest shorter waiting times and better public satisfaction, although some challenges remain in implementation.",
+    "question": "What can be inferred from the passage?",
+    "options": [
+      "The project failed completely",
+      "The policy had some positive results",
+      "The research was cancelled",
+      "The company closed down"
+    ],
+    "answer": 1
+  },
+  {
+    "id": "mcsr8",
+    "passage": "Recent discoveries in medicine, energy, and environmental science have changed the way people understand the world. The writer highlights how scientific progress continues to influence both daily life and long-term planning.",
+    "question": "What is the writer mainly discussing?",
+    "options": [
+      "Advances in science",
+      "Sports performance",
+      "Fashion trends",
+      "Family traditions"
+    ],
+    "answer": 0
+  },
+  {
+    "id": "mcsr9",
+    "passage": "Modern cities depend on reliable transport networks to connect people with jobs, education, and services. The passage argues that better public transport can reduce traffic, lower emissions, and make urban growth more sustainable.",
+    "question": "What is the central argument?",
+    "options": [
+      "Public transport should be improved",
+      "Public transport should be removed",
+      "Cars are always better",
+      "Cities do not need planning"
+    ],
+    "answer": 0
+  },
+  {
+    "id": "mcsr10",
+    "passage": "The passage explains that reducing emissions and protecting ecosystems require coordinated policies, investment, and long-term commitment. It stresses that sustainability cannot be achieved through words alone.",
+    "question": "What does the passage mainly suggest?",
+    "options": [
+      "Climate change is unimportant",
+      "Research has no value",
+      "Sustainability requires action",
+      "Technology should stop developing"
+    ],
+    "answer": 2
+  },
+  {
+    "id": "mcsr11",
+    "passage": "Economic performance is shaped by a combination of policy choices, technological change, labour conditions, and social stability. The writer emphasises that no single factor can fully explain national growth patterns.",
+    "question": "What is the best summary?",
+    "options": [
+      "Economic growth depends on several factors",
+      "Growth is always guaranteed",
+      "Politics has no influence on growth",
+      "Technology prevents development"
+    ],
+    "answer": 0
+  },
+  {
+    "id": "mcsr12",
+    "passage": "Strong leadership helps teams set priorities, solve problems, and stay focused on shared objectives. When guidance is clear and support is consistent, organisations are more likely to achieve successful outcomes.",
+    "question": "What is the main conclusion?",
+    "options": [
+      "Leadership is unnecessary",
+      "Effective leadership supports success",
+      "Teams should work without direction",
+      "Management reduces performance"
+    ],
+    "answer": 1
+  }
+]

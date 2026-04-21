@@ -1,6 +1,6 @@
 # PTE Practice App
 
-A lightweight PTE Academic practice app for speaking, writing, reading, and listening, now with backend-managed AI scoring and audio transcription for speaking tasks.
+A lightweight PTE Academic practice app for speaking, writing, reading, and listening, with backend-managed speaking feedback and audio transcription support.
 
 ## Features
 

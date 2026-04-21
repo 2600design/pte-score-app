@@ -1,0 +1,189 @@
+[
+  {
+    "id": "mcmr1",
+    "passage": "Sleep plays a critical role in physical and mental health. During sleep, the brain consolidates memories and clears toxic waste products. The body repairs tissues, synthesises proteins, and releases hormones essential for growth. Chronic sleep deprivation is associated with increased risks of obesity, diabetes, cardiovascular disease, and depression. Despite this, many people in modern societies routinely sleep less than the recommended seven to nine hours per night.",
+    "question": "Which of the following are mentioned as benefits of sleep?",
+    "options": [
+      "Memory consolidation",
+      "Weight loss",
+      "Tissue repair",
+      "Improved eyesight",
+      "Hormone release",
+      "Faster metabolism"
+    ],
+    "answers": [
+      0,
+      2,
+      4
+    ]
+  },
+  {
+    "id": "mcmr2",
+    "passage": "Reading fiction has been linked to a range of cognitive and emotional benefits. Researchers suggest that following complex narratives can improve concentration and expand vocabulary. Exposure to fictional characters and situations may also strengthen empathy by encouraging readers to consider perspectives different from their own. While fiction is not a substitute for real-life experience, it can complement education by deepening imagination and interpretive skills.",
+    "question": "Which benefits of reading fiction are mentioned in the passage?",
+    "options": [
+      "Improved concentration",
+      "Expanded vocabulary",
+      "Greater empathy",
+      "Faster reading speed",
+      "Better eyesight",
+      "Stronger imagination"
+    ],
+    "answers": [
+      0,
+      1,
+      2,
+      5
+    ]
+  },
+  {
+    "id": "mcmr3",
+    "passage": "The passage explains that education helps people develop practical abilities and broaden their understanding of the world. It also notes that strong educational systems can support personal growth and long-term social progress.",
+    "question": "Which statements are correct?",
+    "options": [
+      "Education improves skills",
+      "Education reduces knowledge",
+      "Education supports growth",
+      "Education has no impact"
+    ],
+    "answers": [
+      0,
+      2
+    ]
+  },
+  {
+    "id": "mcmr4",
+    "passage": "Governments in many countries are investing in solar, wind, and other cleaner technologies as they try to reduce dependence on fossil fuels. The passage describes renewable energy as an important part of future energy planning.",
+    "question": "Which points are supported by the passage?",
+    "options": [
+      "Renewable energy is important",
+      "Renewable energy is outdated",
+      "Governments invest in cleaner energy",
+      "Fossil fuels are the only solution"
+    ],
+    "answers": [
+      0,
+      2
+    ]
+  },
+  {
+    "id": "mcmr5",
+    "passage": "Scientific research often leads to new tools, improved systems, and better public services. The writer argues that research supports innovation and that scientific progress can produce broad benefits for society.",
+    "question": "Which statements are true?",
+    "options": [
+      "Research can support innovation",
+      "Research has no practical value",
+      "Scientific progress can improve society",
+      "Technology never changes"
+    ],
+    "answers": [
+      0,
+      2
+    ]
+  },
+  {
+    "id": "mcmr6",
+    "passage": "As urban populations increase, cities face growing demands on transport, housing, and public services. The passage notes that this pressure often makes infrastructure investment necessary.",
+    "question": "Which ideas are mentioned?",
+    "options": [
+      "Urban growth creates pressure",
+      "Infrastructure may need investment",
+      "Cities never change",
+      "Population decline is the only concern"
+    ],
+    "answers": [
+      0,
+      1
+    ]
+  },
+  {
+    "id": "mcmr7",
+    "passage": "Successful projects usually depend on realistic schedules, clear planning, and careful use of time. The writer explains that these factors often improve results and reduce avoidable setbacks.",
+    "question": "Which conclusions are reasonable?",
+    "options": [
+      "Good planning improves outcomes",
+      "Time management can matter",
+      "Planning is always unnecessary",
+      "Delays never happen"
+    ],
+    "answers": [
+      0,
+      1
+    ]
+  },
+  {
+    "id": "mcmr8",
+    "passage": "Climate policies are designed to reduce greenhouse gas emissions and limit environmental damage. The passage also highlights the need to protect ecosystems that are vulnerable to rising temperatures and other pressures.",
+    "question": "Which environmental outcomes are supported by the passage?",
+    "options": [
+      "Climate policy can reduce emissions",
+      "Climate policy has no purpose",
+      "Ecosystems may need protection",
+      "Carbon emissions should always rise"
+    ],
+    "answers": [
+      0,
+      2
+    ]
+  },
+  {
+    "id": "mcmr9",
+    "passage": "Digital tools have transformed the way people communicate and the way organisations carry out daily work. The writer points out that technology affects both communication habits and workplace systems.",
+    "question": "Which points are supported?",
+    "options": [
+      "Technology affects communication",
+      "Technology has changed workplaces",
+      "Communication methods never evolve",
+      "Digital systems are never useful"
+    ],
+    "answers": [
+      0,
+      1
+    ]
+  },
+  {
+    "id": "mcmr10",
+    "passage": "Public health campaigns often encourage better eating habits, physical activity, and greater awareness of preventable risks. The passage suggests that health knowledge can influence lifestyle choices.",
+    "question": "Which effects of public health campaigns are mentioned?",
+    "options": [
+      "Health campaigns encourage better habits",
+      "Public health is unrelated to behavior",
+      "Health awareness can influence lifestyle",
+      "Campaigns always fail"
+    ],
+    "answers": [
+      0,
+      2
+    ]
+  },
+  {
+    "id": "mcmr11",
+    "passage": "Universities commonly provide academic guidance, learning materials, and other support services to help students succeed. The writer notes that accessible resources can make study more manageable and effective.",
+    "question": "Which ideas are consistent with the passage?",
+    "options": [
+      "Universities offer student support",
+      "Learning resources can help students",
+      "Students should avoid support services",
+      "Resources have no academic value"
+    ],
+    "answers": [
+      0,
+      1
+    ]
+  },
+  {
+    "id": "mcmr12",
+    "passage": "Economic development is influenced by a range of conditions, including political stability, social structures, and broader financial circumstances. The passage argues that development does not happen in isolation.",
+    "question": "Which factors influencing development are mentioned?",
+    "options": [
+      "Economic stability can affect development",
+      "National development has no influencing factors",
+      "Political conditions may matter",
+      "Social factors are always irrelevant"
+    ],
+    "answers": [
+      0,
+      2
+    ]
+  }
+]

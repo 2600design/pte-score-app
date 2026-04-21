@@ -1,0 +1,83 @@
+[
+  {
+    "id": "we1",
+    "tag": "★ 高频真题",
+    "prompt": "Some people believe that universities should focus purely on academic subjects, while others argue that they should also prepare students for employment. Discuss both views and give your own opinion.",
+    "wordRange": [
+      200,
+      300
+    ]
+  },
+  {
+    "id": "we2",
+    "tag": "★ 高频真题",
+    "prompt": "Technology has made it easier for people to work from home. What are the advantages and disadvantages of remote working? Use specific examples to support your answer.",
+    "wordRange": [
+      200,
+      300
+    ]
+  },
+  {
+    "id": "we3",
+    "tag": "真题",
+    "prompt": "Some governments are considering imposing a tax on sugar-sweetened beverages to combat obesity. Do the benefits of such a policy outweigh the disadvantages?",
+    "wordRange": [
+      200,
+      300
+    ]
+  },
+  {
+    "id": "we4",
+    "tag": "★ 高频真题",
+    "prompt": "In many countries, the gap between the rich and the poor is widening. What do you think are the causes of this problem, and what measures could be taken to address it?",
+    "wordRange": [
+      200,
+      300
+    ]
+  },
+  {
+    "id": "we5",
+    "tag": "预测题",
+    "prompt": "Artificial intelligence will soon replace human workers in most industries. To what extent do you agree or disagree with this statement?",
+    "wordRange": [
+      200,
+      300
+    ]
+  },
+  {
+    "id": "we6",
+    "tag": "预测题",
+    "prompt": "Some people argue that protecting the environment should be the top priority for governments, even if it means limiting economic growth. Do you agree or disagree?",
+    "wordRange": [
+      200,
+      300
+    ]
+  },
+  {
+    "id": "we7",
+    "tag": "★ 高频预测题",
+    "prompt": "Many people believe that children should learn financial skills such as budgeting and saving at school. Do you agree or disagree? Give reasons and examples.",
+    "wordRange": [
+      200,
+      300
+    ]
+  },
+  {
+    "id": "we8",
+    "tag": "预测题",
+    "prompt": "Some people think that international travel broadens the mind, while others believe people can learn enough about the world through books and media. Discuss both views and give your opinion.",
+    "wordRange": [
+      200,
+      300
+    ]
+  },
+  {
+    "id": "we9",
+    "tag": "预测题",
+    "prompt": "Large cities should invest more in public parks and open spaces than in new commercial developments. To what extent do you agree or disagree?",
+    "wordRange": [
+      200,
+      300
+    ]
+  }
+]

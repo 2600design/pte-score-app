@@ -1,0 +1,166 @@
+[
+  {
+    "id": "rfib1",
+    "title": "The Amazon Rainforest",
+    "fullText": "The Amazon rainforest covers approximately 5.5 million square kilometres and contains about ten percent of all species on Earth. It plays a vital role in regulating the global climate by absorbing vast amounts of carbon dioxide and releasing oxygen. Deforestation, driven primarily by agriculture and logging, threatens this irreplaceable ecosystem. Scientists warn that if current rates continue, the Amazon could reach a tipping point beyond which it transitions from rainforest to savanna.",
+    "blanks": [
+      {
+        "word": "approximately",
+        "hint": "about, roughly"
+      },
+      {
+        "word": "regulating",
+        "hint": "controlling"
+      },
+      {
+        "word": "Deforestation",
+        "hint": "cutting down trees"
+      },
+      {
+        "word": "irreplaceable",
+        "hint": "cannot be replaced"
+      },
+      {
+        "word": "tipping",
+        "hint": "critical point"
+      }
+    ]
+  },
+  {
+    "id": "rfib2",
+    "title": "Digital Education",
+    "fullText": "Online learning platforms have expanded access to education for millions of people around the world. Students can now access lectures, interactive exercises, and discussion forums regardless of their geographic location. However, successful online learning requires self-discipline, reliable internet access, and carefully designed course materials. Educators increasingly argue that the most effective model combines the flexibility of digital delivery with the support of human interaction.",
+    "blanks": [
+      {
+        "word": "expanded",
+        "hint": "increased"
+      },
+      {
+        "word": "interactive",
+        "hint": "engaging"
+      },
+      {
+        "word": "self-discipline",
+        "hint": "personal control"
+      },
+      {
+        "word": "flexibility",
+        "hint": "adaptability"
+      },
+      {
+        "word": "interaction",
+        "hint": "communication"
+      }
+    ]
+  },
+  {
+    "id": "rfib3",
+    "title": "Technology and Communication",
+    "fullText": "The rapid development of technology has changed the way people communicate.",
+    "blanks": [
+      {
+        "word": "changed",
+        "hint": "altered"
+      }
+    ]
+  },
+  {
+    "id": "rfib4",
+    "title": "Growth Factors",
+    "fullText": "Economic growth depends on both internal and external factors.",
+    "blanks": [
+      {
+        "word": "external",
+        "hint": "outside"
+      }
+    ]
+  },
+  {
+    "id": "rfib5",
+    "title": "Education and Careers",
+    "fullText": "Education plays a vital role in shaping future careers.",
+    "blanks": [
+      {
+        "word": "role",
+        "hint": "function"
+      }
+    ]
+  },
+  {
+    "id": "rfib6",
+    "title": "Academic Publication",
+    "fullText": "The research findings were published in an international journal.",
+    "blanks": [
+      {
+        "word": "published",
+        "hint": "printed"
+      }
+    ]
+  },
+  {
+    "id": "rfib7",
+    "title": "Energy Solutions",
+    "fullText": "Many companies are focusing on renewable energy solutions.",
+    "blanks": [
+      {
+        "word": "renewable",
+        "hint": "sustainable"
+      }
+    ]
+  },
+  {
+    "id": "rfib8",
+    "title": "Population Trends",
+    "fullText": "The data shows a steady increase in population growth.",
+    "blanks": [
+      {
+        "word": "increase",
+        "hint": "rise"
+      }
+    ]
+  },
+  {
+    "id": "rfib9",
+    "title": "Project Planning",
+    "fullText": "The project requires effective planning and time management.",
+    "blanks": [
+      {
+        "word": "time",
+        "hint": "schedule"
+      }
+    ]
+  },
+  {
+    "id": "rfib10",
+    "title": "Living Standards",
+    "fullText": "Technological advances have improved living standards.",
+    "blanks": [
+      {
+        "word": "living",
+        "hint": "daily life"
+      }
+    ]
+  },
+  {
+    "id": "rfib11",
+    "title": "Student Support",
+    "fullText": "The university provides various resources for students.",
+    "blanks": [
+      {
+        "word": "resources",
+        "hint": "materials"
+      }
+    ]
+  },
+  {
+    "id": "rfib12",
+    "title": "Global Responsibility",
+    "fullText": "Environmental protection has become a global priority.",
+    "blanks": [
+      {
+        "word": "priority",
+        "hint": "main concern"
+      }
+    ]
+  }
+]

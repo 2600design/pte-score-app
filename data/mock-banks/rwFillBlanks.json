@@ -1,0 +1,280 @@
+[
+  {
+    "id": "rwfib1",
+    "title": "Ocean Plastic Pollution",
+    "parts": [
+      "Plastic pollution in the world's oceans has reached crisis ",
+      "proportions. Every year, millions of tonnes of plastic ",
+      "enter marine environments, ",
+      "wildlife and contaminating the food chain. Scientists have identified vast ",
+      "garbage patches in the Pacific Ocean, where currents concentrate floating debris. "
+    ],
+    "blanks": [
+      {
+        "options": [
+          "alarming",
+          "joyful",
+          "helpful",
+          "minor"
+        ],
+        "answer": "alarming"
+      },
+      {
+        "options": [
+          "waste",
+          "gifts",
+          "water",
+          "air"
+        ],
+        "answer": "waste"
+      },
+      {
+        "options": [
+          "harming",
+          "helping",
+          "saving",
+          "ignoring"
+        ],
+        "answer": "harming"
+      },
+      {
+        "options": [
+          "floating",
+          "sinking",
+          "burning",
+          "freezing"
+        ],
+        "answer": "floating"
+      }
+    ]
+  },
+  {
+    "id": "rwfib2",
+    "title": "Renewable Cities",
+    "parts": [
+      "Many city governments are investing in cleaner transport systems to reduce air ",
+      "and traffic congestion. Electric buses, bicycle lanes, and pedestrian-friendly streets can improve public health while making urban areas more ",
+      ". However, these changes require careful planning, public support, and significant financial ",
+      "."
+    ],
+    "blanks": [
+      {
+        "options": [
+          "pollution",
+          "celebration",
+          "sunshine",
+          "tourism"
+        ],
+        "answer": "pollution"
+      },
+      {
+        "options": [
+          "livable",
+          "dangerous",
+          "isolated",
+          "silent"
+        ],
+        "answer": "livable"
+      },
+      {
+        "options": [
+          "investment",
+          "confusion",
+          "failure",
+          "dust"
+        ],
+        "answer": "investment"
+      }
+    ]
+  },
+  {
+    "id": "rwfib3",
+    "title": "Clean Energy Demand",
+    "parts": [
+      "The increasing demand for energy has led to a rise in ",
+      " sources such as solar power."
+    ],
+    "blanks": [
+      {
+        "options": [
+          "renewable",
+          "temporary",
+          "limited",
+          "artificial"
+        ],
+        "answer": "renewable"
+      }
+    ]
+  },
+  {
+    "id": "rwfib4",
+    "title": "Innovation and Growth",
+    "parts": [
+      "Economic development is closely linked to ",
+      " innovation."
+    ],
+    "blanks": [
+      {
+        "options": [
+          "scientific",
+          "social",
+          "cultural",
+          "random"
+        ],
+        "answer": "scientific"
+      }
+    ]
+  },
+  {
+    "id": "rwfib5",
+    "title": "Education and Work",
+    "parts": [
+      "Education plays a significant role in ",
+      " opportunities."
+    ],
+    "blanks": [
+      {
+        "options": [
+          "career",
+          "travel",
+          "leisure",
+          "routine"
+        ],
+        "answer": "career"
+      }
+    ]
+  },
+  {
+    "id": "rwfib6",
+    "title": "Environmental Policy",
+    "parts": [
+      "The government aims to ",
+      " environmental protection."
+    ],
+    "blanks": [
+      {
+        "options": [
+          "promote",
+          "reduce",
+          "ignore",
+          "delay"
+        ],
+        "answer": "promote"
+      }
+    ]
+  },
+  {
+    "id": "rwfib7",
+    "title": "Productivity Gains",
+    "parts": [
+      "Technological advances have improved ",
+      " efficiency."
+    ],
+    "blanks": [
+      {
+        "options": [
+          "overall",
+          "random",
+          "unusual",
+          "partial"
+        ],
+        "answer": "overall"
+      }
+    ]
+  },
+  {
+    "id": "rwfib8",
+    "title": "Long-Term Trends",
+    "parts": [
+      "The study focuses on ",
+      " change over time."
+    ],
+    "blanks": [
+      {
+        "options": [
+          "gradual",
+          "sudden",
+          "immediate",
+          "random"
+        ],
+        "answer": "gradual"
+      }
+    ]
+  },
+  {
+    "id": "rwfib9",
+    "title": "Transport Reform",
+    "parts": [
+      "The policy aims to ",
+      " public transportation."
+    ],
+    "blanks": [
+      {
+        "options": [
+          "improve",
+          "remove",
+          "reduce",
+          "delay"
+        ],
+        "answer": "improve"
+      }
+    ]
+  },
+  {
+    "id": "rwfib10",
+    "title": "Research Quality",
+    "parts": [
+      "The research provides ",
+      " evidence."
+    ],
+    "blanks": [
+      {
+        "options": [
+          "strong",
+          "weak",
+          "unclear",
+          "irrelevant"
+        ],
+        "answer": "strong"
+      }
+    ]
+  },
+  {
+    "id": "rwfib11",
+    "title": "Business Expansion",
+    "parts": [
+      "The company plans to ",
+      " its operations."
+    ],
+    "blanks": [
+      {
+        "options": [
+          "expand",
+          "reduce",
+          "cancel",
+          "avoid"
+        ],
+        "answer": "expand"
+      }
+    ]
+  },
+  {
+    "id": "rwfib12",
+    "title": "System Performance",
+    "parts": [
+      "The system improves ",
+      " performance."
+    ],
+    "blanks": [
+      {
+        "options": [
+          "overall",
+          "minor",
+          "temporary",
+          "limited"
+        ],
+        "answer": "overall"
+      }
+    ]
+  }
+]

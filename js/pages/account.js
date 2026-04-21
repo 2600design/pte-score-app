@@ -21,20 +21,12 @@ function getProfileDisplayName(userEmail, currentLang) {
   return userEmail !== '—' ? userEmail.split('@')[0] : (currentLang === 'zh' ? '同学' : 'Guest');
 }
 
-function getProfileAvatarUrl() {
-  return window.AppProfile?.getAvatarUrl ? AppProfile.getAvatarUrl(AppAuth?.user) : '';
-}
-
 function getProfileInitial(userEmail, currentLang) {
   if (window.AppProfile?.getInitial) return AppProfile.getInitial(AppAuth?.user, currentLang);
   return getProfileDisplayName(userEmail, currentLang).charAt(0).toUpperCase();
 }
 
 function renderProfileAvatar(userEmail, currentLang) {
-  const avatarUrl = getProfileAvatarUrl();
-  if (avatarUrl) {
-    return `<img src="${avatarUrl}" alt="" class="mob-user-avatar-image">`;
-  }
   return getProfileInitial(userEmail, currentLang);
 }
 
@@ -48,13 +40,6 @@ function ensureProfileModal() {
       <div id="profile-modal-title" class="exam-goal-title"></div>
       <div id="profile-modal-copy" class="exam-goal-copy"></div>
     </div>
-    <div class="profile-edit-avatar-row">
-      <div id="profile-avatar-preview" class="mob-user-avatar profile-avatar-preview"></div>
-      <label class="btn btn-outline profile-upload-btn">
-        <input id="profile-avatar-input" type="file" accept="image/*" hidden>
-        <span id="profile-avatar-btn-text"></span>
-      </label>
-    </div>
     <label class="exam-goal-field">
       <span id="profile-name-label"></span>
       <input id="profile-name-input" type="text" maxlength="24">
@@ -66,21 +51,6 @@ function ensureProfileModal() {
   </div>
 </div>`);
 
-  const input = document.getElementById('profile-avatar-input');
-  if (input) {
-    input.addEventListener('change', event => {
-      const file = event.target.files && event.target.files[0];
-      if (!file) return;
-      const reader = new FileReader();
-      reader.onload = () => {
-        const preview = document.getElementById('profile-avatar-preview');
-        if (!preview) return;
-        preview.dataset.avatarUrl = String(reader.result || '');
-        preview.innerHTML = `<img src="${String(reader.result || '')}" alt="" class="mob-user-avatar-image">`;
-      };
-      reader.readAsDataURL(file);
-    });
-  }
 }
 
 function ensureExamGoalModal() {
@@ -291,31 +261,19 @@ window.AccountSettings_editProfile = function(focusField = '') {
   const copy = document.getElementById('profile-modal-copy');
   const nameLabel = document.getElementById('profile-name-label');
   const nameInput = document.getElementById('profile-name-input');
-  const avatarBtn = document.getElementById('profile-avatar-btn-text');
   const cancel = document.getElementById('profile-cancel');
   const save = document.getElementById('profile-save');
-  const preview = document.getElementById('profile-avatar-preview');
-  if (!overlay || !nameInput || !preview) return;
+  if (!overlay || !nameInput) return;
 
-  const avatarUrl = getProfileAvatarUrl();
   title.textContent = currentLang === 'zh' ? '编辑个人资料' : 'Edit profile';
-  copy.textContent = currentLang === 'zh' ? '修改用户名并上传头像' : 'Update your display name and avatar';
+  copy.textContent = currentLang === 'zh' ? '修改用户名' : 'Update your display name';
   nameLabel.textContent = currentLang === 'zh' ? '用户名' : 'Display name';
-  avatarBtn.textContent = currentLang === 'zh' ? '上传头像' : 'Upload avatar';
   cancel.textContent = currentLang === 'zh' ? '取消' : 'Cancel';
   save.textContent = currentLang === 'zh' ? '保存' : 'Save';
   nameInput.value = getProfileDisplayName(userEmail, currentLang);
-  preview.dataset.avatarUrl = avatarUrl || '';
-  preview.innerHTML = avatarUrl
-    ? `<img src="${avatarUrl}" alt="" class="mob-user-avatar-image">`
-    : getProfileInitial(userEmail, currentLang);
   overlay.classList.remove('hidden');
   document.body.classList.add('modal-open');
   setTimeout(() => {
-    if (focusField === 'avatar') {
-      document.getElementById('profile-avatar-input')?.click();
-      return;
-    }
     nameInput.focus();
   }, 0);
 };
@@ -331,12 +289,10 @@ window.AccountSettings_saveProfile = function() {
   const currentLang = typeof getAppLang === 'function' ? getAppLang() : 'zh';
   const userEmail = AppAuth?.user?.email || '—';
   const nameInput = document.getElementById('profile-name-input');
-  const preview = document.getElementById('profile-avatar-preview');
-  if (!nameInput || !preview || !window.AppProfile?.save) return;
+  if (!nameInput || !window.AppProfile?.save) return;
   const displayName = String(nameInput.value || '').trim() || getProfileDisplayName(userEmail, currentLang);
   AppProfile.save({
     displayName,
-    avatarUrl: preview.dataset.avatarUrl || '',
   });
   window.AccountSettings_closeProfileModal();
 };
@@ -415,7 +371,7 @@ Pages['account-settings'] = function () {
 <div class="mob-page">
   <div class="mob-profile-hero">
     <div class="mob-user-row">
-      <button class="mob-user-avatar mob-user-avatar-btn" type="button" onclick="AccountSettings_editProfile('avatar')">${renderProfileAvatar(userEmail, currentLang)}</button>
+      <div class="mob-user-avatar">${renderProfileAvatar(userEmail, currentLang)}</div>
       <div style="flex:1;min-width:0">
         <div class="mob-user-name">${userName}</div>
         <div class="mob-user-email">${userEmail}</div>
@@ -472,12 +428,6 @@ Pages['account-settings'] = function () {
           <span class="mob-settings-value">${userName}</span>
           <span class="mob-settings-chevron">›</span>
         </div>
-        <div class="mob-settings-row" onclick="AccountSettings_editProfile()">
-          <div class="mob-settings-icon" style="background:#f5f3ff">🖼️</div>
-          <span class="mob-settings-label">${currentLang === 'zh' ? '头像' : 'Avatar'}</span>
-          <span class="mob-settings-value">${getProfileAvatarUrl() ? (currentLang === 'zh' ? '已上传' : 'Uploaded') : (currentLang === 'zh' ? '默认' : 'Default')}</span>
-          <span class="mob-settings-chevron">›</span>
-        </div>
         <div class="mob-settings-row" onclick="AccountSettings_editExamGoal()">
           <div class="mob-settings-icon" style="background:#fff7ed">🎯</div>
           <span class="mob-settings-label">${currentLang === 'zh' ? '目标与考试日期' : 'Goal & exam date'}</span>
@@ -499,6 +449,11 @@ Pages['account-settings'] = function () {
         <div class="mob-settings-row" onclick="navigate('progress')">
           <div class="mob-settings-icon" style="background:#f5f3ff">📊</div>
           <span class="mob-settings-label">${currentLang === 'zh' ? '详细进度报告' : 'Progress report'}</span>
+          <span class="mob-settings-chevron">›</span>
+        </div>
+        <div class="mob-settings-row" onclick="navigate('support')">
+          <div class="mob-settings-icon" style="background:#eff6ff">?</div>
+          <span class="mob-settings-label">Support</span>
           <span class="mob-settings-chevron">›</span>
         </div>
       </div>
@@ -611,6 +566,15 @@ Pages['account-settings'] = function () {
       <button class="btn btn-primary" onclick="requestMicPreauth('account-settings')" ${micState === 'granted' ? 'disabled' : ''}>${t('btn_enable_mic')}</button>
       ${micState === 'granted' ? `<span style="font-size:12.5px;color:var(--success)">${t('mic_already_enabled')}</span>` : ''}
     </div>
+  </div>
+
+  <div class="card settings-card">
+    <div class="eyebrow">Support</div>
+    <div class="card-title" style="margin-bottom:10px">Support</div>
+    <p style="font-size:13.5px;color:var(--text-light);line-height:1.7;margin-bottom:14px">
+      Need help with account, login, profile, or technical issues?
+    </p>
+    <button class="btn btn-outline" onclick="navigate('support')">Support</button>
   </div>
 </div>`;
 };

@@ -8,6 +8,7 @@ Pages['repeat-sentence'] = function() {
   let silenceWatcher = null;
   let preRecordSecondsLeft = 0;
   let finalText = '';
+  let interimText = '';
   let recordingUrl = '';
   let recordingBlob = null;
   let recordingDurationSeconds = 0;
@@ -100,6 +101,7 @@ Pages['repeat-sentence'] = function() {
 
   function resetAttemptState() {
     finalText = '';
+    interimText = '';
     latestResult = null;
     latestInsight = null;
     submitState = 'idle';
@@ -412,7 +414,7 @@ ${AIScorer.renderMetricCards(metrics)}
       PracticeTracker.setCurrentQuestion({ questionId: q.id, questionType: 'repeatSentence', questionText: q.text });
     }
     const promptHtml = `
-<div class="audio-widget rs-audio-widget">
+<div class="audio-widget rs-audio-widget rs-wide-audio-shell">
   <button class="audio-btn rs-audio-btn" id="play-btn" onclick="RS_play()">▶</button>
   <div class="audio-progress">
     <div class="audio-progress-bar"><div class="audio-progress-fill" id="ap-fill" style="width:0%"></div></div>
@@ -544,6 +546,7 @@ ${AIScorer.renderMetricCards(metrics)}
       },
       onResult: ({ final, interim }) => {
         finalText = final || finalText;
+        interimText = interim || interimText;
         if ((final || interim || '').trim()) {
           speechDetected = true;
           if (silenceWatcher) silenceWatcher.markSpeechDetected();
@@ -551,6 +554,7 @@ ${AIScorer.renderMetricCards(metrics)}
       },
       onEnd: async ({ final, audioUrl }) => {
         finalText = final || finalText;
+        if (!String(finalText || '').trim()) finalText = interimText || finalText;
         recordingUrl = audioUrl || recordingUrl;
         recordingDurationSeconds = Math.max(1, Math.round((Date.now() - recordingStartedAt) / 1000));
         const mode = stopMode;
@@ -607,53 +611,8 @@ ${AIScorer.renderMetricCards(metrics)}
       return;
     }
     if (!currentDraftId) await saveDraftRecordingIfNeeded();
-    const transcript = String(finalText || '').trim();
-    if ((!transcript || failedStartWindow) && window.Capacitor?.isNativePlatform?.() && window.AIScorer && recordingBlob) {
-      const q = getCurrentQuestion();
-      const stopLoader = SpeakingAudio.mountStageLoader($('#score-area'));
-      try {
-        const aiResult = await AIScorer.scoreAudio({
-          file: new File([recordingBlob], 'repeat-sentence.wav', { type: recordingBlob.type || 'audio/webm' }),
-          mimeType: recordingBlob.type || 'audio/webm',
-          durationSeconds: recordingDurationSeconds || 1,
-          task: 'speaking',
-          promptType: 'Repeat Sentence',
-          questionText: q.text,
-          referenceAnswer: q.text,
-        });
-        latestResult = {
-          pte: aiResult.overall || 0,
-          rubric: Array.isArray(aiResult.breakdown) ? aiResult.breakdown : [],
-        };
-        latestInsight = {
-          suggestion: aiResult.feedback?.summary || '',
-          issues: Array.isArray(aiResult.feedback?.issues) ? aiResult.feedback.issues : [],
-        };
-        submitState = 'submitted';
-        Stats.record('repeatSentence', aiResult.overall || 0, 90, {
-          transcript: aiResult.transcript || '',
-          ai_feedback: aiResult.feedback?.summary || '',
-        });
-        if (currentDraftId && window.RecordingArchive) {
-          await window.RecordingArchive.updateScore(currentDraftId, aiResult.overall || null);
-          await loadHistory();
-        }
-        $('#score-area').innerHTML = AIScorer.renderSpeakingResult(aiResult, {
-          promptType: t('rs_title'),
-          referenceText: q.text,
-          audioUrl: recordingUrl,
-          retryAction: 'RS_tryAgain()',
-          nextAction: qIndex < questions.length - 1 ? 'RS_next()' : '',
-        });
-        renderBottomActions();
-      } catch (error) {
-        $('#score-area').innerHTML = AIScorer.renderError(AIScorer.getErrorMessage(error));
-      } finally {
-        stopLoader && stopLoader();
-      }
-      return;
-    }
-    if (!transcript || failedStartWindow) {
+    const transcript = String(finalText || interimText || '').trim();
+    if (failedStartWindow) {
       latestResult = null;
       latestInsight = null;
       $('#score-area').innerHTML = `
@@ -668,10 +627,18 @@ ${AIScorer.renderMetricCards(metrics)}
     latestResult = Scorer.repeatSentence(transcript, q.text);
     latestInsight = Scorer.getSpeakingInsights(latestResult, transcript, q.text);
     submitState = 'submitted';
-    Stats.record('repeatSentence', latestResult.pte || 0, 90, { transcript, ai_feedback: latestInsight.suggestion });
-    if (currentDraftId && window.RecordingArchive) {
-      await window.RecordingArchive.updateScore(currentDraftId, latestResult.pte || null);
-      await loadHistory();
+    try {
+      Stats.record('repeatSentence', latestResult.pte || 0, 90, { transcript, ai_feedback: latestInsight.suggestion });
+    } catch (error) {
+      console.warn('Repeat Sentence stats save failed', error);
+    }
+    try {
+      if (currentDraftId && window.RecordingArchive) {
+        await window.RecordingArchive.updateScore(currentDraftId, latestResult.pte || null);
+        await loadHistory();
+      }
+    } catch (error) {
+      console.warn('Repeat Sentence archive score update failed', error);
     }
     renderScoredResult();
     renderBottomActions();

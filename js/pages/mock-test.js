@@ -1,6 +1,17 @@
+function getMockPlanSummary(type = 'full') {
+  const plan = getMockPlan(type);
+  const totalQuestions = plan.reduce((sum, step) => sum + (Number(step?.count) || 0), 0);
+  return { plan, totalQuestions };
+}
+
 Pages['mock-test'] = function() {
   const isMobile = window.innerWidth <= 640;
   const currentLang = getAppLang();
+  const fullSummary = getMockPlanSummary('full');
+  const speakingSummary = getMockPlanSummary('speaking');
+  const writingSummary = getMockPlanSummary('writing');
+  const readingSummary = getMockPlanSummary('reading');
+  const listeningSummary = getMockPlanSummary('listening');
 
   // ── Mobile rendering ──────────────────────────────────────────────────────
   if (isMobile) {
@@ -13,10 +24,10 @@ Pages['mock-test'] = function() {
     const mockCount = mockHistory.length;
 
     const sections = [
-      { label: currentLang === 'zh' ? '口语专项' : 'Speaking', desc: 'RA · RS · DI · RL · ASQ', time: '~30 min', action: "MT_start('speaking')", grad: 'linear-gradient(135deg,#3b82f6,#60a5fa)' },
-      { label: currentLang === 'zh' ? '写作专项' : 'Writing',  desc: 'SWT · Essay · WFD',      time: '~30 min', action: "MT_start('writing')",  grad: 'linear-gradient(135deg,#f59e0b,#fbbf24)' },
-      { label: currentLang === 'zh' ? '阅读专项' : 'Reading',  desc: 'RWFIB · MCQ · ROP',      time: '~32 min', action: "MT_start('reading')",  grad: 'linear-gradient(135deg,#10b981,#34d399)' },
-      { label: currentLang === 'zh' ? '听力专项' : 'Listening', desc: 'SST · FBL · HCS · WFD', time: '~45 min', action: "MT_start('listening')", grad: 'linear-gradient(135deg,#8b5cf6,#a78bfa)' },
+      { label: currentLang === 'zh' ? '口语专项' : 'Speaking', desc: `RA × 5 · RS × 4 · DI × 3 · RL × 2 · ASQ × 5 · ${speakingSummary.totalQuestions}${currentLang === 'zh' ? '题' : 'q'}`, time: '~30 min', action: "MT_start('speaking')", grad: 'linear-gradient(135deg,#3b82f6,#60a5fa)' },
+      { label: currentLang === 'zh' ? '写作专项' : 'Writing',  desc: `SWT × 2 · Essay × 1 · ${writingSummary.totalQuestions}${currentLang === 'zh' ? '题' : 'q'}`, time: '~30 min', action: "MT_start('writing')",  grad: 'linear-gradient(135deg,#f59e0b,#fbbf24)' },
+      { label: currentLang === 'zh' ? '阅读专项' : 'Reading',  desc: `RWFIB · MCSR · MCMR · ROP · RFIB · ${readingSummary.totalQuestions}${currentLang === 'zh' ? '题' : 'q'}`, time: '~32 min', action: "MT_start('reading')",  grad: 'linear-gradient(135deg,#10b981,#34d399)' },
+      { label: currentLang === 'zh' ? '听力专项' : 'Listening', desc: `SST · MCSL · MCML · FBL · HCS · SMW · HI · WFD × 4 · ${listeningSummary.totalQuestions}${currentLang === 'zh' ? '题' : 'q'}`, time: '~45 min', action: "MT_start('listening')", grad: 'linear-gradient(135deg,#8b5cf6,#a78bfa)' },
     ];
 
     const sectionCards = sections.map(s => `
@@ -62,12 +73,12 @@ Pages['mock-test'] = function() {
   <div class="mob-content">
     <button class="mob-full-mock-cta" onclick="MT_start('full')">
       <span class="mob-full-mock-cta-title">${currentLang === 'zh' ? '开始完整模考' : 'Start Full Mock Test'}</span>
-      <span class="mob-full-mock-cta-subtitle">${currentLang === 'zh' ? '~2小时 · 本地评分 · 真实考试流程' : '~2 hours · Local scoring · Real exam format'}</span>
+      <span class="mob-full-mock-cta-subtitle">${currentLang === 'zh' ? `共 ${fullSummary.totalQuestions} 题 · ~2小时 · 本地评分 · 真实考试流程` : `${fullSummary.totalQuestions} questions · ~2 hours · Local scoring · Real exam format`}</span>
     </button>
     <div class="mob-full-mock-info">
-      <div>${currentLang === 'zh' ? '包含：口语与写作（约60分钟）' : 'Includes: Speaking & Writing (~60 min)'}</div>
-      <div>${currentLang === 'zh' ? '阅读（约30分钟）' : '• Reading (~30 min)'}</div>
-      <div>${currentLang === 'zh' ? '听力（约40分钟）' : '• Listening (~40 min)'}</div>
+      <div>${currentLang === 'zh' ? `包含：口语 ${speakingSummary.totalQuestions} 题 + 写作 ${writingSummary.totalQuestions} 题` : `Includes: Speaking ${speakingSummary.totalQuestions} + Writing ${writingSummary.totalQuestions}`}</div>
+      <div>${currentLang === 'zh' ? `阅读 ${readingSummary.totalQuestions} 题（约30分钟）` : `• Reading ${readingSummary.totalQuestions} questions (~30 min)`}</div>
+      <div>${currentLang === 'zh' ? `听力 ${listeningSummary.totalQuestions} 题（约40分钟）` : `• Listening ${listeningSummary.totalQuestions} questions (~40 min)`}</div>
       <div>${currentLang === 'zh' ? '自动计时 · 不可暂停 · 真实流程' : '• Auto timed · No pause · Real flow'}</div>
     </div>
     <div style="font-size:12px;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:.5px;margin-bottom:-6px">${currentLang === 'zh' ? '专项模考' : 'Practice by Section'}</div>
@@ -90,13 +101,19 @@ Pages['mock-test'] = function() {
   $('#page-container').innerHTML = `
 <div class="page-header">
   <h1>模拟考试 Mock Test <span class="badge badge-speaking">Full Test</span></h1>
-  <p>Complete a timed full-length PTE mock test.</p>
+  <p>${currentLang === 'zh' ? `当前原创完整模考共 ${fullSummary.totalQuestions} 题，可直接开始整套或分模块练习。` : `The current original full mock contains ${fullSummary.totalQuestions} questions. Start the full test or practice by section.`}</p>
 </div>
 <div class="grid-3" style="margin-bottom:24px">
+  <div class="skill-card" onclick="MT_start('full')" style="grid-column:1 / -1;border:1px solid rgba(96,165,250,.3);background:linear-gradient(135deg,rgba(15,29,54,.98),rgba(30,53,96,.98));color:#fff">
+    <div class="skill-icon">🧪</div>
+    <div class="skill-title" style="color:#f8fbff">${currentLang === 'zh' ? '完整原创模考' : 'Original Full Mock Test'}</div>
+    <div class="skill-desc" style="color:rgba(226,232,240,.92)">${currentLang === 'zh' ? `共 ${fullSummary.totalQuestions} 题，按完整考试顺序进行` : `${fullSummary.totalQuestions} questions in the full exam order`}</div>
+    <div class="skill-count" style="color:#7dd3fc">${currentLang === 'zh' ? '~2 小时 · 自动进入下一模块' : '~2 hours · Auto-advances through every section'}</div>
+  </div>
   <div class="skill-card" onclick="MT_start('speaking')">
     <div class="skill-icon">🎤</div>
     <div class="skill-title">Speaking Section</div>
-    <div class="skill-desc">RA × 2 · RS × 2 · DI × 1 · RL × 1 · ASQ × 2</div>
+    <div class="skill-desc">RA × 5 · RS × 4 · DI × 3 · RL × 2 · ASQ × 5</div>
     <div class="skill-count">~30 minutes</div>
   </div>
   <div class="skill-card" onclick="MT_start('writing')">
@@ -108,20 +125,14 @@ Pages['mock-test'] = function() {
   <div class="skill-card" onclick="MT_start('reading')">
     <div class="skill-icon">📖</div>
     <div class="skill-title">Reading Section</div>
-    <div class="skill-desc">RWFIB · MCSR · MCMR · ROP · RFIB</div>
+    <div class="skill-desc">RWFIB × 5 · MCMR × 2 · ROP × 3 · RFIB × 4 · MCSR × 2</div>
     <div class="skill-count">~32 minutes</div>
   </div>
   <div class="skill-card" onclick="MT_start('listening')">
     <div class="skill-icon">🎧</div>
     <div class="skill-title">Listening Section</div>
-    <div class="skill-desc">SST · FBL · HCS · SMW · HI · WFD</div>
+    <div class="skill-desc">SST × 2 · MCML × 2 · FBL × 4 · HCS × 2 · MCSL × 2 · SMW × 2 · HI × 2 · WFD × 4</div>
     <div class="skill-count">~45 minutes</div>
-  </div>
-  <div class="skill-card" onclick="MT_start('mini')">
-    <div class="skill-icon">⚡</div>
-    <div class="skill-title">Mini Mock (Quick)</div>
-    <div class="skill-desc">One question from each section</div>
-    <div class="skill-count">~15 minutes</div>
   </div>
 </div>
 
@@ -207,13 +218,132 @@ function generateMockHistory() {
   return rows || '<div class="empty-state"><div class="empty-icon">📊</div><p>Complete exercises to see your stats here</p></div>';
 }
 
-window.MT_start = function(type) {
-  if (type === 'full') {
-    const isZh = typeof getAppLang === 'function' ? getAppLang() === 'zh' : true;
-    showToast(isZh ? '完整模考流程还没有接好，先保留在 Mock Test 页面。' : 'The full mock flow is not wired up yet, so this stays on the Mock Test page for now.');
+function getMockPlan(type) {
+  return typeof window.getMockBlueprint === 'function' ? window.getMockBlueprint(type) : [];
+}
+
+window.MT_start = async function(type) {
+  const plan = getMockPlan(type);
+  const isZh = typeof getAppLang === 'function' ? getAppLang() === 'zh' : true;
+  await startMockSession('full_mock_1', type);
+  startTodayPlan(plan);
+  const labelMap = {
+    full: isZh ? '完整原创模考' : 'original full mock test',
+    speaking: isZh ? '口语原创模考' : 'original speaking mock',
+    writing: isZh ? '写作原创模考' : 'original writing mock',
+    reading: isZh ? '阅读原创模考' : 'original reading mock',
+    listening: isZh ? '听力原创模考' : 'original listening mock',
+  };
+  showToast(isZh ? `开始${labelMap[type] || labelMap.full}，加油。` : `Starting the ${labelMap[type] || labelMap.full}. Good luck.`);
+};
+
+window.MT_restart = async function(type = 'full') {
+  clearMockSession();
+  await MT_start(type);
+};
+
+Pages['mock-results'] = function() {
+  const session = getMockSession();
+  if (!session) {
+    navigate('mock-test', { replace: true });
     return;
   }
-  const map = { speaking:'read-aloud', writing:'summarize-written', reading:'rw-fill-blanks', listening:'summarize-spoken', mini:'read-aloud' };
-  navigate(map[type]);
-  showToast(`Starting ${type} section — good luck! 🎯`);
+  const reviewItems = getMockReviewItems();
+  const sectionStats = ['speakingWriting', 'reading', 'listening']
+    .map(section => collectMockSectionStats(section))
+    .filter(Boolean);
+  const answered = reviewItems.filter(item => item.response?.answered).length;
+  const scored = reviewItems.map(item => item.response?.score).filter(score => typeof score === 'number');
+  const averageScore = scored.length ? Math.round(scored.reduce((sum, score) => sum + score, 0) / scored.length) : null;
+  const currentLang = getAppLang();
+
+  $('#page-container').innerHTML = `
+<div class="page-header">
+  <h1>${currentLang === 'zh' ? '模考结果' : 'Mock Test Results'}</h1>
+  <p>${currentLang === 'zh' ? '本次完整模考已结束，可查看整体表现并进入答题回顾。' : 'Your mock exam is complete. Review the overall summary and inspect your answers.'}</p>
+</div>
+<div class="mock-results-grid">
+  <div class="card mock-result-hero">
+    <div class="mock-result-kicker">${session.title || 'PTE Full Mock Test'}</div>
+    <div class="mock-result-score">${averageScore == null ? '—' : averageScore}</div>
+    <div class="mock-result-sub">${currentLang === 'zh' ? '综合估算分' : 'Estimated Overall Score'}</div>
+    <div class="mock-result-pill-row">
+      <div class="mock-result-pill"><span>${currentLang === 'zh' ? '已作答' : 'Answered'}</span><strong>${answered}</strong></div>
+      <div class="mock-result-pill"><span>${currentLang === 'zh' ? '未作答' : 'Unanswered'}</span><strong>${Math.max(0, reviewItems.length - answered)}</strong></div>
+      <div class="mock-result-pill"><span>${currentLang === 'zh' ? '总题数' : 'Total Questions'}</span><strong>${reviewItems.length}</strong></div>
+    </div>
+    <div class="btn-group" style="margin-top:16px">
+      <button class="btn btn-primary" onclick="navigate('mock-review')">${currentLang === 'zh' ? '查看答案回顾' : 'Review Answers'}</button>
+      <button class="btn btn-outline" onclick="MT_restart('${session.mode || 'full'}')">${currentLang === 'zh' ? '重新开始模考' : 'Restart Mock Test'}</button>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-title">${currentLang === 'zh' ? '分区概览' : 'Section Summary'}</div>
+    <div class="mock-section-summary">
+      ${sectionStats.map(section => `
+<div class="mock-section-row">
+  <div>
+    <div class="mock-section-row-title">${section.label}</div>
+    <div class="mock-section-row-meta">${section.answered}/${section.total} ${currentLang === 'zh' ? '已完成' : 'answered'}</div>
+  </div>
+  <div class="mock-section-row-end">
+    <div class="mock-section-row-score">${section.averageScore == null ? '—' : section.averageScore}</div>
+    <div class="mock-section-row-caption">${currentLang === 'zh' ? '估算分' : 'est.'}</div>
+  </div>
+</div>`).join('')}
+    </div>
+  </div>
+</div>`;
+};
+
+Pages['mock-review'] = function() {
+  const session = getMockSession();
+  if (!session) {
+    navigate('mock-test', { replace: true });
+    return;
+  }
+  const currentLang = getAppLang();
+  const reviewItems = getMockReviewItems();
+
+  $('#page-container').innerHTML = `
+<div class="page-header">
+  <h1>${currentLang === 'zh' ? '模考回顾' : 'Mock Review'}</h1>
+  <p>${currentLang === 'zh' ? '查看每道题的作答状态、草稿内容和标准答案。' : 'Inspect each question, your saved response, and the correct answer when available.'}</p>
+</div>
+<div class="mock-review-list">
+  ${reviewItems.map(item => {
+    const draftSummary = item.response?.draft?.summary || item.response?.transcript || '';
+    const correctAnswer = item.response?.correctAnswer || '';
+    return `
+<div class="card mock-review-card">
+  <div class="mock-review-card-top">
+    <div>
+      <div class="mock-review-card-tag">${item.sectionLabel}</div>
+      <div class="mock-review-card-title">${item.overallNumber}. ${item.title}</div>
+    </div>
+    <div class="mock-review-card-status ${item.response?.answered ? 'is-answered' : 'is-unanswered'}">
+      ${item.response?.answered ? (currentLang === 'zh' ? '已作答' : 'Answered') : (currentLang === 'zh' ? '未作答' : 'Unanswered')}
+    </div>
+  </div>
+  <div class="mock-review-card-prompt">${Scorer.escapeHtml((item.response?.promptText || item.question?.prompt || item.question?.text || item.question?.transcript || item.question?.content || item.question?.title || '').slice(0, 280) || '—')}</div>
+  <div class="mock-review-card-grid">
+    <div>
+      <div class="mock-review-label">${currentLang === 'zh' ? '你的答案' : 'Your Answer'}</div>
+      <div class="mock-review-value">${Scorer.escapeHtml(draftSummary || (currentLang === 'zh' ? '暂无保存内容' : 'No saved response yet.'))}</div>
+    </div>
+    <div>
+      <div class="mock-review-label">${currentLang === 'zh' ? '参考答案' : 'Correct Answer'}</div>
+      <div class="mock-review-value">${Scorer.escapeHtml(correctAnswer || (currentLang === 'zh' ? '该题型暂不提供固定标准答案' : 'No fixed answer key for this task type.'))}</div>
+    </div>
+  </div>
+  <div class="mock-review-footer">
+    <span>${currentLang === 'zh' ? '分数' : 'Score'}: <strong>${typeof item.response?.score === 'number' ? item.response.score : '—'}</strong></span>
+  </div>
+</div>`;
+  }).join('')}
+</div>
+<div class="btn-group" style="margin-top:18px">
+  <button class="btn btn-outline" onclick="navigate('mock-results')">${currentLang === 'zh' ? '返回结果页' : 'Back to Results'}</button>
+  <button class="btn btn-primary" onclick="MT_restart('${session.mode || 'full'}')">${currentLang === 'zh' ? '重新开始模考' : 'Restart Mock Test'}</button>
+</div>`;
 };

@@ -8,10 +8,10 @@ window.I18N = {
     nav_account: '账号', nav_settings: '设置', nav_account_settings: '我的', nav_mock_test: '模考',
     nav_section_learning: '学习', nav_section_account: '账号', nav_section_practice: '练习', nav_section_tools: '工具',
     nav_smart_practice: '智能练习', nav_tools: '工具', nav_prediction_bank: '预测题库', nav_high_frequency: '高频题', nav_mistakes: '错题本', nav_audio_trainer: '语音训练',
-    nav_question_bank: '题库', nav_profile: '个人中心',
+    nav_question_bank: '题库', nav_profile: '个人中心', nav_support: 'Support',
     nav_practice_history: '练习记录', nav_wrong_answers: '错题本', nav_saved_recordings: '录音记录',
     nav_predicted_questions: '预测题', nav_high_frequency_questions: '高频题',
-    nav_pronunciation_training: '发音训练', nav_my_account: '我的账户',
+    nav_pronunciation_training: '发音训练', nav_my_account: '账户设置',
     nav_all_types: '全部题型', nav_speaking: 'Speaking', nav_writing: 'Writing', nav_reading: 'Reading', nav_listening: 'Listening',
     label_home: '主页', label_speaking: '口语', label_writing: '写作', label_reading: '阅读', label_listening: '听力', label_mixed: '综合',
     audioTrainer: '随身听训练', audio_trainer_subtitle: '像播放器一样连续收听 Repeat Sentence 和 Write From Dictation。', audio_trainer_read_aloud: 'Read Aloud', audio_trainer_repeat_sentence: 'Repeat Sentence',
@@ -294,8 +294,8 @@ window.I18N = {
     account_title: '账号', account_subtitle: '管理登录状态、同步能力与学习记录保存方式。',
     account_status_title: '当前状态', account_signed_in: '已登录', account_signed_out: '未登录',
     account_signed_in_as: '当前登录账号', account_sync_title: '同步与保存',
-    account_sync_copy_in: '你的练习记录、AI评分结果和进度会自动保存到当前账号。',
-    account_sync_copy_out: '登录后，你的练习记录、AI评分结果和进度会自动保存到当前账号。',
+    account_sync_copy_in: '你的练习记录和进度会自动保存到当前账号。',
+    account_sync_copy_out: '登录后，你的练习记录和进度会自动保存到当前账号。',
     account_actions_title: '快捷操作', account_open_progress: '打开我的进度', account_open_settings: '打开设置',
     account_login_hint: '登录后可解锁完整学习记录。',
     // Auth modal
@@ -402,10 +402,10 @@ window.I18N = {
     nav_account: 'Account', nav_settings: 'Settings', nav_account_settings: 'My Profile', nav_mock_test: 'Mock Test',
     nav_section_learning: 'Learning', nav_section_account: 'Account', nav_section_practice: 'Practice', nav_section_tools: 'Tools',
     nav_smart_practice: 'Smart Practice', nav_tools: 'Tools', nav_prediction_bank: 'Prediction Bank', nav_high_frequency: 'High Frequency', nav_mistakes: 'Mistakes', nav_audio_trainer: 'Audio Trainer',
-    nav_question_bank: 'Question Bank', nav_profile: 'Profile',
+    nav_question_bank: 'Question Bank', nav_profile: 'Profile', nav_support: 'Support',
     nav_practice_history: 'Practice History', nav_wrong_answers: 'Wrong Answers', nav_saved_recordings: 'Saved Recordings',
     nav_predicted_questions: 'Predicted Questions', nav_high_frequency_questions: 'High-frequency Questions',
-    nav_pronunciation_training: 'Pronunciation Training', nav_my_account: 'My Account',
+    nav_pronunciation_training: 'Pronunciation Training', nav_my_account: 'Account Settings',
     nav_all_types: 'All Types', nav_speaking: 'Speaking', nav_writing: 'Writing', nav_reading: 'Reading', nav_listening: 'Listening',
     label_home: 'Home', label_speaking: 'Speaking', label_writing: 'Writing', label_reading: 'Reading', label_listening: 'Listening', label_mixed: 'Mixed',
     audioTrainer: 'Audio Trainer', audio_trainer_subtitle: 'Train in continuous playlist mode with Repeat Sentence and Write From Dictation.', audio_trainer_read_aloud: 'Read Aloud', audio_trainer_repeat_sentence: 'Repeat Sentence',
@@ -689,8 +689,8 @@ window.I18N = {
     account_title: 'Account', account_subtitle: 'Manage sign-in status, sync capability, and how your study records are saved.',
     account_status_title: 'Current Status', account_signed_in: 'Signed in', account_signed_out: 'Signed out',
     account_signed_in_as: 'Signed in as', account_sync_title: 'Sync & Storage',
-    account_sync_copy_in: 'Your practice history, AI scoring results, and progress are automatically saved to this account.',
-    account_sync_copy_out: 'After you sign in, your practice history, AI scoring results, and progress are automatically saved to this account.',
+    account_sync_copy_in: 'Your practice history and progress are automatically saved to this account.',
+    account_sync_copy_out: 'After you sign in, your practice history and progress are automatically saved to this account.',
     account_actions_title: 'Quick Actions', account_open_progress: 'Open My Progress', account_open_settings: 'Open Settings',
     account_login_hint: 'Sign in to unlock full study history.',
     // Auth modal
@@ -818,7 +818,10 @@ const PAGE_PATHS = {
   progress: '/progress',
   'study-plan': '/study-plan',
   'account-settings': '/account-settings',
+  support: '/support',
   'mock-test': '/mock-test',
+  'mock-results': '/mock-test/results',
+  'mock-review': '/mock-test/review',
   'tools-prediction-bank': '/tools/prediction-bank',
   'tools-high-frequency': '/tools/high-frequency',
   'tools-mistakes': '/tools/mistakes',
@@ -854,7 +857,7 @@ const SIDEBAR_GROUPS = [
     type: 'group',
     icon: '🎯',
     labelKey: 'nav_practice',
-    targetPage: 'practice',
+    targetPage: 'practice-all',
     children: [
       { key: 'practice-speaking', labelKey: 'nav_speaking' },
       { key: 'practice-writing', labelKey: 'nav_writing' },
@@ -913,7 +916,7 @@ const SIDEBAR_GROUPS = [
     targetPage: 'account-settings',
     children: [
       { key: 'profile-account', labelKey: 'nav_my_account', targetPage: 'account-settings' },
-      { key: 'profile-settings', labelKey: 'nav_settings', targetPage: 'settings' },
+      { key: 'profile-support', labelKey: 'nav_support', targetPage: 'support' },
     ],
   },
 ];
@@ -944,8 +947,17 @@ function getPathForPage(page = '') {
 
 function getSidebarActiveItem(page = '') {
   const current = resolveNavigationPage(page || window.__currentPage || sessionStorage.getItem('pte_page') || 'home');
+  const isMockQuestionPage = PRACTICE_SKILL_PAGES.speaking.includes(current)
+    || PRACTICE_SKILL_PAGES.writing.includes(current)
+    || PRACTICE_SKILL_PAGES.reading.includes(current)
+    || PRACTICE_SKILL_PAGES.listening.includes(current)
+    || current === 'question-list';
   if (current === 'question-list') {
     return getSidebarActiveItem(getQuestionTargetPage() || 'practice-all');
+  }
+  if (current === 'mock-results' || current === 'mock-review') return 'mock-test';
+  if (typeof isMockSessionActive === 'function' && isMockSessionActive() && isMockQuestionPage) {
+    return 'mock-test';
   }
   if (current === 'practice') return 'practice';
   if (current === 'progress') return 'progress-history';
@@ -954,7 +966,8 @@ function getSidebarActiveItem(page = '') {
   if (current === 'tools-high-frequency') return 'question-bank-high-frequency';
   if (current === 'tools-audio-trainer' || current === 'audio-trainer') return 'tools-pronunciation';
   if (current === 'account-settings' || current === 'account') return 'profile-account';
-  if (current === 'settings') return 'profile-settings';
+  if (current === 'support') return 'profile-support';
+  if (current === 'settings') return 'profile-account';
   if (PAGE_PATHS[current]) return current;
   if (PRACTICE_SKILL_PAGES.speaking.includes(current)) return 'practice-speaking';
   if (PRACTICE_SKILL_PAGES.writing.includes(current)) return 'practice-writing';
@@ -1125,7 +1138,7 @@ function setPageCleanup(cleanup) {
 
 function getPageLayout(page) {
   if (page === 'home') return 'dashboard';
-  if (page === 'practice' || page === 'practice-all' || page === 'practice-speaking' || page === 'practice-writing' || page === 'practice-reading' || page === 'practice-listening' || page === 'tools-prediction-bank' || page === 'tools-high-frequency' || page === 'tools-mistakes' || page === 'tools-audio-trainer' || page === 'progress' || page === 'study-plan' || page === 'account-settings' || page === 'settings' || page === 'account' || page === 'mock-test' || page === 'audio-trainer' || page === 'question-list') return 'wide';
+  if (page === 'practice' || page === 'practice-all' || page === 'practice-speaking' || page === 'practice-writing' || page === 'practice-reading' || page === 'practice-listening' || page === 'tools-prediction-bank' || page === 'tools-high-frequency' || page === 'tools-mistakes' || page === 'tools-audio-trainer' || page === 'progress' || page === 'study-plan' || page === 'account-settings' || page === 'settings' || page === 'support' || page === 'account' || page === 'mock-test' || page === 'mock-results' || page === 'mock-review' || page === 'audio-trainer' || page === 'question-list') return 'wide';
   if (String(page || '').startsWith('practice-')) return 'wide';
   return 'focus';
 }
@@ -1139,6 +1152,10 @@ function setPageLayout(mode = 'wide') {
 
 function navigate(page, options = {}) {
   const targetPage = resolveNavigationPage(page);
+  const isMockQuestionPage = PRACTICE_SKILL_PAGES.speaking.includes(targetPage)
+    || PRACTICE_SKILL_PAGES.writing.includes(targetPage)
+    || PRACTICE_SKILL_PAGES.reading.includes(targetPage)
+    || PRACTICE_SKILL_PAGES.listening.includes(targetPage);
   runPageCleanup();
   window.__currentPage = targetPage;
 
@@ -1163,6 +1180,23 @@ function navigate(page, options = {}) {
     fn();
   } else {
     $('#page-container').innerHTML = `<div class="empty-state"><div class="empty-icon">🚧</div><p>${t('page_not_found')}: "${targetPage}".</p></div>`;
+  }
+  applyCurrentMockLinearNavigation(targetPage);
+
+  // Inject back button into non-speaking question pages
+  const pageHeader = $('#page-container .page-header');
+  if (pageHeader && !pageHeader.querySelector('.page-back-btn')) {
+    const backTarget = (typeof isMockSessionActive === 'function' && isMockSessionActive() && isMockQuestionPage)
+      ? 'mock-test'
+      : targetPage === 'support'
+        ? 'account-settings'
+        : 'practice';
+    const backBtn = document.createElement('button');
+    backBtn.className = 'page-back-btn';
+    backBtn.setAttribute('aria-label', backTarget === 'mock-test' ? 'Back to mock test' : backTarget === 'account-settings' ? 'Back to profile' : 'Back to practice');
+    backBtn.onclick = () => navigate(backTarget);
+    backBtn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 5l-7 7 7 7"/></svg> Back`;
+    $('#page-container').insertBefore(backBtn, $('#page-container').firstChild);
   }
 
   const nextPath = getPathForPage(targetPage);
@@ -1190,6 +1224,7 @@ function refreshCurrentPage() {
   renderMobileHeaderControls(currentPage);
   const fn = Pages[currentPage];
   if (fn) fn();
+  applyCurrentMockLinearNavigation(currentPage);
 }
 
 function toggleDrawer() {
@@ -1214,6 +1249,69 @@ const QUESTION_LATEST_ONLY_KEY = 'pte_prediction_latest_only';
 const QUESTION_TARGET_PAGE_KEY = 'pte_question_target_page';
 const QUESTION_SELECTED_ID_KEY = 'pte_question_selected_id';
 const PAGE_UI_STATE_KEY = 'pte_page_ui_state_v1';
+const MOCK_SESSION_KEY = 'pte_mock_session_v2';
+const MOCK_SESSION_LEGACY_KEY = 'pte_mock_session_v1';
+const MOCK_BANK_BASE_PATH = '/data/mock-banks';
+const MOCK_TOTAL_DURATION_SECONDS = 2 * 60 * 60;
+const MOCK_SECTION_LABELS = {
+  speakingWriting: 'Speaking & Writing',
+  reading: 'Reading',
+  listening: 'Listening',
+};
+const MOCK_SECTION_DURATIONS = {
+  speakingWriting: 65 * 60,
+  reading: 32 * 60,
+  listening: 45 * 60,
+};
+const MOCK_PLAN_BLUEPRINT = [
+  { questionType: 'readAloud', page: 'practice-read-aloud', detailPage: 'read-aloud', count: 5, title: 'Read Aloud', section: 'speakingWriting', sectionLabel: MOCK_SECTION_LABELS.speakingWriting },
+  { questionType: 'repeatSentence', page: 'practice-repeat-sentence', detailPage: 'repeat-sentence', count: 4, title: 'Repeat Sentence', section: 'speakingWriting', sectionLabel: MOCK_SECTION_LABELS.speakingWriting },
+  { questionType: 'describeImage', page: 'practice-describe-image', detailPage: 'describe-image', count: 3, title: 'Describe Image', section: 'speakingWriting', sectionLabel: MOCK_SECTION_LABELS.speakingWriting },
+  { questionType: 'retellLecture', page: 'practice-retell-lecture', detailPage: 'retell-lecture', count: 2, title: 'Re-tell Lecture', section: 'speakingWriting', sectionLabel: MOCK_SECTION_LABELS.speakingWriting },
+  { questionType: 'answerShort', page: 'practice-answer-short', detailPage: 'answer-short', count: 5, title: 'Answer Short Question', section: 'speakingWriting', sectionLabel: MOCK_SECTION_LABELS.speakingWriting },
+  { questionType: 'summarizeWritten', page: 'practice-summarize-written', detailPage: 'summarize-written', count: 2, title: 'Summarize Written Text', section: 'speakingWriting', sectionLabel: MOCK_SECTION_LABELS.speakingWriting },
+  { questionType: 'writeEssay', page: 'practice-write-essay', detailPage: 'write-essay', count: 1, title: 'Write Essay', section: 'speakingWriting', sectionLabel: MOCK_SECTION_LABELS.speakingWriting },
+  { questionType: 'rwFillBlanks', page: 'practice-rw-fill-blanks', detailPage: 'rw-fill-blanks', count: 5, title: 'Reading & Writing Fill in the Blanks', section: 'reading', sectionLabel: MOCK_SECTION_LABELS.reading },
+  { questionType: 'mcMultipleReading', page: 'practice-mc-multiple-reading', detailPage: 'mc-multiple-reading', count: 2, title: 'Multiple Choice Multiple Answers', section: 'reading', sectionLabel: MOCK_SECTION_LABELS.reading },
+  { questionType: 'reorderParagraphs', page: 'practice-reorder-paragraphs', detailPage: 'reorder-paragraphs', count: 3, title: 'Re-order Paragraphs', section: 'reading', sectionLabel: MOCK_SECTION_LABELS.reading },
+  { questionType: 'rFillBlanks', page: 'practice-r-fill-blanks', detailPage: 'r-fill-blanks', count: 4, title: 'Fill in the Blanks', section: 'reading', sectionLabel: MOCK_SECTION_LABELS.reading },
+  { questionType: 'mcSingleReading', page: 'practice-mc-single-reading', detailPage: 'mc-single-reading', count: 2, title: 'Multiple Choice Single Answer', section: 'reading', sectionLabel: MOCK_SECTION_LABELS.reading },
+  { questionType: 'summarizeSpoken', page: 'practice-summarize-spoken', detailPage: 'summarize-spoken', count: 2, title: 'Summarize Spoken Text', section: 'listening', sectionLabel: MOCK_SECTION_LABELS.listening },
+  { questionType: 'mcMultipleListening', page: 'practice-mc-multiple-listening', detailPage: 'mc-multiple-listening', count: 2, title: 'Multiple Choice Multiple Answers', section: 'listening', sectionLabel: MOCK_SECTION_LABELS.listening },
+  { questionType: 'fillBlanksListening', page: 'practice-fill-blanks-listening', detailPage: 'fill-blanks-listening', count: 4, title: 'Fill in the Blanks', section: 'listening', sectionLabel: MOCK_SECTION_LABELS.listening },
+  { questionType: 'highlightSummary', page: 'practice-highlight-summary', detailPage: 'highlight-summary', count: 2, title: 'Highlight Correct Summary', section: 'listening', sectionLabel: MOCK_SECTION_LABELS.listening },
+  { questionType: 'mcSingleListening', page: 'practice-mc-single-listening', detailPage: 'mc-single-listening', count: 2, title: 'Multiple Choice Single Answer', section: 'listening', sectionLabel: MOCK_SECTION_LABELS.listening },
+  { questionType: 'selectMissing', page: 'practice-select-missing', detailPage: 'select-missing', count: 2, title: 'Select Missing Word', section: 'listening', sectionLabel: MOCK_SECTION_LABELS.listening },
+  { questionType: 'highlightIncorrect', page: 'practice-highlight-incorrect', detailPage: 'highlight-incorrect', count: 2, title: 'Highlight Incorrect Words', section: 'listening', sectionLabel: MOCK_SECTION_LABELS.listening },
+  { questionType: 'writeDictation', page: 'practice-write-dictation', detailPage: 'write-dictation', count: 4, title: 'Write From Dictation', section: 'listening', sectionLabel: MOCK_SECTION_LABELS.listening },
+];
+const MOCK_BANK_CACHE = {};
+const MOCK_BANK_OVERRIDES = {
+  fillBlanksListening: [
+    {
+      id: 'fbl3',
+      title: 'Urban Water Supply',
+      transcript: 'Cities depend on complex water supply systems to deliver clean drinking water to homes and businesses. Water is usually collected from reservoirs, rivers, or underground sources, then treated to remove harmful bacteria and impurities. After treatment, it is pumped through a network of pipes and storage facilities. Regular monitoring is essential to maintain safety, efficiency, and long-term reliability.',
+      blanks: [
+        { before: 'Water is usually collected from ', key: 'reservoirs', after: ', rivers, or underground sources' },
+        { before: 'then treated to remove harmful bacteria and ', key: 'impurities', after: '.' },
+        { before: 'it is pumped through a network of pipes and ', key: 'storage facilities', after: '.' },
+        { before: 'Regular monitoring is essential to maintain safety, efficiency, and long-term ', key: 'reliability', after: '.' }
+      ]
+    },
+    {
+      id: 'fbl4',
+      title: 'Marine Ecosystems',
+      transcript: 'Marine ecosystems support an enormous variety of life and provide important benefits to human societies. Coral reefs, mangroves, and seagrass beds offer habitats for fish and other species, while also protecting coastlines from erosion. However, pollution, overfishing, and rising ocean temperatures are placing these environments under increasing pressure. Conservation efforts therefore focus on restoration, regulation, and public awareness.',
+      blanks: [
+        { before: 'Marine ecosystems support an enormous variety of life and provide important ', key: 'benefits', after: ' to human societies.' },
+        { before: 'offer ', key: 'habitats', after: ' for fish and other species' },
+        { before: 'protecting coastlines from ', key: 'erosion', after: '.' },
+        { before: 'Conservation efforts therefore focus on restoration, regulation, and public ', key: 'awareness', after: '.' }
+      ]
+    }
+  ]
+};
 
 function isGuestUser() {
   return !(window.AppAuth && AppAuth.isLoggedIn && AppAuth.isLoggedIn());
@@ -1221,6 +1319,7 @@ function isGuestUser() {
 
 function getAccessibleQuestions(questions) {
   if (!Array.isArray(questions)) return [];
+  if (isMockSessionActive()) return questions;
   return isGuestUser() ? questions.slice(0, Math.min(GUEST_FREE_QUESTION_LIMIT, questions.length)) : questions;
 }
 
@@ -1259,7 +1358,7 @@ function renderProtectedFeatureGate(titleKey, copyKey) {
   <p style="font-size:13.5px;color:var(--text-light);line-height:1.7;margin-bottom:16px">${t(copyKey)}</p>
   <div class="btn-group">
     <button class="btn btn-primary" onclick="openLoginPrompt()">${t('btn_sign_in')}</button>
-    <button class="btn btn-outline" onclick="navigate('practice')">${t('nav_practice')}</button>
+    <button class="btn btn-outline" onclick="navigate('practice-all')">${t('nav_practice')}</button>
   </div>
 </div>`;
 }
@@ -1272,6 +1371,446 @@ function getPredictionBankRaw() {
     describeImage: [],
     retellLecture: [],
   };
+}
+
+function getMockSetsRaw() {
+  return window.PTE_MOCK_SETS || {};
+}
+
+function getMockSession() {
+  try {
+    const raw = sessionStorage.getItem(MOCK_SESSION_KEY)
+      || localStorage.getItem(MOCK_SESSION_KEY)
+      || sessionStorage.getItem(MOCK_SESSION_LEGACY_KEY)
+      || 'null';
+    const session = JSON.parse(raw);
+    if (!session || !session.mockId) return null;
+    return session;
+  } catch (_error) {
+    return null;
+  }
+}
+
+function isMockSessionActive() {
+  const session = getMockSession();
+  return !!session && session.status === 'in_progress';
+}
+
+function persistMockSession(session) {
+  if (!session) return;
+  const serialized = JSON.stringify(session);
+  sessionStorage.setItem(MOCK_SESSION_KEY, serialized);
+  localStorage.setItem(MOCK_SESSION_KEY, serialized);
+  sessionStorage.removeItem(MOCK_SESSION_LEGACY_KEY);
+}
+
+function getMockBlueprint(mode = 'full') {
+  const full = MOCK_PLAN_BLUEPRINT.map(step => ({ ...step }));
+  const speaking = full.slice(0, 5);
+  const writing = full.slice(5, 7);
+  const reading = full.slice(7, 12);
+  const listening = full.slice(12);
+  const mini = [
+    { ...full[0], count: 1 },
+    { ...full[5], count: 1 },
+    { ...full[7], count: 1 },
+    { ...full[12], count: 1 },
+  ];
+  return ({
+    full,
+    speaking,
+    writing,
+    reading,
+    listening,
+    mini,
+  })[mode] || full;
+}
+
+function cloneJsonSafe(value) {
+  return JSON.parse(JSON.stringify(value));
+}
+
+function shuffleMockList(items = []) {
+  const list = Array.isArray(items) ? items.slice() : [];
+  for (let i = list.length - 1; i > 0; i -= 1) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [list[i], list[j]] = [list[j], list[i]];
+  }
+  return list;
+}
+
+async function loadMockBank(questionType = '') {
+  if (!questionType) return [];
+  if (Array.isArray(MOCK_BANK_CACHE[questionType])) return MOCK_BANK_CACHE[questionType];
+  const baseBank = Array.isArray(DB?.[questionType]) ? cloneJsonSafe(DB[questionType]) : [];
+  const overrideBank = Array.isArray(MOCK_BANK_OVERRIDES[questionType]) ? cloneJsonSafe(MOCK_BANK_OVERRIDES[questionType]) : [];
+  if (baseBank.length || overrideBank.length) {
+    MOCK_BANK_CACHE[questionType] = [...baseBank, ...overrideBank];
+    return MOCK_BANK_CACHE[questionType];
+  }
+  try {
+    const response = await fetch(`${MOCK_BANK_BASE_PATH}/${questionType}.json`, { cache: 'no-store' });
+    if (!response.ok) throw new Error(`Failed to load ${questionType}`);
+    const payload = await response.json();
+    MOCK_BANK_CACHE[questionType] = Array.isArray(payload) ? payload : [];
+    return MOCK_BANK_CACHE[questionType];
+  } catch (_error) {
+    MOCK_BANK_CACHE[questionType] = [];
+    return MOCK_BANK_CACHE[questionType];
+  }
+}
+
+async function buildMockSelections(steps = []) {
+  const selections = {};
+  for (const step of steps) {
+    const bank = await loadMockBank(step.questionType);
+    const sampled = shuffleMockList(bank).slice(0, Math.min(step.count, bank.length)).map(cloneJsonSafe);
+    selections[step.questionType] = sampled;
+  }
+  return selections;
+}
+
+function getMockTotalQuestions(steps = []) {
+  return (Array.isArray(steps) ? steps : []).reduce((sum, step) => sum + (Number(step?.count) || 0), 0);
+}
+
+function getMockDurationSeconds(mode = 'full', steps = []) {
+  if (mode === 'full') return MOCK_TOTAL_DURATION_SECONDS;
+  const usedSections = [...new Set((steps || []).map(step => step.section).filter(Boolean))];
+  return usedSections.reduce((sum, section) => sum + (MOCK_SECTION_DURATIONS[section] || 0), 0) || (30 * 60);
+}
+
+async function startMockSession(mockId = 'full_mock_1', mode = 'full') {
+  const steps = getMockBlueprint(mode);
+  const selections = await buildMockSelections(steps);
+  const totalQuestions = Object.values(selections).reduce((sum, items) => sum + (Array.isArray(items) ? items.length : 0), 0);
+  const startedAt = new Date();
+  const durationSeconds = getMockDurationSeconds(mode, steps);
+  const session = {
+    mockId: String(mockId),
+    mode: String(mode || 'full'),
+    title: String(getMockSetsRaw()?.[mockId]?.title || 'PTE Full Mock Test'),
+    status: 'in_progress',
+    startedAt: startedAt.toISOString(),
+    updatedAt: startedAt.toISOString(),
+    durationSeconds,
+    endsAt: new Date(startedAt.getTime() + durationSeconds * 1000).toISOString(),
+    steps,
+    selections,
+    totalQuestions,
+    responses: {},
+    currentPage: steps[0]?.detailPage || 'mock-test',
+    currentQuestionId: '',
+  };
+  persistMockSession(session);
+  setQuestionSource('mock', false);
+  setQuestionTargetPage('');
+  setSelectedQuestionId('');
+  return session;
+}
+
+function clearMockSession() {
+  sessionStorage.removeItem(MOCK_SESSION_KEY);
+  sessionStorage.removeItem(MOCK_SESSION_LEGACY_KEY);
+  localStorage.removeItem(MOCK_SESSION_KEY);
+}
+
+function getMockQuestionSet(questionType, fallbackQuestions = []) {
+  const session = getMockSession();
+  const { source } = getQuestionSource();
+  if (!session || source !== 'mock' || session.status !== 'in_progress') return fallbackQuestions;
+  if (!getTodayPlanState()) return fallbackQuestions;
+  const items = session?.selections?.[questionType];
+  return Array.isArray(items) && items.length ? items : fallbackQuestions;
+}
+
+function updateMockSession(partial = {}) {
+  const session = getMockSession();
+  if (!session) return null;
+  const nextSession = {
+    ...session,
+    ...partial,
+    updatedAt: new Date().toISOString(),
+  };
+  persistMockSession(nextSession);
+  return nextSession;
+}
+
+function syncMockCurrentLocation(page = '', questionId = '') {
+  const session = getMockSession();
+  if (!session || session.status !== 'in_progress') return;
+  updateMockSession({
+    currentPage: page || session.currentPage,
+    currentQuestionId: questionId || session.currentQuestionId || '',
+  });
+}
+
+function getMockResponseEntry(questionId = '') {
+  const session = getMockSession();
+  if (!session || !questionId) return null;
+  return session.responses?.[questionId] || null;
+}
+
+function inferMockCorrectAnswer(questionType, question) {
+  if (!question) return '';
+  if (questionType === 'repeatSentence') return question.text || '';
+  if (questionType === 'answerShort') return question.answer || '';
+  if (questionType === 'rwFillBlanks') return (question.blanks || []).map(item => item.answer).join(', ');
+  if (questionType === 'mcSingleReading' || questionType === 'mcSingleListening') return question.options?.[question.answer] || '';
+  if (questionType === 'mcMultipleReading' || questionType === 'mcMultipleListening') return (question.answers || []).map(index => question.options?.[index]).filter(Boolean).join(', ');
+  if (questionType === 'reorderParagraphs') return (question.correctOrder || []).map(id => question.sentences?.find(item => item.id === id)?.text).filter(Boolean).join(' / ');
+  if (questionType === 'rFillBlanks') return (question.blanks || []).map(item => item.word).join(', ');
+  if (questionType === 'fillBlanksListening') return (question.blanks || []).map(item => item.key).join(', ');
+  if (questionType === 'highlightSummary') return question.summaries?.[question.answer] || '';
+  if (questionType === 'selectMissing') return question.options?.[question.answer] || '';
+  if (questionType === 'highlightIncorrect') return (question.incorrectIndices || []).map(index => question.textWords?.[index]).filter(Boolean).join(', ');
+  if (questionType === 'writeDictation') return question.sentence || '';
+  return '';
+}
+
+function serializeMockInputs(container) {
+  const values = {};
+  if (!container) return values;
+  container.querySelectorAll('input, textarea, select').forEach((field, index) => {
+    const key = field.id || field.name || `field_${index}`;
+    if (!key) return;
+    if (field.type === 'checkbox' || field.type === 'radio') {
+      values[key] = !!field.checked;
+      return;
+    }
+    values[key] = field.value;
+  });
+  return values;
+}
+
+function deriveMockDraftSummary(container) {
+  if (!container) return '';
+  const parts = [];
+  container.querySelectorAll('textarea, select, input[type=\"text\"], input[type=\"search\"], input[type=\"number\"]').forEach(field => {
+    const value = String(field.value || '').trim();
+    if (value) parts.push(value);
+  });
+  container.querySelectorAll('input[type=\"radio\"]:checked, input[type=\"checkbox\"]:checked').forEach(field => {
+    const label = field.closest('label');
+    const text = label ? String(label.textContent || '').trim() : String(field.value || '').trim();
+    if (text) parts.push(text);
+  });
+  return parts.join(' | ').trim().slice(0, 400);
+}
+
+function restoreMockDraftInputs(container, values = {}) {
+  if (!container || !values || typeof values !== 'object') return;
+  container.querySelectorAll('input, textarea, select').forEach((field, index) => {
+    const key = field.id || field.name || `field_${index}`;
+    if (!Object.prototype.hasOwnProperty.call(values, key)) return;
+    if (field.type === 'checkbox' || field.type === 'radio') {
+      field.checked = !!values[key];
+      return;
+    }
+    field.value = values[key];
+    field.dispatchEvent(new Event('input', { bubbles: true }));
+    field.dispatchEvent(new Event('change', { bubbles: true }));
+  });
+}
+
+function saveMockDraft(meta = {}) {
+  const session = getMockSession();
+  if (!session || session.status !== 'in_progress') return;
+  const questionId = meta?.question?.id || meta?.questionId || '';
+  if (!questionId) return;
+  const container = document.getElementById('page-container');
+  const fields = meta.fields || serializeMockInputs(container);
+  const summary = meta.summary != null ? meta.summary : deriveMockDraftSummary(container);
+  const previous = session.responses?.[questionId] || {};
+  const nextResponse = {
+    ...previous,
+    questionId,
+    questionType: meta.questionType || previous.questionType || '',
+    title: meta.title || previous.title || '',
+    section: meta.section || previous.section || '',
+    sectionLabel: meta.sectionLabel || previous.sectionLabel || '',
+    promptText: meta.promptText || previous.promptText || '',
+    correctAnswer: meta.correctAnswer != null ? meta.correctAnswer : (previous.correctAnswer || inferMockCorrectAnswer(meta.questionType, meta.question)),
+    answered: typeof meta.answered === 'boolean' ? meta.answered : previous.answered || !!summary,
+    draft: {
+      fields,
+      summary,
+    },
+    updatedAt: new Date().toISOString(),
+  };
+  updateMockSession({
+    responses: {
+      ...(session.responses || {}),
+      [questionId]: nextResponse,
+    },
+  });
+}
+
+function bindMockDraftPersistence(meta = {}) {
+  const session = getMockSession();
+  if (!session || session.status !== 'in_progress' || !meta?.question?.id) return;
+  const container = document.getElementById('page-container');
+  const existing = getMockResponseEntry(meta.question.id);
+  if (existing?.draft?.fields) {
+    restoreMockDraftInputs(container, existing.draft.fields);
+  }
+  const persist = () => saveMockDraft(meta);
+  container?.querySelectorAll('input, textarea, select').forEach(field => {
+    field.addEventListener('input', persist);
+    field.addEventListener('change', persist);
+  });
+  saveMockDraft({
+    ...meta,
+    answered: existing?.answered || false,
+  });
+}
+
+function getMockCurrentProgress(pageKey = '', qIndex = 0) {
+  const session = getMockSession();
+  const state = getTodayPlanState();
+  if (!session || !state) return null;
+  const step = state.steps[state.currentStep];
+  if (!step || step.page !== pageKey) return null;
+  const totalQuestions = getMockTotalQuestions(state.steps);
+  const overallBase = state.steps.slice(0, state.currentStep).reduce((sum, item) => sum + (Number(item?.count) || 0), 0);
+  const sectionSteps = state.steps.filter(item => item.section === step.section);
+  const sectionBase = state.steps
+    .slice(0, state.currentStep)
+    .filter(item => item.section === step.section)
+    .reduce((sum, item) => sum + (Number(item?.count) || 0), 0);
+  const remainingMs = Math.max(0, new Date(session.endsAt || 0).getTime() - Date.now());
+  return {
+    totalQuestions,
+    overallCurrent: overallBase + qIndex + 1,
+    overallPercent: totalQuestions ? ((overallBase + qIndex + 1) / totalQuestions) * 100 : 0,
+    sectionCurrent: sectionBase + qIndex + 1,
+    sectionTotal: sectionSteps.reduce((sum, item) => sum + (Number(item?.count) || 0), 0),
+    sectionPercent: sectionSteps.length ? ((sectionBase + qIndex + 1) / sectionSteps.reduce((sum, item) => sum + (Number(item?.count) || 0), 0)) * 100 : 0,
+    sectionLabel: step.sectionLabel || MOCK_SECTION_LABELS[step.section] || '',
+    stepTitle: step.title || '',
+    remainingMs,
+  };
+}
+
+function renderMockProgressHeader(pageKey = '', qIndex = 0) {
+  const progress = getMockCurrentProgress(pageKey, qIndex);
+  if (!progress) return '';
+  return `
+<div class="mock-progress-shell" id="mock-progress-shell">
+  <div class="mock-progress-top">
+    <div>
+      <div class="mock-progress-label">${progress.sectionLabel}</div>
+      <div class="mock-progress-meta">Question ${progress.overallCurrent} / ${progress.totalQuestions} · ${progress.stepTitle}</div>
+    </div>
+    <div class="mock-progress-timer" id="mock-session-timer">${formatTime(Math.ceil(progress.remainingMs / 1000))}</div>
+  </div>
+  <div class="mock-progress-grid">
+    <div class="mock-progress-card">
+      <div class="mock-progress-card-label">Overall Progress</div>
+      <div class="mock-progress-card-value">${progress.overallCurrent} / ${progress.totalQuestions}</div>
+      <div class="mock-progress-bar"><span style="width:${Math.max(0, Math.min(100, progress.overallPercent))}%"></span></div>
+    </div>
+    <div class="mock-progress-card">
+      <div class="mock-progress-card-label">Section Progress</div>
+      <div class="mock-progress-card-value">${progress.sectionCurrent} / ${progress.sectionTotal}</div>
+      <div class="mock-progress-bar section"><span style="width:${Math.max(0, Math.min(100, progress.sectionPercent))}%"></span></div>
+    </div>
+  </div>
+</div>`;
+}
+
+function mountMockProgressHeader(meta = {}) {
+  const session = getMockSession();
+  if (!session || session.status !== 'in_progress' || !meta?.pageKey) return;
+  const container = document.getElementById('page-container');
+  const pageHeader = container?.querySelector('.page-header');
+  if (!container || !pageHeader) return;
+  syncMockCurrentLocation(window.__currentPage || meta.detailPage || '', meta?.question?.id || '');
+  const wrapper = document.createElement('div');
+  wrapper.innerHTML = renderMockProgressHeader(meta.pageKey, meta.qIndex || 0);
+  const node = wrapper.firstElementChild;
+  if (!node) return;
+  pageHeader.insertAdjacentElement('afterend', node);
+  const timerEl = node.querySelector('#mock-session-timer');
+  if (timerEl) {
+    const tick = () => {
+      const current = getMockSession();
+      if (!current || current.status !== 'in_progress') return;
+      const remaining = Math.max(0, new Date(current.endsAt || 0).getTime() - Date.now());
+      timerEl.textContent = formatTime(Math.ceil(remaining / 1000));
+      if (remaining <= 0) {
+        updateMockSession({ status: 'completed', completedAt: new Date().toISOString(), currentPage: 'mock-results' });
+        clearTodayPlan();
+        navigate('mock-results');
+      }
+    };
+    tick();
+    const iv = setInterval(tick, 1000);
+    const previousCleanup = window.__pageCleanup;
+    setPageCleanup(() => {
+      clearInterval(iv);
+      if (typeof previousCleanup === 'function') {
+        try {
+          previousCleanup();
+        } catch (_error) {}
+      }
+    });
+  }
+  applyMockLinearNavigation(meta.pageKey, meta.qIndex || 0, Number(meta.totalQuestions || 0), MOCK_PAGE_NEXT_ACTIONS[meta.pageKey] || '');
+}
+
+function collectMockSectionStats(sectionKey = '') {
+  const session = getMockSession();
+  if (!session) return null;
+  const steps = (session.steps || []).filter(step => step.section === sectionKey);
+  const total = steps.reduce((sum, step) => sum + (Number(step.count) || 0), 0);
+  const questionIds = steps.flatMap(step => (session.selections?.[step.questionType] || []).map(item => item.id));
+  const responses = questionIds.map(id => session.responses?.[id]).filter(Boolean);
+  const answered = responses.filter(item => item.answered).length;
+  const scored = responses.filter(item => typeof item.score === 'number');
+  const averageScore = scored.length ? Math.round(scored.reduce((sum, item) => sum + item.score, 0) / scored.length) : null;
+  return {
+    key: sectionKey,
+    label: MOCK_SECTION_LABELS[sectionKey] || sectionKey,
+    total,
+    answered,
+    unanswered: Math.max(0, total - answered),
+    averageScore,
+  };
+}
+
+function getMockReviewItems() {
+  const session = getMockSession();
+  if (!session) return [];
+  let overallNumber = 0;
+  return (session.steps || []).flatMap(step => {
+    return (session.selections?.[step.questionType] || []).map(question => {
+      overallNumber += 1;
+      const response = session.responses?.[question.id] || {};
+      return {
+        overallNumber,
+        section: step.section,
+        sectionLabel: step.sectionLabel || MOCK_SECTION_LABELS[step.section] || '',
+        title: step.title,
+        questionType: step.questionType,
+        question,
+        response,
+      };
+    });
+  });
+}
+
+function finalizeMockSession() {
+  const session = getMockSession();
+  if (!session) return null;
+  const completed = {
+    ...session,
+    status: 'completed',
+    completedAt: new Date().toISOString(),
+    currentPage: 'mock-results',
+  };
+  persistMockSession(completed);
+  return completed;
 }
 
 function getPredictionBankActive(type, latestOnly = false, highOnly = false) {
@@ -1387,6 +1926,9 @@ function startTodayPlan(steps = []) {
       detailPage: String(step?.detailPage || ''),
       count: Math.max(1, Number(step?.count) || 1),
       title: String(step?.title || ''),
+      questionType: String(step?.questionType || ''),
+      section: String(step?.section || ''),
+      sectionLabel: String(step?.sectionLabel || ''),
     }))
     .filter(step => step.page && step.detailPage);
   if (!normalized.length) {
@@ -1394,7 +1936,7 @@ function startTodayPlan(steps = []) {
     return;
   }
   saveTodayPlanState({ currentStep: 0, steps: normalized });
-  setQuestionSource('default', false);
+  setQuestionSource(isMockSessionActive() ? 'mock' : 'default', false);
   setQuestionTargetPage('');
   setSelectedQuestionId('');
   navigate(normalized[0].detailPage);
@@ -1424,7 +1966,120 @@ function renderTodayPlanAction(page = '') {
   const isLastStep = step.stepIndex >= step.totalSteps - 1;
   const action = isLastStep ? 'TodayPlan_complete()' : 'TodayPlan_nextStep()';
   const label = isLastStep ? t('study_plan_finish_today') : t('study_plan_next_step');
-  return `<button class="btn btn-primary" onclick="${action}">${label}</button>`;
+  const mockClass = isMockStepPage(page) ? ' mock-linear-next' : '';
+  return `<button class="btn btn-primary${mockClass}" onclick="${action}">${label}</button>`;
+}
+
+function getTodayPlanNextAction(page = '') {
+  const step = getTodayPlanStepForPage(page);
+  if (!step) return '';
+  return step.stepIndex >= step.totalSteps - 1 ? 'TodayPlan_complete()' : 'TodayPlan_nextStep()';
+}
+
+const MOCK_PAGE_NEXT_ACTIONS = {
+  'practice-read-aloud': 'RA_next()',
+  'practice-repeat-sentence': 'RS_next()',
+  'practice-describe-image': 'DI_next()',
+  'practice-retell-lecture': 'RL_next()',
+  'practice-answer-short': 'ASQ_next()',
+  'practice-summarize-written': 'SWT_next()',
+  'practice-write-essay': 'WE_next()',
+  'practice-rw-fill-blanks': 'RWFIB_next()',
+  'practice-mc-multiple-reading': 'MCMR_next()',
+  'practice-reorder-paragraphs': 'ROP_next()',
+  'practice-r-fill-blanks': 'RFIB_next()',
+  'practice-mc-single-reading': 'MCSR_next()',
+  'practice-summarize-spoken': 'SST_next()',
+  'practice-mc-multiple-listening': 'MCML_next()',
+  'practice-fill-blanks-listening': 'FBL_next()',
+  'practice-highlight-summary': 'HCS_next()',
+  'practice-mc-single-listening': 'MCSL_next()',
+  'practice-select-missing': 'SMW_next()',
+  'practice-highlight-incorrect': 'HI_next()',
+  'practice-write-dictation': 'WFD_next()',
+};
+
+function isMockStepPage(page = '') {
+  return isMockSessionActive() && !!getTodayPlanStepForPage(page);
+}
+
+function getMockLinearNextAction(page = '', qIndex = 0, totalQuestions = 0, questionNextAction = '') {
+  if (!isMockStepPage(page)) return questionNextAction || '';
+  const total = Math.max(1, Number(totalQuestions) || 1);
+  if (qIndex < total - 1) return questionNextAction || MOCK_PAGE_NEXT_ACTIONS[page] || '';
+  return getTodayPlanNextAction(page) || questionNextAction || '';
+}
+
+function getMockLinearNextLabel(page = '', qIndex = 0, totalQuestions = 0) {
+  if (!isMockStepPage(page)) return t('btn_next');
+  const total = Math.max(1, Number(totalQuestions) || 1);
+  if (qIndex < total - 1) return t('btn_next');
+  const step = getTodayPlanStepForPage(page);
+  return step && step.stepIndex >= step.totalSteps - 1 ? t('study_plan_finish_today') : t('study_plan_next_step');
+}
+
+function renderMockLinearNextButton(page = '', qIndex = 0, totalQuestions = 0, questionNextAction = '', className = 'btn btn-primary') {
+  const action = getMockLinearNextAction(page, qIndex, totalQuestions, questionNextAction);
+  const label = getMockLinearNextLabel(page, qIndex, totalQuestions);
+  return `<button class="${className} mock-linear-next" onclick="${action}" ${action ? '' : 'disabled'}>${label}</button>`;
+}
+
+function applyMockLinearNavigation(page = '', qIndex = 0, totalQuestions = 0, questionNextAction = '') {
+  if (!isMockStepPage(page)) return;
+  const container = document.getElementById('page-container');
+  if (!container) return;
+  const nextAction = questionNextAction || MOCK_PAGE_NEXT_ACTIONS[page] || '';
+  const session = getMockSession();
+  const step = getTodayPlanStepForPage(page);
+  const selectionTotal = Array.isArray(session?.selections?.[step?.questionType]) ? session.selections[step.questionType].length : 0;
+  const effectiveTotal = Number(totalQuestions) || selectionTotal || Number(step?.count) || 1;
+  const linearAction = getMockLinearNextAction(page, qIndex, effectiveTotal, nextAction);
+  const linearLabel = getMockLinearNextLabel(page, qIndex, effectiveTotal);
+  container.querySelectorAll('button').forEach(button => {
+    const onclick = button.getAttribute('onclick') || '';
+    if (/_prev\(\)/.test(onclick)) {
+      button.remove();
+      return;
+    }
+    if ((nextAction && onclick === nextAction) || onclick === 'TodayPlan_nextStep()' || onclick === 'TodayPlan_complete()') {
+      button.disabled = !linearAction;
+      if (onclick === 'TodayPlan_nextStep()' || onclick === 'TodayPlan_complete()') {
+        button.disabled = false;
+      } else {
+        if (linearAction) button.setAttribute('onclick', linearAction);
+        button.textContent = linearLabel;
+      }
+      button.classList.add('mock-linear-next');
+      const nav = button.closest('.btn-group, .result-actions, .speaking-result-actions, .speaking-exam-footer');
+      nav?.classList.add('mock-linear-nav');
+    }
+  });
+}
+
+function applyCurrentMockLinearNavigation(page = '') {
+  if (!isMockSessionActive()) return;
+  const session = getMockSession();
+  const state = getTodayPlanState();
+  if (!session || !state) return;
+  const step = state.steps[state.currentStep];
+  if (!step || step.detailPage !== page) return;
+  const selections = Array.isArray(session.selections?.[step.questionType]) ? session.selections[step.questionType] : [];
+  const currentId = session.currentQuestionId || getSelectedQuestionId();
+  const foundIndex = selections.findIndex(item => String(item?.id || '') === String(currentId || ''));
+  const qIndex = foundIndex >= 0 ? foundIndex : 0;
+  applyMockLinearNavigation(step.page, qIndex, selections.length || step.count || 1, MOCK_PAGE_NEXT_ACTIONS[step.page] || '');
+}
+
+let mockLinearNavScheduled = false;
+
+function scheduleCurrentMockLinearNavigation(page = '') {
+  if (!isMockSessionActive()) return;
+  if (mockLinearNavScheduled) return;
+  mockLinearNavScheduled = true;
+  requestAnimationFrame(() => {
+    mockLinearNavScheduled = false;
+    applyCurrentMockLinearNavigation(page || window.__currentPage || sessionStorage.getItem('pte_page') || '');
+  });
 }
 
 function goToNextTodayPlanStep() {
@@ -1437,7 +2092,7 @@ function goToNextTodayPlanStep() {
   }
   state.currentStep = nextStepIndex;
   saveTodayPlanState(state);
-  setQuestionSource('default', false);
+  setQuestionSource(isMockSessionActive() ? 'mock' : 'default', false);
   setQuestionTargetPage('');
   setSelectedQuestionId('');
   navigate(state.steps[nextStepIndex].detailPage);
@@ -1445,22 +2100,43 @@ function goToNextTodayPlanStep() {
 }
 
 function completeTodayPlan() {
+  const mockSession = getMockSession();
   clearTodayPlan();
   setSelectedQuestionId('');
+  if (mockSession && (mockSession.status === 'in_progress' || mockSession.status === 'completed')) {
+    finalizeMockSession();
+    navigate('mock-results');
+    showToast(getAppLang() === 'zh' ? '模考已完成，结果已生成。' : 'Mock test completed. Your results are ready.');
+    return;
+  }
   navigate('study-plan');
   showToast(t('study_plan_done_toast'));
 }
 
 function syncSelectedQuestion(question) {
-  if (question?.id) setSelectedQuestionId(question.id);
+  if (question?.id) {
+    setSelectedQuestionId(question.id);
+    syncMockCurrentLocation(window.__currentPage || '', question.id);
+    scheduleCurrentMockLinearNavigation(window.__currentPage || '');
+  }
 }
 
 function openQuestionSet(page, source = 'default', latestOnly = false) {
+  if (source !== 'mock') {
+    clearMockSession();
+    clearTodayPlan();
+  }
   setQuestionSource(source, latestOnly);
+  setQuestionTargetPage('');
+  setSelectedQuestionId('');
   navigate(page);
 }
 
 function openQuestionList(page, source = 'default', latestOnly = false) {
+  if (source !== 'mock') {
+    clearMockSession();
+    clearTodayPlan();
+  }
   setQuestionSource(source, latestOnly);
   setQuestionTargetPage(page);
   setSelectedQuestionId('');
@@ -1470,7 +2146,7 @@ function openQuestionList(page, source = 'default', latestOnly = false) {
 function openQuestionFromList(id) {
   const page = getQuestionTargetPage();
   if (!page) {
-    navigate('practice');
+    navigate('practice-all');
     return;
   }
   setSelectedQuestionId(id);
@@ -1574,6 +2250,8 @@ Pages['practice-all'] = function() {
   window.__practiceTab = 'all';
   window.renderPracticeDirectoryPage();
 };
+
+Pages['practice'] = Pages['practice-all'];
 
 Pages['practice-speaking'] = function() {
   window.__practiceCategory = 'speaking';
@@ -1808,6 +2486,76 @@ function toggleTheme() {
   applyTheme(getCurrentTheme() === 'deep-dark' ? 'blue-light' : 'deep-dark');
 }
 
+function isNativeIPad() {
+  if (typeof window === 'undefined' || typeof navigator === 'undefined') return false;
+  if (window.__NATIVE_IOS_IPAD__ === true) return true;
+  const ua = navigator.userAgent || '';
+  const capacitorPlatform = typeof window.Capacitor?.getPlatform === 'function'
+    ? window.Capacitor.getPlatform()
+    : (window.Capacitor?.platform || '');
+  const maxScreenEdge = Math.max(window.screen?.width || 0, window.screen?.height || 0);
+  return /iPad/.test(ua)
+    || /PTEscoreNativeiPad/i.test(ua)
+    || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1)
+    || (!!window.Capacitor && /iPad/i.test(ua))
+    || (!!window.Capacitor && capacitorPlatform === 'ios' && navigator.maxTouchPoints > 1 && maxScreenEdge >= 1024);
+}
+
+function isTabletLikeDevice() {
+  if (isNativeIPad()) return true;
+  if (typeof window === 'undefined') return false;
+  const minViewport = Math.min(window.innerWidth || 0, window.innerHeight || 0);
+  return minViewport >= 768;
+}
+
+function syncTabletSidebarButton() {
+  const btn = document.getElementById('sidebar-collapse-btn');
+  if (!btn) return;
+  const collapsed = document.body.classList.contains('tablet-sidebar-collapsed');
+  btn.setAttribute('aria-label', collapsed ? 'Expand sidebar' : 'Collapse sidebar');
+  btn.setAttribute('title', collapsed ? 'Expand sidebar' : 'Collapse sidebar');
+  btn.classList.toggle('is-collapsed', collapsed);
+  btn.innerHTML = collapsed
+    ? `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"></path></svg>`
+    : `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"></path></svg>`;
+}
+
+function syncAdaptiveLayout() {
+  const nativeIPad = isNativeIPad();
+  const isTablet = nativeIPad || isTabletLikeDevice();
+  const isHandset = !nativeIPad && !isTablet && (window.innerWidth || 0) <= 640;
+  const shouldCollapse = isTablet && localStorage.getItem('pte_tablet_sidebar') === 'collapsed';
+  document.body.classList.toggle('is-native-ipad', nativeIPad);
+  document.body.classList.toggle('is-tablet-app', isTablet);
+  document.body.classList.toggle('is-handset-app', isHandset);
+  document.body.classList.toggle('is-desktop-app', !isTablet && !isHandset);
+  document.body.classList.toggle('tablet-sidebar-collapsed', shouldCollapse);
+  if (!isTablet) {
+    document.body.classList.remove('tablet-sidebar-collapsed');
+  }
+  if (nativeIPad && window.Capacitor && !window.__nativeIPadDebugLogged) {
+    window.__nativeIPadDebugLogged = true;
+    console.log({
+      userAgent: navigator.userAgent,
+      platform: navigator.platform,
+      maxTouchPoints: navigator.maxTouchPoints,
+      screenWidth: window.screen?.width,
+      screenHeight: window.screen?.height,
+      innerWidth: window.innerWidth,
+      isNativeIPad: nativeIPad
+    });
+  }
+  syncTabletSidebarButton();
+}
+
+function toggleTabletSidebar() {
+  if (!isTabletLikeDevice()) return;
+  const nextCollapsed = !document.body.classList.contains('tablet-sidebar-collapsed');
+  document.body.classList.toggle('tablet-sidebar-collapsed', nextCollapsed);
+  localStorage.setItem('pte_tablet_sidebar', nextCollapsed ? 'collapsed' : 'expanded');
+  syncTabletSidebarButton();
+}
+
 // ── Init ───────────────────────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', async () => {
   if(window.MicAccess) MicAccess.syncPermissionState();
@@ -1816,6 +2564,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   const savedTheme = localStorage.getItem('pte_theme');
   const initialTheme = savedTheme || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'deep-dark' : 'blue-light');
   applyTheme(initialTheme);
+  syncAdaptiveLayout();
   document.documentElement.lang = getAppLang() === 'en' ? 'en' : 'zh';
   applyStaticI18n();
 
@@ -1840,6 +2589,8 @@ window.addEventListener('popstate', () => {
   navigate(routed, { skipHistory: true });
 });
 
+window.addEventListener('resize', syncAdaptiveLayout);
+
 window.requestMicPreauth = async function(redirectPage = '') {
   if (!window.MicAccess) return false;
   const ok = await MicAccess.preAuthorize();
@@ -1860,13 +2611,33 @@ window.renderGuestPracticeUpsell = renderGuestPracticeUpsell;
 window.renderProtectedFeatureGate = renderProtectedFeatureGate;
 window.openLoginPrompt = openLoginPrompt;
 window.setNavGroupOpen = setNavGroupOpen;
+window.isNativeIPad = isNativeIPad;
+window.isTabletLikeDevice = isTabletLikeDevice;
+window.toggleTabletSidebar = toggleTabletSidebar;
 window.getPredictionBankRaw = getPredictionBankRaw;
 window.getPredictionBankActive = getPredictionBankActive;
+window.getMockSession = getMockSession;
+window.isMockSessionActive = isMockSessionActive;
+window.startMockSession = startMockSession;
+window.clearMockSession = clearMockSession;
+window.getMockQuestionSet = getMockQuestionSet;
+window.getMockBlueprint = getMockBlueprint;
+window.getMockCurrentProgress = getMockCurrentProgress;
+window.renderMockProgressHeader = renderMockProgressHeader;
+window.mountMockProgressHeader = mountMockProgressHeader;
+window.bindMockDraftPersistence = bindMockDraftPersistence;
+window.saveMockDraft = saveMockDraft;
+window.getMockReviewItems = getMockReviewItems;
+window.collectMockSectionStats = collectMockSectionStats;
+window.finalizeMockSession = finalizeMockSession;
+window.syncMockCurrentLocation = syncMockCurrentLocation;
+window.updateMockSession = updateMockSession;
 window.getQuestionSet = getQuestionSet;
 window.getQuestionTargetPage = getQuestionTargetPage;
 window.getInitialQuestionIndex = getInitialQuestionIndex;
 window.getTodayPlanQuestions = getTodayPlanQuestions;
 window.renderTodayPlanAction = renderTodayPlanAction;
+window.getTodayPlanNextAction = getTodayPlanNextAction;
 window.startTodayPlan = startTodayPlan;
 window.TodayPlan_nextStep = goToNextTodayPlanStep;
 window.TodayPlan_complete = completeTodayPlan;

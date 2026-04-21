@@ -23,8 +23,9 @@ Pages['retell-lecture'] = function() {
     audio: item.audio || item.audioUrl || '',
     isPrediction: true,
   }));
-  const totalQuestions = sourceQuestions.length;
-  const questions = getAccessibleQuestions(sourceQuestions);
+  const mockQuestions = getMockQuestionSet('retellLecture', sourceQuestions);
+  const totalQuestions = mockQuestions.length;
+  const questions = getTodayPlanQuestions('practice-retell-lecture', getAccessibleQuestions(mockQuestions));
   qIndex = getInitialQuestionIndex(questions);
   const getQuestionRecordingKey = (question) => `retellLecture:${question?.id || qIndex}`;
   const pageStatePage = 'retell-lecture';
@@ -184,17 +185,23 @@ Pages['retell-lecture'] = function() {
     syncSelectedQuestion(q);
     if (window.PracticeTracker) PracticeTracker.setCurrentQuestion({ questionId: q.id, questionType: 'retellLecture', questionText: q.transcript });
     const promptHtml = `
-<div class="audio-widget">
-  <button class="audio-btn" id="play-btn" onclick="RL_play()" aria-label="${t('btn_play_audio')}">▶</button>
-  <div class="audio-progress">
-    <div class="audio-label">${Scorer.escapeHtml(q.title)}</div>
-    <div class="audio-progress-bar"><div class="audio-progress-fill" id="ap-fill" style="width:0%"></div></div>
-    <div class="audio-time"><span>0:00</span><span id="dur-label">${formatTime(q.duration)}</span></div>
+<div class="top-section">
+  <div class="audio-panel">
+    <div class="audio-widget">
+      <button class="audio-btn" id="play-btn" onclick="RL_play()" aria-label="${t('btn_play_audio')}">▶</button>
+      <div class="audio-progress">
+        <div class="audio-label">${Scorer.escapeHtml(q.title)}</div>
+        <div class="audio-progress-bar"><div class="audio-progress-fill" id="ap-fill" style="width:0%"></div></div>
+        <div class="audio-time"><span>0:00</span><span id="dur-label">${formatTime(q.duration)}</span></div>
+      </div>
+    </div>
   </div>
-</div>
-<div id="notes-area">
-  <div class="card-title" style="margin-bottom:8px">Notes</div>
-  <textarea class="textarea" id="notes" rows="3" placeholder="Take notes while listening..."></textarea>
+  <div class="notes-panel">
+    <div id="notes-area">
+      <div class="card-title" style="margin-bottom:8px">Notes</div>
+      <textarea class="textarea" id="notes" rows="3" placeholder="Take notes while listening..."></textarea>
+    </div>
+  </div>
 </div>`;
     const recordingHtml = AIScorer.renderRecordingCard({
       state: phase,

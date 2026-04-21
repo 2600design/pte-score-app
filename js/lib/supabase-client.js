@@ -2,7 +2,6 @@ const SupabaseService = {
   client: null,
   config: window.SUPABASE_CONFIG || {},
   speakingBucket: 'speaking-recordings',
-  recordingsBucket: 'recordings',
 
   hasConfig() {
     return !!(this.config.url && this.config.anonKey);
@@ -22,6 +21,7 @@ const SupabaseService = {
     if (!this.hasConfig()) return null;
     this.client = window.supabase.createClient(this.config.url, this.config.anonKey, {
       auth: {
+        flowType: 'pkce',
         persistSession: true,
         autoRefreshToken: true,
         detectSessionInUrl: true,
@@ -60,25 +60,6 @@ const SupabaseService = {
 
     console.log('[SupabaseStorage] Generated public audio URL:', publicUrl);
     return publicUrl;
-  },
-
-  async createSignedStorageUrl(bucketName, filePath, expiresIn = 3600) {
-    const normalizedPath = this.normalizeStoragePath(filePath);
-    if (!normalizedPath) return '';
-
-    const client = this.getClient();
-    if (!client) {
-      console.error('[SupabaseStorage] Supabase client unavailable while generating signed URL.', { bucketName, filePath: normalizedPath });
-      return '';
-    }
-
-    const { data, error } = await client.storage.from(bucketName).createSignedUrl(normalizedPath, expiresIn);
-    if (error) {
-      console.error('[SupabaseStorage] Failed to generate signed URL from storage path.', { bucketName, filePath: normalizedPath, error });
-      return '';
-    }
-
-    return data?.signedUrl || '';
   },
 };
 

@@ -1,0 +1,394 @@
+[
+  {
+    "id": "rop1",
+    "tag": "★ 高频真题",
+    "sentences": [
+      {
+        "id": "s1",
+        "text": "A) The printing press, invented by Johannes Gutenberg around 1440, revolutionised the spread of information across Europe."
+      },
+      {
+        "id": "s2",
+        "text": "B) Before its invention, books were copied by hand, making them expensive and rare."
+      },
+      {
+        "id": "s3",
+        "text": "C) The press enabled mass production of texts, dramatically lowering their cost."
+      },
+      {
+        "id": "s4",
+        "text": "D) As literacy rates rose, new ideas in science, religion, and politics spread rapidly, contributing to the Renaissance and Reformation."
+      }
+    ],
+    "correctOrder": [
+      "s1",
+      "s2",
+      "s3",
+      "s4"
+    ]
+  },
+  {
+    "id": "rop2",
+    "tag": "真题",
+    "sentences": [
+      {
+        "id": "r2a",
+        "text": "A) The discovery of penicillin by Alexander Fleming in 1928 marked the beginning of the antibiotic era."
+      },
+      {
+        "id": "r2b",
+        "text": "B) Fleming noticed that a mould had contaminated one of his petri dishes and was killing the surrounding bacteria."
+      },
+      {
+        "id": "r2c",
+        "text": "C) He identified the mould as Penicillium notatum and named the antibacterial substance it produced penicillin."
+      },
+      {
+        "id": "r2d",
+        "text": "D) Further development by Florey and Chain in the 1940s transformed penicillin into a widely used medicine that saved millions of lives."
+      }
+    ],
+    "correctOrder": [
+      "r2a",
+      "r2b",
+      "r2c",
+      "r2d"
+    ]
+  },
+  {
+    "id": "rop3",
+    "tag": "预测题",
+    "sentences": [
+      {
+        "id": "r3a",
+        "text": "A) Ocean acidification is the ongoing decrease in the pH of Earth's oceans, primarily caused by the absorption of carbon dioxide from the atmosphere."
+      },
+      {
+        "id": "r3b",
+        "text": "B) Since the industrial revolution, the average pH of surface ocean waters has fallen from 8.2 to approximately 8.1."
+      },
+      {
+        "id": "r3c",
+        "text": "C) This change may appear small, but pH is measured on a logarithmic scale, meaning the oceans are now around thirty percent more acidic than they were."
+      },
+      {
+        "id": "r3d",
+        "text": "D) The consequences for marine life, particularly shell-forming organisms such as oysters, clams, and corals, are increasingly severe."
+      }
+    ],
+    "correctOrder": [
+      "r3a",
+      "r3b",
+      "r3c",
+      "r3d"
+    ]
+  },
+  {
+    "id": "rop4",
+    "tag": "★ 高频预测题",
+    "sentences": [
+      {
+        "id": "r4a",
+        "text": "A) Electric vehicles are often presented as a cleaner alternative to conventional petrol and diesel cars."
+      },
+      {
+        "id": "r4b",
+        "text": "B) They produce no tailpipe emissions, which can improve air quality in densely populated cities."
+      },
+      {
+        "id": "r4c",
+        "text": "C) However, their overall environmental impact still depends on how the electricity used to charge them is generated."
+      },
+      {
+        "id": "r4d",
+        "text": "D) For this reason, transport electrification is most effective when combined with a shift toward renewable energy."
+      }
+    ],
+    "correctOrder": [
+      "r4a",
+      "r4b",
+      "r4c",
+      "r4d"
+    ]
+  },
+  {
+    "id": "rop5",
+    "tag": "新增题",
+    "sentences": [
+      {
+        "id": "r5a",
+        "text": "A) The results were surprising."
+      },
+      {
+        "id": "r5b",
+        "text": "B) The experiment lasted six months."
+      },
+      {
+        "id": "r5c",
+        "text": "C) Scientists conducted research."
+      },
+      {
+        "id": "r5d",
+        "text": "D) Data was collected."
+      }
+    ],
+    "correctOrder": [
+      "r5c",
+      "r5b",
+      "r5d",
+      "r5a"
+    ]
+  },
+  {
+    "id": "rop6",
+    "tag": "新增题",
+    "sentences": [
+      {
+        "id": "r6a",
+        "text": "A) This improved productivity."
+      },
+      {
+        "id": "r6b",
+        "text": "B) The company adopted new technology."
+      },
+      {
+        "id": "r6c",
+        "text": "C) Staff were trained."
+      },
+      {
+        "id": "r6d",
+        "text": "D) Efficiency increased."
+      }
+    ],
+    "correctOrder": [
+      "r6b",
+      "r6c",
+      "r6a",
+      "r6d"
+    ]
+  },
+  {
+    "id": "rop7",
+    "tag": "新增题",
+    "sentences": [
+      {
+        "id": "r7a",
+        "text": "A) The data was then analyzed carefully."
+      },
+      {
+        "id": "r7b",
+        "text": "B) A new study was carried out by the research team."
+      },
+      {
+        "id": "r7c",
+        "text": "C) The final results confirmed the original theory."
+      },
+      {
+        "id": "r7d",
+        "text": "D) Information was collected from several schools."
+      }
+    ],
+    "correctOrder": [
+      "r7b",
+      "r7d",
+      "r7a",
+      "r7c"
+    ]
+  },
+  {
+    "id": "rop8",
+    "tag": "新增题",
+    "sentences": [
+      {
+        "id": "r8a",
+        "text": "A) As a result, customer satisfaction increased."
+      },
+      {
+        "id": "r8b",
+        "text": "B) The company changed its service strategy."
+      },
+      {
+        "id": "r8c",
+        "text": "C) Managers first reviewed client feedback."
+      },
+      {
+        "id": "r8d",
+        "text": "D) New training was introduced for staff."
+      }
+    ],
+    "correctOrder": [
+      "r8c",
+      "r8b",
+      "r8d",
+      "r8a"
+    ]
+  },
+  {
+    "id": "rop9",
+    "tag": "新增题",
+    "sentences": [
+      {
+        "id": "r9a",
+        "text": "A) Finally, the report was submitted to the committee."
+      },
+      {
+        "id": "r9b",
+        "text": "B) The team gathered the necessary data."
+      },
+      {
+        "id": "r9c",
+        "text": "C) Recommendations were developed from the findings."
+      },
+      {
+        "id": "r9d",
+        "text": "D) The project began with a review of previous studies."
+      }
+    ],
+    "correctOrder": [
+      "r9d",
+      "r9b",
+      "r9c",
+      "r9a"
+    ]
+  },
+  {
+    "id": "rop10",
+    "tag": "新增题",
+    "sentences": [
+      {
+        "id": "r10a",
+        "text": "A) This led to significant cost savings."
+      },
+      {
+        "id": "r10b",
+        "text": "B) The factory introduced automated systems."
+      },
+      {
+        "id": "r10c",
+        "text": "C) Workers received technical training."
+      },
+      {
+        "id": "r10d",
+        "text": "D) Production speed improved over time."
+      }
+    ],
+    "correctOrder": [
+      "r10b",
+      "r10c",
+      "r10d",
+      "r10a"
+    ]
+  },
+  {
+    "id": "rop11",
+    "tag": "新增题",
+    "sentences": [
+      {
+        "id": "r11a",
+        "text": "A) The findings were presented at a conference."
+      },
+      {
+        "id": "r11b",
+        "text": "B) Researchers designed a new experiment."
+      },
+      {
+        "id": "r11c",
+        "text": "C) Several tests were completed successfully."
+      },
+      {
+        "id": "r11d",
+        "text": "D) The results supported the hypothesis."
+      }
+    ],
+    "correctOrder": [
+      "r11b",
+      "r11c",
+      "r11d",
+      "r11a"
+    ]
+  },
+  {
+    "id": "rop12",
+    "tag": "新增题",
+    "sentences": [
+      {
+        "id": "r12a",
+        "text": "A) This created pressure on local services."
+      },
+      {
+        "id": "r12b",
+        "text": "B) The city's population grew rapidly."
+      },
+      {
+        "id": "r12c",
+        "text": "C) More housing developments were approved."
+      },
+      {
+        "id": "r12d",
+        "text": "D) Infrastructure investment became necessary."
+      }
+    ],
+    "correctOrder": [
+      "r12b",
+      "r12a",
+      "r12c",
+      "r12d"
+    ]
+  },
+  {
+    "id": "rop13",
+    "tag": "新增题",
+    "sentences": [
+      {
+        "id": "r13a",
+        "text": "A) Students then completed a follow-up survey."
+      },
+      {
+        "id": "r13b",
+        "text": "B) A new teaching method was introduced."
+      },
+      {
+        "id": "r13c",
+        "text": "C) Teachers received guidance before implementation."
+      },
+      {
+        "id": "r13d",
+        "text": "D) Early feedback was generally positive."
+      }
+    ],
+    "correctOrder": [
+      "r13b",
+      "r13c",
+      "r13a",
+      "r13d"
+    ]
+  },
+  {
+    "id": "rop14",
+    "tag": "新增题",
+    "sentences": [
+      {
+        "id": "r14a",
+        "text": "A) The policy was later expanded nationwide."
+      },
+      {
+        "id": "r14b",
+        "text": "B) A pilot program was launched in one region."
+      },
+      {
+        "id": "r14c",
+        "text": "C) Initial results were encouraging."
+      },
+      {
+        "id": "r14d",
+        "text": "D) Officials reviewed the early outcomes."
+      }
+    ],
+    "correctOrder": [
+      "r14b",
+      "r14c",
+      "r14d",
+      "r14a"
+    ]
+  }
+]

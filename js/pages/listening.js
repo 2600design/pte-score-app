@@ -2,8 +2,9 @@
 Pages['summarize-spoken'] = function() {
   let qIndex=0, timerObj=null;
   let player=null;
-  const totalQuestions=DB.summarizeSpoken.length;
-  const questions=getAccessibleQuestions(DB.summarizeSpoken);
+  const sourceQuestions = getMockQuestionSet('summarizeSpoken', DB.summarizeSpoken);
+  const totalQuestions=sourceQuestions.length;
+  const questions=getTodayPlanQuestions('practice-summarize-spoken', getAccessibleQuestions(sourceQuestions));
   qIndex = getInitialQuestionIndex(questions);
 
   function stopPlayback() {
@@ -46,10 +47,12 @@ Pages['summarize-spoken'] = function() {
   <div class="btn-group">
     <button class="btn btn-primary" onclick="SST_submit()">${t('btn_submit')}</button>
     <button class="btn btn-secondary" onclick="SST_prev()" ${qIndex===0?'disabled':''}>${t('btn_prev')}</button>
-    <button class="btn btn-secondary" onclick="SST_next()" ${qIndex===questions.length-1?'disabled':''}>${t('btn_next')}</button>
+    ${qIndex===questions.length-1 ? renderTodayPlanAction('practice-summarize-spoken') || `<button class="btn btn-secondary" onclick="SST_next()" disabled>${t('btn_next')}</button>` : `<button class="btn btn-secondary" onclick="SST_next()">${t('btn_next')}</button>`}
   </div>
   ${renderGuestPracticeUpsell(totalQuestions, questions.length)}
 </div>`;
+    mountMockProgressHeader({ pageKey: 'practice-summarize-spoken', qIndex, question: q, detailPage: 'summarize-spoken' });
+    bindMockDraftPersistence({ pageKey: 'practice-summarize-spoken', question: q, questionType: 'summarizeSpoken', title: t('sst_title'), section: 'listening', sectionLabel: 'Listening', promptText: q.transcript });
     updateAudioButton($('#play-btn'), { mode: getPlaybackMode({ source: getQuestionAudioSource(q), fallbackText: q.transcript }) });
     timerObj=new CountdownTimer($('#timer-el'),600,null,()=>SST_submit(true)); timerObj.start();
   }
@@ -86,7 +89,7 @@ Pages['summarize-spoken'] = function() {
     const result = Scorer.summarizeSpoken(text, q.transcript, q.wordRange);
     Stats.record('summarizeSpoken', result.pte || 0, 90, { transcript: text || '', ai_feedback: result.label || '' });
     $('#feedback-area').innerHTML=`
-${Scorer.renderLocalStructuredResult({ questionType: 'summarizeSpoken', title: t('sst_title'), result, retryAction: 'SST_retry()', nextAction: qIndex < questions.length-1 ? 'SST_next()' : '' })}
+${Scorer.renderLocalStructuredResult({ questionType: 'summarizeSpoken', title: t('sst_title'), result, retryAction: 'SST_retry()', nextAction: qIndex < questions.length-1 ? 'SST_next()' : getTodayPlanNextAction('practice-summarize-spoken') })}
 ${auto?`<div style="color:var(--warning);font-size:13px;margin:6px 0 0 2px">${t('auto_submitted')}</div>`:''}
 <div class="card" style="margin-top:12px"><div class="card-title">${t('sst_original_transcript')}</div><div class="transcript-box">${q.transcript}</div></div>
 <div class="retry-row"><button class="btn btn-refresh" onclick="SST_retry()">${t('btn_retry')}</button></div>`;
@@ -99,7 +102,7 @@ ${auto?`<div style="color:var(--warning);font-size:13px;margin:6px 0 0 2px">${t(
 
 // ── MC Single Listening ────────────────────────────────────────────────────
 Pages['mc-single-listening'] = function() {
-  let qIndex=0; const totalQuestions=DB.mcSingleListening.length; const questions=getAccessibleQuestions(DB.mcSingleListening);
+  let qIndex=0; const sourceQuestions=getMockQuestionSet('mcSingleListening', DB.mcSingleListening); const totalQuestions=sourceQuestions.length; const questions=getTodayPlanQuestions('practice-mc-single-listening', getAccessibleQuestions(sourceQuestions));
   qIndex = getInitialQuestionIndex(questions);
   let player=null;
 
@@ -136,10 +139,12 @@ Pages['mc-single-listening'] = function() {
   <hr class="section-divider">
   <div class="btn-group">
     <button class="btn btn-secondary" onclick="MCSL_prev()" ${qIndex===0?'disabled':''}>${t('btn_prev')}</button>
-    <button class="btn btn-primary" onclick="MCSL_next()" ${qIndex===questions.length-1?'disabled':''}>${t('btn_next')}</button>
+    ${qIndex===questions.length-1 ? renderTodayPlanAction('practice-mc-single-listening') || `<button class="btn btn-primary" onclick="MCSL_next()" disabled>${t('btn_next')}</button>` : `<button class="btn btn-primary" onclick="MCSL_next()">${t('btn_next')}</button>`}
   </div>
   ${renderGuestPracticeUpsell(totalQuestions, questions.length)}
 </div>`;
+    mountMockProgressHeader({ pageKey: 'practice-mc-single-listening', qIndex, question: q, detailPage: 'mc-single-listening' });
+    bindMockDraftPersistence({ pageKey: 'practice-mc-single-listening', question: q, questionType: 'mcSingleListening', title: t('mcsl_title'), section: 'listening', sectionLabel: 'Listening', promptText: `${q.transcript} ${q.question}` });
     updateAudioButton($('#play-btn'), { mode: getPlaybackMode({ source: getQuestionAudioSource(q), fallbackText: q.transcript }) });
   }
 
@@ -153,7 +158,7 @@ Pages['mc-single-listening'] = function() {
 
 // ── MC Multiple Listening ─────────────────────────────────────────────────
 Pages['mc-multiple-listening'] = function() {
-  let qIndex=0; const totalQuestions=DB.mcMultipleListening.length; const questions=getAccessibleQuestions(DB.mcMultipleListening);
+  let qIndex=0; const sourceQuestions=getMockQuestionSet('mcMultipleListening', DB.mcMultipleListening); const totalQuestions=sourceQuestions.length; const questions=getTodayPlanQuestions('practice-mc-multiple-listening', getAccessibleQuestions(sourceQuestions));
   qIndex = getInitialQuestionIndex(questions);
   let player=null;
 
@@ -188,10 +193,12 @@ Pages['mc-multiple-listening'] = function() {
   <div class="btn-group">
     <button class="btn btn-primary" onclick="MCML_submit()">${t('btn_check')}</button>
     <button class="btn btn-secondary" onclick="MCML_prev()" ${qIndex===0?'disabled':''}>${t('btn_prev')}</button>
-    <button class="btn btn-secondary" onclick="MCML_next()" ${qIndex===questions.length-1?'disabled':''}>${t('btn_next')}</button>
+    ${qIndex===questions.length-1 ? renderTodayPlanAction('practice-mc-multiple-listening') || `<button class="btn btn-secondary" onclick="MCML_next()" disabled>${t('btn_next')}</button>` : `<button class="btn btn-secondary" onclick="MCML_next()">${t('btn_next')}</button>`}
   </div>
   ${renderGuestPracticeUpsell(totalQuestions, questions.length)}
 </div>`;
+    mountMockProgressHeader({ pageKey: 'practice-mc-multiple-listening', qIndex, question: q, detailPage: 'mc-multiple-listening' });
+    bindMockDraftPersistence({ pageKey: 'practice-mc-multiple-listening', question: q, questionType: 'mcMultipleListening', title: t('mcml_title'), section: 'listening', sectionLabel: 'Listening', promptText: `${q.transcript} ${q.question}` });
     updateAudioButton($('#play-btn'), { mode: getPlaybackMode({ source: getQuestionAudioSource(q), fallbackText: q.transcript }) });
   }
   window.MCML_play=function(){ const btn=$('#play-btn');const q=questions[qIndex];const fill=$('#ap-fill'); if(!player){ player=createAudioPlayer({ source:getQuestionAudioSource(q), fallbackText:q.transcript, onProgress:(pct)=>{fill.style.width=`${pct*100}%`;}, onEnd:()=>{player=null; fill.style.width='100%'; updateAudioButton(btn, { mode: getPlaybackMode({ source: getQuestionAudioSource(q), fallbackText: q.transcript }) });}, onStateChange:(state)=>{ updateAudioButton(btn, { mode: getPlaybackMode({ source: getQuestionAudioSource(q), fallbackText: q.transcript }), state }); } }); if(!player.play()) return; return; } player.toggle(); };
@@ -204,7 +211,7 @@ Pages['mc-multiple-listening'] = function() {
 
 // ── Fill in Blanks Listening ──────────────────────────────────────────────
 Pages['fill-blanks-listening'] = function() {
-  let qIndex=0; const totalQuestions=DB.fillBlanksListening.length; const questions=getAccessibleQuestions(DB.fillBlanksListening);
+  let qIndex=0; const sourceQuestions=getMockQuestionSet('fillBlanksListening', DB.fillBlanksListening); const totalQuestions=sourceQuestions.length; const questions=getTodayPlanQuestions('practice-fill-blanks-listening', getAccessibleQuestions(sourceQuestions));
   qIndex = getInitialQuestionIndex(questions);
   let player=null;
 
@@ -241,10 +248,12 @@ Pages['fill-blanks-listening'] = function() {
   <div class="btn-group">
     <button class="btn btn-primary" onclick="FBL_submit()">${t('btn_check')}</button>
     <button class="btn btn-secondary" onclick="FBL_prev()" ${qIndex===0?'disabled':''}>${t('btn_prev')}</button>
-    <button class="btn btn-secondary" onclick="FBL_next()" ${qIndex===questions.length-1?'disabled':''}>${t('btn_next')}</button>
+    ${qIndex===questions.length-1 ? renderTodayPlanAction('practice-fill-blanks-listening') || `<button class="btn btn-secondary" onclick="FBL_next()" disabled>${t('btn_next')}</button>` : `<button class="btn btn-secondary" onclick="FBL_next()">${t('btn_next')}</button>`}
   </div>
   ${renderGuestPracticeUpsell(totalQuestions, questions.length)}
 </div>`;
+    mountMockProgressHeader({ pageKey: 'practice-fill-blanks-listening', qIndex, question: q, detailPage: 'fill-blanks-listening' });
+    bindMockDraftPersistence({ pageKey: 'practice-fill-blanks-listening', question: q, questionType: 'fillBlanksListening', title: t('fbl_title'), section: 'listening', sectionLabel: 'Listening', promptText: q.transcript });
     updateAudioButton($('#play-btn'), { mode: getPlaybackMode({ source: getQuestionAudioSource(q), fallbackText: q.transcript }) });
   }
   window.FBL_play=function(){const btn=$('#play-btn');const q=questions[qIndex];const fill=$('#ap-fill'); if(!player){ player=createAudioPlayer({ source:getQuestionAudioSource(q), fallbackText:q.transcript, onProgress:(pct)=>{fill.style.width=`${pct*100}%`;}, onEnd:()=>{player=null; fill.style.width='100%'; updateAudioButton(btn, { mode: getPlaybackMode({ source: getQuestionAudioSource(q), fallbackText: q.transcript }) });}, onStateChange:(state)=>{ updateAudioButton(btn, { mode: getPlaybackMode({ source: getQuestionAudioSource(q), fallbackText: q.transcript }), state }); } }); if(!player.play()) return; return; } player.toggle();};
@@ -257,7 +266,7 @@ Pages['fill-blanks-listening'] = function() {
 
 // ── Highlight Correct Summary ─────────────────────────────────────────────
 Pages['highlight-summary'] = function() {
-  let qIndex=0; const totalQuestions=DB.highlightSummary.length; const questions=getAccessibleQuestions(DB.highlightSummary);
+  let qIndex=0; const sourceQuestions=getMockQuestionSet('highlightSummary', DB.highlightSummary); const totalQuestions=sourceQuestions.length; const questions=getTodayPlanQuestions('practice-highlight-summary', getAccessibleQuestions(sourceQuestions));
   qIndex = getInitialQuestionIndex(questions);
   let player=null;
 
@@ -289,10 +298,12 @@ Pages['highlight-summary'] = function() {
   <hr class="section-divider">
   <div class="btn-group">
     <button class="btn btn-secondary" onclick="HCS_prev()" ${qIndex===0?'disabled':''}>${t('btn_prev')}</button>
-    <button class="btn btn-secondary" onclick="HCS_next()" ${qIndex===questions.length-1?'disabled':''}>${t('btn_next')}</button>
+    ${qIndex===questions.length-1 ? renderTodayPlanAction('practice-highlight-summary') || `<button class="btn btn-secondary" onclick="HCS_next()" disabled>${t('btn_next')}</button>` : `<button class="btn btn-secondary" onclick="HCS_next()">${t('btn_next')}</button>`}
   </div>
   ${renderGuestPracticeUpsell(totalQuestions, questions.length)}
 </div>`;
+    mountMockProgressHeader({ pageKey: 'practice-highlight-summary', qIndex, question: q, detailPage: 'highlight-summary' });
+    bindMockDraftPersistence({ pageKey: 'practice-highlight-summary', question: q, questionType: 'highlightSummary', title: t('hcs_title'), section: 'listening', sectionLabel: 'Listening', promptText: q.transcript });
     updateAudioButton($('#play-btn'), { mode: getPlaybackMode({ source: getQuestionAudioSource(q), fallbackText: q.transcript }) });
   }
   window.HCS_play=function(){const btn=$('#play-btn');const q=questions[qIndex];const fill=$('#ap-fill'); if(!player){ player=createAudioPlayer({ source:getQuestionAudioSource(q), fallbackText:q.transcript, onProgress:(pct)=>{fill.style.width=`${pct*100}%`;}, onEnd:()=>{player=null; fill.style.width='100%'; updateAudioButton(btn, { mode: getPlaybackMode({ source: getQuestionAudioSource(q), fallbackText: q.transcript }) });}, onStateChange:(state)=>{ updateAudioButton(btn, { mode: getPlaybackMode({ source: getQuestionAudioSource(q), fallbackText: q.transcript }), state }); } }); if(!player.play()) return; return; } player.toggle();};
@@ -305,7 +316,7 @@ Pages['highlight-summary'] = function() {
 
 // ── Select Missing Word ────────────────────────────────────────────────────
 Pages['select-missing'] = function() {
-  let qIndex=0; const totalQuestions=DB.selectMissing.length; const questions=getAccessibleQuestions(DB.selectMissing);
+  let qIndex=0; const sourceQuestions=getMockQuestionSet('selectMissing', DB.selectMissing); const totalQuestions=sourceQuestions.length; const questions=getTodayPlanQuestions('practice-select-missing', getAccessibleQuestions(sourceQuestions));
   qIndex = getInitialQuestionIndex(questions);
   let player=null;
 
@@ -337,10 +348,12 @@ Pages['select-missing'] = function() {
   <hr class="section-divider">
   <div class="btn-group">
     <button class="btn btn-secondary" onclick="SMW_prev()" ${qIndex===0?'disabled':''}>${t('btn_prev')}</button>
-    <button class="btn btn-secondary" onclick="SMW_next()" ${qIndex===questions.length-1?'disabled':''}>${t('btn_next')}</button>
+    ${qIndex===questions.length-1 ? renderTodayPlanAction('practice-select-missing') || `<button class="btn btn-secondary" onclick="SMW_next()" disabled>${t('btn_next')}</button>` : `<button class="btn btn-secondary" onclick="SMW_next()">${t('btn_next')}</button>`}
   </div>
   ${renderGuestPracticeUpsell(totalQuestions, questions.length)}
 </div>`;
+    mountMockProgressHeader({ pageKey: 'practice-select-missing', qIndex, question: q, detailPage: 'select-missing' });
+    bindMockDraftPersistence({ pageKey: 'practice-select-missing', question: q, questionType: 'selectMissing', title: t('smw_title'), section: 'listening', sectionLabel: 'Listening', promptText: q.transcript });
     updateAudioButton($('#play-btn'), { mode: getPlaybackMode({ source: getQuestionAudioSource(q), fallbackText: q.transcript }) });
   }
   window.SMW_play=function(){const btn=$('#play-btn');const q=questions[qIndex];const fill=$('#ap-fill'); if(!player){ player=createAudioPlayer({ source:getQuestionAudioSource(q), fallbackText:q.transcript, onProgress:(pct)=>{fill.style.width=`${pct*100}%`;}, onEnd:()=>{player=null; fill.style.width='100%'; updateAudioButton(btn, { mode: getPlaybackMode({ source: getQuestionAudioSource(q), fallbackText: q.transcript }) });}, onStateChange:(state)=>{ updateAudioButton(btn, { mode: getPlaybackMode({ source: getQuestionAudioSource(q), fallbackText: q.transcript }), state }); } }); if(!player.play()) return; return; } player.toggle();};
@@ -353,7 +366,7 @@ Pages['select-missing'] = function() {
 
 // ── Highlight Incorrect Words ─────────────────────────────────────────────
 Pages['highlight-incorrect'] = function() {
-  let qIndex=0; const totalQuestions=DB.highlightIncorrect.length; const questions=getAccessibleQuestions(DB.highlightIncorrect);
+  let qIndex=0; const sourceQuestions=getMockQuestionSet('highlightIncorrect', DB.highlightIncorrect); const totalQuestions=sourceQuestions.length; const questions=getTodayPlanQuestions('practice-highlight-incorrect', getAccessibleQuestions(sourceQuestions));
   qIndex = getInitialQuestionIndex(questions);
   let player=null;
 
@@ -388,10 +401,12 @@ Pages['highlight-incorrect'] = function() {
   <div class="btn-group">
     <button class="btn btn-primary" onclick="HI_submit()">${t('btn_check')}</button>
     <button class="btn btn-secondary" onclick="HI_prev()" ${qIndex===0?'disabled':''}>${t('btn_prev')}</button>
-    <button class="btn btn-secondary" onclick="HI_next()" ${qIndex===questions.length-1?'disabled':''}>${t('btn_next')}</button>
+    ${qIndex===questions.length-1 ? renderTodayPlanAction('practice-highlight-incorrect') || `<button class="btn btn-secondary" onclick="HI_next()" disabled>${t('btn_next')}</button>` : `<button class="btn btn-secondary" onclick="HI_next()">${t('btn_next')}</button>`}
   </div>
   ${renderGuestPracticeUpsell(totalQuestions, questions.length)}
 </div>`;
+    mountMockProgressHeader({ pageKey: 'practice-highlight-incorrect', qIndex, question: q, detailPage: 'highlight-incorrect' });
+    bindMockDraftPersistence({ pageKey: 'practice-highlight-incorrect', question: q, questionType: 'highlightIncorrect', title: t('hi_title'), section: 'listening', sectionLabel: 'Listening', promptText: q.transcript });
     updateAudioButton($('#play-btn'), { mode: getPlaybackMode({ source: getQuestionAudioSource(q), fallbackText: q.transcript }) });
   }
   const selected=new Set();
@@ -426,8 +441,9 @@ Pages['write-dictation'] = function() {
     audio: item.audio || item.audioUrl || '',
     isPrediction: true,
   }));
-  const totalQuestions=sourceQuestions.length;
-  const questions=getTodayPlanQuestions('practice-write-dictation', getAccessibleQuestions(sourceQuestions));
+  const mockQuestions = getMockQuestionSet('writeDictation', sourceQuestions);
+  const totalQuestions=mockQuestions.length;
+  const questions=getTodayPlanQuestions('practice-write-dictation', getAccessibleQuestions(mockQuestions));
   qIndex = getInitialQuestionIndex(questions);
   let player=null;
 
@@ -464,6 +480,8 @@ Pages['write-dictation'] = function() {
   </div>
   ${renderGuestPracticeUpsell(totalQuestions, questions.length)}
 </div>`;
+    mountMockProgressHeader({ pageKey: 'practice-write-dictation', qIndex, question: q, detailPage: 'write-dictation' });
+    bindMockDraftPersistence({ pageKey: 'practice-write-dictation', question: q, questionType: 'writeDictation', title: t('wfd_title'), section: 'listening', sectionLabel: 'Listening', promptText: q.sentence });
     updateAudioButton($('#play-btn'), { mode: getPlaybackMode({ source: getQuestionAudioSource(q), fallbackText: q.sentence }) });
   }
   window.WFD_play=function(){const btn=$('#play-btn');const q=questions[qIndex];const fill=$('#ap-fill'); if(!player){ player=createAudioPlayer({ source:getQuestionAudioSource(q), fallbackText:q.sentence, onProgress:(pct)=>{fill.style.width=`${pct*100}%`;}, onEnd:()=>{player=null; fill.style.width='100%'; updateAudioButton(btn, { mode: getPlaybackMode({ source: getQuestionAudioSource(q), fallbackText: q.sentence }) });}, onStateChange:(state)=>{ updateAudioButton(btn, { mode: getPlaybackMode({ source: getQuestionAudioSource(q), fallbackText: q.sentence }), state }); } }); if(!player.play()) return; return; } player.toggle();};
@@ -486,7 +504,7 @@ ${Scorer.renderLocalStructuredResult({ questionType: 'writeDictation', title: t(
   rubric: [
     { name: 'Content', raw: result.correct, max: result.total, desc: `${result.correct}/${result.total} words correct` },
   ],
-}, retryAction: 'WFD_retry()', nextAction: qIndex < questions.length-1 ? 'WFD_next()' : '' })}
+}, retryAction: 'WFD_retry()', nextAction: qIndex < questions.length-1 ? 'WFD_next()' : getTodayPlanNextAction('practice-write-dictation') })}
 <div class="card" style="margin-top:12px">
   <div class="card-title">${t('wfd_comparison')}</div>
   <div style="margin-bottom:6px"><strong>${t('wfd_correct_sentence')}</strong></div>

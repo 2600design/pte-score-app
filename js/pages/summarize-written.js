@@ -1,7 +1,8 @@
 Pages['summarize-written'] = function() {
   let qIndex=0, timerObj=null;
-  const totalQuestions=DB.summarizeWritten.length;
-  const questions=getAccessibleQuestions(DB.summarizeWritten);
+  const sourceQuestions = getMockQuestionSet('summarizeWritten', DB.summarizeWritten);
+  const totalQuestions=sourceQuestions.length;
+  const questions=getTodayPlanQuestions('practice-summarize-written', getAccessibleQuestions(sourceQuestions));
   qIndex = getInitialQuestionIndex(questions);
 
   function render(){
@@ -28,10 +29,12 @@ Pages['summarize-written'] = function() {
   <div class="btn-group">
     <button class="btn btn-primary" onclick="SWT_submit()">${t('btn_submit_answer')}</button>
     <button class="btn btn-secondary" onclick="SWT_prev()" ${qIndex===0?'disabled':''}>${t('btn_prev')}</button>
-    <button class="btn btn-secondary" onclick="SWT_next()" ${qIndex===questions.length-1?'disabled':''}>${t('btn_next')}</button>
+    ${qIndex===questions.length-1 ? renderTodayPlanAction('practice-summarize-written') || `<button class="btn btn-secondary" onclick="SWT_next()" disabled>${t('btn_next')}</button>` : `<button class="btn btn-secondary" onclick="SWT_next()">${t('btn_next')}</button>`}
   </div>
   ${renderGuestPracticeUpsell(totalQuestions, questions.length)}
 </div>`;
+    mountMockProgressHeader({ pageKey: 'practice-summarize-written', qIndex, question: q, detailPage: 'summarize-written' });
+    bindMockDraftPersistence({ pageKey: 'practice-summarize-written', question: q, questionType: 'summarizeWritten', title: t('swt_title'), section: 'speakingWriting', sectionLabel: 'Speaking & Writing', promptText: q.text });
     timerObj=new CountdownTimer($('#timer-el'),600,null,()=>SWT_submit(true)); timerObj.start();
   }
 
@@ -58,7 +61,7 @@ Pages['summarize-written'] = function() {
     const oneSentence=sentences===1;
     const wc = countWords(text);
     $('#feedback-area').innerHTML=`
-${Scorer.renderLocalStructuredResult({ questionType: 'summarizeWritten', title: t('swt_title'), result, retryAction: 'SWT_retry()', nextAction: qIndex < questions.length-1 ? 'SWT_next()' : '' })}
+${Scorer.renderLocalStructuredResult({ questionType: 'summarizeWritten', title: t('swt_title'), result, retryAction: 'SWT_retry()', nextAction: qIndex < questions.length-1 ? 'SWT_next()' : getTodayPlanNextAction('practice-summarize-written') })}
 <div class="card" style="margin-top:12px">
   <div style="display:flex;flex-direction:column;gap:8px">
     <div style="display:flex;align-items:center;gap:8px"><span style="font-size:18px">${oneSentence?'✅':'❌'}</span><span>One sentence: ${oneSentence?'Yes':'No — found '+sentences+' sentences'}</span></div>

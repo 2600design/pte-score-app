@@ -1,0 +1,722 @@
+[
+  {
+    "id": "rs1",
+    "tag": "★ 高频真题",
+    "text": "The professor cancelled tomorrow's lecture due to a conference.",
+    "audio": "audio/repeat-sentence/RS-001.wav"
+  },
+  {
+    "id": "rs2",
+    "tag": "★ 高频真题",
+    "text": "Students must submit their assignments by midnight on Friday.",
+    "audio": "audio/repeat-sentence/RS-002.wav"
+  },
+  {
+    "id": "rs3",
+    "tag": "真题",
+    "text": "The library will be closed for renovations throughout the summer semester.",
+    "audio": "audio/repeat-sentence/RS-003.wav"
+  },
+  {
+    "id": "rs4",
+    "tag": "真题",
+    "text": "Please make sure you have read all required chapters before the seminar.",
+    "audio": "audio/repeat-sentence/RS-004.wav"
+  },
+  {
+    "id": "rs5",
+    "tag": "★ 高频真题",
+    "text": "The research findings will be published in the next academic journal.",
+    "audio": "audio/repeat-sentence/RS-005.wav"
+  },
+  {
+    "id": "rs6",
+    "tag": "真题",
+    "text": "You are encouraged to participate actively in group discussions.",
+    "audio": "audio/repeat-sentence/RS-006.wav"
+  },
+  {
+    "id": "rs7",
+    "tag": "★ 高频真题",
+    "text": "The university offers a range of scholarships for international students.",
+    "audio": "audio/repeat-sentence/RS-007.wav"
+  },
+  {
+    "id": "rs8",
+    "tag": "★ 高频真题",
+    "text": "Biodiversity loss is occurring at an unprecedented rate around the world.",
+    "audio": "audio/repeat-sentence/RS-008.wav"
+  },
+  {
+    "id": "rs9",
+    "tag": "预测题",
+    "text": "The exam results will be released within five working days.",
+    "audio": "audio/repeat-sentence/RS-009.wav"
+  },
+  {
+    "id": "rs10",
+    "tag": "预测题",
+    "text": "Please bring your student identification card to the examination hall.",
+    "audio": "audio/repeat-sentence/RS-010.wav"
+  },
+  {
+    "id": "rs11",
+    "tag": "★ 高频真题",
+    "text": "Global temperatures have risen by approximately one point two degrees Celsius since pre-industrial times.",
+    "audio": "audio/repeat-sentence/RS-011.wav"
+  },
+  {
+    "id": "rs12",
+    "tag": "★ 高频真题",
+    "text": "Researchers have discovered a new species of deep-sea fish near the Pacific Ocean floor.",
+    "audio": "audio/repeat-sentence/RS-012.wav"
+  },
+  {
+    "id": "rs13",
+    "tag": "预测题",
+    "text": "The committee will announce its decision after reviewing all submitted applications.",
+    "audio": "audio/repeat-sentence/RS-013.wav"
+  },
+  {
+    "id": "rs14",
+    "tag": "真题",
+    "text": "The workshop on academic writing skills is open to all enrolled students.",
+    "audio": "audio/repeat-sentence/RS-014.wav"
+  },
+  {
+    "id": "rs15",
+    "tag": "★ 高频真题",
+    "text": "Scientists believe that dark matter makes up a large proportion of the universe.",
+    "audio": "audio/repeat-sentence/RS-015.wav"
+  },
+  {
+    "id": "rs16",
+    "tag": "★ 高频预测题",
+    "text": "The museum exhibition explores how technology has influenced contemporary art.",
+    "audio": "audio/repeat-sentence/RS-016.wav"
+  },
+  {
+    "id": "rs17",
+    "tag": "预测题",
+    "text": "Please switch off all electronic devices before entering the laboratory.",
+    "audio": "audio/repeat-sentence/RS-017.wav"
+  },
+  {
+    "id": "rs18",
+    "tag": "预测题",
+    "text": "The final report should include both statistical evidence and practical recommendations.",
+    "audio": "audio/repeat-sentence/RS-018.wav"
+  },
+  {
+    "id": "rs19",
+    "tag": "★ 高频预测题",
+    "text": "Early childhood education plays a crucial role in long-term cognitive development.",
+    "audio": "audio/repeat-sentence/RS-019.wav"
+  },
+  {
+    "id": "rs20",
+    "tag": "预测题",
+    "text": "The new railway line is expected to reduce traffic congestion in the city centre.",
+    "audio": "audio/repeat-sentence/RS-020.wav"
+  },
+  {
+    "id": "rs21",
+    "tag": "新增题",
+    "text": "The meeting has been postponed due to unforeseen circumstances.",
+    "audio": "audio/repeat-sentence/RS-021.wav"
+  },
+  {
+    "id": "rs22",
+    "tag": "新增题",
+    "text": "Students are encouraged to participate in extracurricular activities.",
+    "audio": "audio/repeat-sentence/RS-022.wav"
+  },
+  {
+    "id": "rs23",
+    "tag": "新增题",
+    "text": "The research focuses on improving environmental sustainability.",
+    "audio": "audio/repeat-sentence/RS-023.wav"
+  },
+  {
+    "id": "rs24",
+    "tag": "新增题",
+    "text": "The government introduced new policies to support economic growth.",
+    "audio": "audio/repeat-sentence/RS-024.wav"
+  },
+  {
+    "id": "rs25",
+    "tag": "新增题",
+    "text": "The results were influenced by several external factors.",
+    "audio": "audio/repeat-sentence/RS-025.wav"
+  },
+  {
+    "id": "rs26",
+    "tag": "新增题",
+    "text": "The company aims to expand its operations globally.",
+    "audio": "audio/repeat-sentence/RS-026.wav"
+  },
+  {
+    "id": "rs27",
+    "tag": "新增题",
+    "text": "Effective communication is essential for teamwork and success.",
+    "audio": "audio/repeat-sentence/RS-027.wav"
+  },
+  {
+    "id": "rs28",
+    "tag": "新增题",
+    "text": "The professor provided detailed feedback on the assignment.",
+    "audio": "audio/repeat-sentence/RS-028.wav"
+  },
+  {
+    "id": "rs29",
+    "tag": "新增题",
+    "text": "Many students prefer online learning due to its flexibility.",
+    "audio": "audio/repeat-sentence/RS-029.wav"
+  },
+  {
+    "id": "rs30",
+    "tag": "新增题",
+    "text": "The experiment produced unexpected but valuable results.",
+    "audio": "audio/repeat-sentence/RS-030.wav"
+  },
+  {
+    "id": "rs31",
+    "tag": "新增题",
+    "text": "The project requires careful planning and time management.",
+    "audio": "audio/repeat-sentence/RS-031.wav"
+  },
+  {
+    "id": "rs32",
+    "tag": "新增题",
+    "text": "Advances in science have improved healthcare outcomes significantly.",
+    "audio": "audio/repeat-sentence/RS-032.wav"
+  },
+  {
+    "id": "rs33",
+    "tag": "新增题",
+    "text": "The university offers a wide range of academic programs.",
+    "audio": "audio/repeat-sentence/RS-033.wav"
+  },
+  {
+    "id": "rs34",
+    "tag": "新增题",
+    "text": "The data suggests a steady increase in population growth.",
+    "audio": "audio/repeat-sentence/RS-034.wav"
+  },
+  {
+    "id": "rs35",
+    "tag": "新增题",
+    "text": "The committee will review the proposal next week.",
+    "audio": "audio/repeat-sentence/RS-035.wav"
+  },
+  {
+    "id": "rs36",
+    "tag": "新增题",
+    "text": "Environmental protection is a global responsibility.",
+    "audio": "audio/repeat-sentence/RS-036.wav"
+  },
+  {
+    "id": "rs37",
+    "tag": "新增题",
+    "text": "The lecture covered several important theoretical concepts.",
+    "audio": "audio/repeat-sentence/RS-037.wav"
+  },
+  {
+    "id": "rs38",
+    "tag": "新增题",
+    "text": "The organization is committed to reducing carbon emissions.",
+    "audio": "audio/repeat-sentence/RS-038.wav"
+  },
+  {
+    "id": "rs39",
+    "tag": "新增题",
+    "text": "The policy aims to improve public transportation systems.",
+    "audio": "audio/repeat-sentence/RS-039.wav"
+  },
+  {
+    "id": "rs40",
+    "tag": "新增题",
+    "text": "Technology has transformed modern communication methods.",
+    "audio": "audio/repeat-sentence/RS-040.wav"
+  },
+  {
+    "id": "rs41",
+    "tag": "新增题",
+    "text": "The study examines the impact of education on employment.",
+    "audio": "audio/repeat-sentence/RS-041.wav"
+  },
+  {
+    "id": "rs42",
+    "tag": "新增题",
+    "text": "Students must submit their work before the deadline.",
+    "audio": "audio/repeat-sentence/RS-042.wav"
+  },
+  {
+    "id": "rs43",
+    "tag": "新增题",
+    "text": "The research findings were published in a scientific journal.",
+    "audio": "audio/repeat-sentence/RS-043.wav"
+  },
+  {
+    "id": "rs44",
+    "tag": "新增题",
+    "text": "The company reported a significant increase in revenue.",
+    "audio": "audio/repeat-sentence/RS-044.wav"
+  },
+  {
+    "id": "rs45",
+    "tag": "新增题",
+    "text": "The program is designed to enhance professional skills.",
+    "audio": "audio/repeat-sentence/RS-045.wav"
+  },
+  {
+    "id": "rs46",
+    "tag": "新增题",
+    "text": "The government supports innovation in various industries.",
+    "audio": "audio/repeat-sentence/RS-046.wav"
+  },
+  {
+    "id": "rs47",
+    "tag": "新增题",
+    "text": "The conference will discuss global economic trends.",
+    "audio": "audio/repeat-sentence/RS-047.wav"
+  },
+  {
+    "id": "rs48",
+    "tag": "新增题",
+    "text": "The project was completed ahead of schedule.",
+    "audio": "audio/repeat-sentence/RS-048.wav"
+  },
+  {
+    "id": "rs49",
+    "tag": "新增题",
+    "text": "The system is designed to improve efficiency and productivity.",
+    "audio": "audio/repeat-sentence/RS-049.wav"
+  },
+  {
+    "id": "rs50",
+    "tag": "新增题",
+    "text": "The results indicate a positive trend in development.",
+    "audio": "audio/repeat-sentence/RS-050.wav"
+  },
+  {
+    "id": "RS-001",
+    "tag": "新增题",
+    "text": "The lecture will begin shortly after a brief introduction.",
+    "audio": "/audio/repeat-sentence/RS-001.wav"
+  },
+  {
+    "id": "RS-002",
+    "tag": "新增题",
+    "text": "Students are required to submit their assignments before the deadline.",
+    "audio": "/audio/repeat-sentence/RS-002.wav"
+  },
+  {
+    "id": "RS-003",
+    "tag": "新增题",
+    "text": "The results of the experiment were unexpectedly accurate.",
+    "audio": "/audio/repeat-sentence/RS-003.wav"
+  },
+  {
+    "id": "RS-004",
+    "tag": "新增题",
+    "text": "She recommended reviewing the material thoroughly.",
+    "audio": "/audio/repeat-sentence/RS-004.wav"
+  },
+  {
+    "id": "RS-005",
+    "tag": "新增题",
+    "text": "The company plans to expand its operations internationally.",
+    "audio": "/audio/repeat-sentence/RS-005.wav"
+  },
+  {
+    "id": "RS-006",
+    "tag": "新增题",
+    "text": "Attendance is mandatory for all registered participants.",
+    "audio": "/audio/repeat-sentence/RS-006.wav"
+  },
+  {
+    "id": "RS-007",
+    "tag": "新增题",
+    "text": "The professor emphasized the importance of critical thinking.",
+    "audio": "/audio/repeat-sentence/RS-007.wav"
+  },
+  {
+    "id": "RS-008",
+    "tag": "新增题",
+    "text": "We need to consider alternative solutions to this issue.",
+    "audio": "/audio/repeat-sentence/RS-008.wav"
+  },
+  {
+    "id": "RS-009",
+    "tag": "新增题",
+    "text": "The meeting has been postponed until next week.",
+    "audio": "/audio/repeat-sentence/RS-009.wav"
+  },
+  {
+    "id": "RS-010",
+    "tag": "新增题",
+    "text": "Environmental policies are essential for long-term sustainability.",
+    "audio": "/audio/repeat-sentence/RS-010.wav"
+  },
+  {
+    "id": "RS-011",
+    "tag": "新增题",
+    "text": "The research findings were published in a leading journal.",
+    "audio": "/audio/repeat-sentence/RS-011.wav"
+  },
+  {
+    "id": "RS-012",
+    "tag": "新增题",
+    "text": "Students should take advantage of available academic resources.",
+    "audio": "/audio/repeat-sentence/RS-012.wav"
+  },
+  {
+    "id": "RS-013",
+    "tag": "新增题",
+    "text": "The project requires collaboration between multiple departments.",
+    "audio": "/audio/repeat-sentence/RS-013.wav"
+  },
+  {
+    "id": "RS-014",
+    "tag": "新增题",
+    "text": "Economic growth depends on innovation and investment.",
+    "audio": "/audio/repeat-sentence/RS-014.wav"
+  },
+  {
+    "id": "RS-015",
+    "tag": "新增题",
+    "text": "The university offers a wide range of degree programs.",
+    "audio": "/audio/repeat-sentence/RS-015.wav"
+  },
+  {
+    "id": "RS-016",
+    "tag": "新增题",
+    "text": "Please ensure all documents are submitted on time.",
+    "audio": "/audio/repeat-sentence/RS-016.wav"
+  },
+  {
+    "id": "RS-017",
+    "tag": "新增题",
+    "text": "The speaker addressed several important global issues.",
+    "audio": "/audio/repeat-sentence/RS-017.wav"
+  },
+  {
+    "id": "RS-018",
+    "tag": "新增题",
+    "text": "Technology continues to influence modern education systems.",
+    "audio": "/audio/repeat-sentence/RS-018.wav"
+  },
+  {
+    "id": "RS-019",
+    "tag": "新增题",
+    "text": "The data must be analyzed carefully before drawing conclusions.",
+    "audio": "/audio/repeat-sentence/RS-019.wav"
+  },
+  {
+    "id": "RS-020",
+    "tag": "新增题",
+    "text": "The policy aims to reduce environmental impact.",
+    "audio": "/audio/repeat-sentence/RS-020.wav"
+  },
+  {
+    "id": "RS-021",
+    "tag": "新增题",
+    "text": "The results indicate a significant improvement in performance.",
+    "audio": "/audio/repeat-sentence/RS-021.wav"
+  },
+  {
+    "id": "RS-022",
+    "tag": "新增题",
+    "text": "Students are encouraged to participate in group discussions.",
+    "audio": "/audio/repeat-sentence/RS-022.wav"
+  },
+  {
+    "id": "RS-023",
+    "tag": "新增题",
+    "text": "The conference will be held at the main campus auditorium.",
+    "audio": "/audio/repeat-sentence/RS-023.wav"
+  },
+  {
+    "id": "RS-024",
+    "tag": "新增题",
+    "text": "This method provides a more efficient solution.",
+    "audio": "/audio/repeat-sentence/RS-024.wav"
+  },
+  {
+    "id": "RS-025",
+    "tag": "新增题",
+    "text": "The research focuses on sustainable development strategies.",
+    "audio": "/audio/repeat-sentence/RS-025.wav"
+  },
+  {
+    "id": "RS-026",
+    "tag": "新增题",
+    "text": "The system needs to be updated regularly.",
+    "audio": "/audio/repeat-sentence/RS-026.wav"
+  },
+  {
+    "id": "RS-027",
+    "tag": "新增题",
+    "text": "The assignment should be completed individually.",
+    "audio": "/audio/repeat-sentence/RS-027.wav"
+  },
+  {
+    "id": "RS-028",
+    "tag": "新增题",
+    "text": "The course requires active participation from all students.",
+    "audio": "/audio/repeat-sentence/RS-028.wav"
+  },
+  {
+    "id": "RS-029",
+    "tag": "新增题",
+    "text": "The results were influenced by external factors.",
+    "audio": "/audio/repeat-sentence/RS-029.wav"
+  },
+  {
+    "id": "RS-030",
+    "tag": "新增题",
+    "text": "The company has adopted new management strategies.",
+    "audio": "/audio/repeat-sentence/RS-030.wav"
+  },
+  {
+    "id": "RS-031",
+    "tag": "新增题",
+    "text": "The lecture covered several key concepts in detail.",
+    "audio": "/audio/repeat-sentence/RS-031.wav"
+  },
+  {
+    "id": "RS-032",
+    "tag": "新增题",
+    "text": "Students must follow the academic integrity guidelines.",
+    "audio": "/audio/repeat-sentence/RS-032.wav"
+  },
+  {
+    "id": "RS-033",
+    "tag": "新增题",
+    "text": "The findings contribute to further research in this field.",
+    "audio": "/audio/repeat-sentence/RS-033.wav"
+  },
+  {
+    "id": "RS-034",
+    "tag": "新增题",
+    "text": "The study examines the effects of climate change.",
+    "audio": "/audio/repeat-sentence/RS-034.wav"
+  },
+  {
+    "id": "RS-035",
+    "tag": "新增题",
+    "text": "The report highlights the importance of teamwork.",
+    "audio": "/audio/repeat-sentence/RS-035.wav"
+  },
+  {
+    "id": "RS-036",
+    "tag": "新增题",
+    "text": "The experiment was conducted under controlled conditions.",
+    "audio": "/audio/repeat-sentence/RS-036.wav"
+  },
+  {
+    "id": "RS-037",
+    "tag": "新增题",
+    "text": "The university encourages international collaboration.",
+    "audio": "/audio/repeat-sentence/RS-037.wav"
+  },
+  {
+    "id": "RS-038",
+    "tag": "新增题",
+    "text": "The results support the initial hypothesis.",
+    "audio": "/audio/repeat-sentence/RS-038.wav"
+  },
+  {
+    "id": "RS-039",
+    "tag": "新增题",
+    "text": "The policy was implemented last year.",
+    "audio": "/audio/repeat-sentence/RS-039.wav"
+  },
+  {
+    "id": "RS-040",
+    "tag": "新增题",
+    "text": "Students should review the material before class.",
+    "audio": "/audio/repeat-sentence/RS-040.wav"
+  },
+  {
+    "id": "RS-041",
+    "tag": "新增题",
+    "text": "The research was funded by a government grant.",
+    "audio": "/audio/repeat-sentence/RS-041.wav"
+  },
+  {
+    "id": "RS-042",
+    "tag": "新增题",
+    "text": "The lecture provided valuable insights into the topic.",
+    "audio": "/audio/repeat-sentence/RS-042.wav"
+  },
+  {
+    "id": "RS-043",
+    "tag": "新增题",
+    "text": "The company aims to improve customer satisfaction.",
+    "audio": "/audio/repeat-sentence/RS-043.wav"
+  },
+  {
+    "id": "RS-044",
+    "tag": "新增题",
+    "text": "The data suggests a positive trend.",
+    "audio": "/audio/repeat-sentence/RS-044.wav"
+  },
+  {
+    "id": "RS-045",
+    "tag": "新增题",
+    "text": "The professor will explain the concept in the next session.",
+    "audio": "/audio/repeat-sentence/RS-045.wav"
+  },
+  {
+    "id": "RS-046",
+    "tag": "新增题",
+    "text": "The system is designed to improve efficiency.",
+    "audio": "/audio/repeat-sentence/RS-046.wav"
+  },
+  {
+    "id": "RS-047",
+    "tag": "新增题",
+    "text": "The report was submitted to the management team.",
+    "audio": "/audio/repeat-sentence/RS-047.wav"
+  },
+  {
+    "id": "RS-048",
+    "tag": "新增题",
+    "text": "The study highlights the importance of education.",
+    "audio": "/audio/repeat-sentence/RS-048.wav"
+  },
+  {
+    "id": "RS-049",
+    "tag": "新增题",
+    "text": "The results were consistent across all groups.",
+    "audio": "/audio/repeat-sentence/RS-049.wav"
+  },
+  {
+    "id": "RS-050",
+    "tag": "新增题",
+    "text": "The policy addresses key environmental concerns.",
+    "audio": "/audio/repeat-sentence/RS-050.wav"
+  },
+  {
+    "id": "RS-051",
+    "tag": "新增题",
+    "text": "The experiment yielded promising results.",
+    "audio": "/audio/repeat-sentence/RS-051.wav"
+  },
+  {
+    "id": "RS-052",
+    "tag": "新增题",
+    "text": "The lecture emphasized practical applications.",
+    "audio": "/audio/repeat-sentence/RS-052.wav"
+  },
+  {
+    "id": "RS-053",
+    "tag": "新增题",
+    "text": "The company is exploring new markets.",
+    "audio": "/audio/repeat-sentence/RS-053.wav"
+  },
+  {
+    "id": "RS-054",
+    "tag": "新增题",
+    "text": "The students completed the assignment successfully.",
+    "audio": "/audio/repeat-sentence/RS-054.wav"
+  },
+  {
+    "id": "RS-055",
+    "tag": "新增题",
+    "text": "The data was collected over several months.",
+    "audio": "/audio/repeat-sentence/RS-055.wav"
+  },
+  {
+    "id": "RS-056",
+    "tag": "新增题",
+    "text": "The research provides new insights into the issue.",
+    "audio": "/audio/repeat-sentence/RS-056.wav"
+  },
+  {
+    "id": "RS-057",
+    "tag": "新增题",
+    "text": "The policy aims to promote sustainability.",
+    "audio": "/audio/repeat-sentence/RS-057.wav"
+  },
+  {
+    "id": "RS-058",
+    "tag": "新增题",
+    "text": "The system requires regular maintenance.",
+    "audio": "/audio/repeat-sentence/RS-058.wav"
+  },
+  {
+    "id": "RS-059",
+    "tag": "新增题",
+    "text": "The lecture covered theoretical concepts.",
+    "audio": "/audio/repeat-sentence/RS-059.wav"
+  },
+  {
+    "id": "RS-060",
+    "tag": "新增题",
+    "text": "The results indicate a clear improvement.",
+    "audio": "/audio/repeat-sentence/RS-060.wav"
+  },
+  {
+    "id": "RS-061",
+    "tag": "新增题",
+    "text": "The company plans to increase production.",
+    "audio": "/audio/repeat-sentence/RS-061.wav"
+  },
+  {
+    "id": "RS-062",
+    "tag": "新增题",
+    "text": "The students attended the workshop.",
+    "audio": "/audio/repeat-sentence/RS-062.wav"
+  },
+  {
+    "id": "RS-063",
+    "tag": "新增题",
+    "text": "The research was conducted by a team of experts.",
+    "audio": "/audio/repeat-sentence/RS-063.wav"
+  },
+  {
+    "id": "RS-064",
+    "tag": "新增题",
+    "text": "The lecture included several examples.",
+    "audio": "/audio/repeat-sentence/RS-064.wav"
+  },
+  {
+    "id": "RS-065",
+    "tag": "新增题",
+    "text": "The system helps improve productivity.",
+    "audio": "/audio/repeat-sentence/RS-065.wav"
+  },
+  {
+    "id": "RS-066",
+    "tag": "新增题",
+    "text": "The report outlines key recommendations.",
+    "audio": "/audio/repeat-sentence/RS-066.wav"
+  },
+  {
+    "id": "RS-067",
+    "tag": "新增题",
+    "text": "The policy supports long-term growth.",
+    "audio": "/audio/repeat-sentence/RS-067.wav"
+  },
+  {
+    "id": "RS-068",
+    "tag": "新增题",
+    "text": "The results were analyzed statistically.",
+    "audio": "/audio/repeat-sentence/RS-068.wav"
+  },
+  {
+    "id": "RS-069",
+    "tag": "新增题",
+    "text": "The company focuses on innovation.",
+    "audio": "/audio/repeat-sentence/RS-069.wav"
+  },
+  {
+    "id": "RS-070",
+    "tag": "新增题",
+    "text": "The lecture concluded with a summary of key points.",
+    "audio": "/audio/repeat-sentence/RS-070.wav"
+  }
+]

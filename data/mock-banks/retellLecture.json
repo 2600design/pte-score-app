@@ -1,0 +1,51 @@
+[
+  {
+    "id": "rl1",
+    "tag": "★ 高频真题",
+    "title": "The Water Cycle",
+    "transcript": "Water is continuously cycled through the environment in a process driven by solar energy. Evaporation from oceans and lakes transforms liquid water into vapor, which rises into the atmosphere. As it cools, condensation forms clouds. Eventually, precipitation returns water to the surface as rain or snow. This cycle regulates global temperatures, distributes fresh water, and sustains all life on Earth.",
+    "duration": 45
+  },
+  {
+    "id": "rl2",
+    "tag": "★ 高频真题",
+    "title": "The Industrial Revolution",
+    "transcript": "The Industrial Revolution, which began in Britain in the late eighteenth century, transformed the way goods were produced. Steam-powered machines replaced manual labour in factories, dramatically increasing output. New transportation networks, including railways and canals, enabled mass distribution. However, urbanization also led to poor living conditions for many factory workers, sparking early labour movements.",
+    "duration": 50
+  },
+  {
+    "id": "rl3",
+    "tag": "真题",
+    "title": "Neuroplasticity",
+    "transcript": "Neuroplasticity refers to the brain's remarkable ability to reorganise itself by forming new neural connections throughout life. This capacity allows the brain to compensate for injury or disease and to adjust in response to new situations or changes in the environment. Research has shown that activities such as learning a new language, playing a musical instrument, or regular physical exercise can promote neuroplasticity and help maintain cognitive function into old age.",
+    "duration": 55
+  },
+  {
+    "id": "rl4",
+    "tag": "预测题",
+    "title": "Coral Reef Ecosystems",
+    "transcript": "Coral reefs are among the most biologically diverse ecosystems on Earth, covering less than one percent of the ocean floor but supporting approximately twenty-five percent of all marine species. They provide vital services including coastal protection, food security, and income from tourism and fisheries for hundreds of millions of people. However, climate change, ocean acidification, and human activities such as overfishing and pollution are rapidly degrading reef systems worldwide.",
+    "duration": 58
+  },
+  {
+    "id": "rl5",
+    "tag": "预测题",
+    "title": "Behavioural Economics",
+    "transcript": "Behavioural economics combines insights from psychology and economics to understand how people actually make decisions, as opposed to how traditional economic theory assumes they should. Research in this field has shown that people are subject to cognitive biases — systematic errors in thinking — that lead to choices that may not serve their best interests. These findings have influenced policy design, with governments using nudges to encourage healthier and more financially sound behaviour.",
+    "duration": 52
+  },
+  {
+    "id": "rl6",
+    "tag": "★ 高频预测题",
+    "title": "Renewable Energy Storage",
+    "transcript": "Renewable energy sources such as solar and wind are intermittent, meaning they do not produce electricity at all times. Energy storage technologies address this problem by capturing excess electricity when production is high and releasing it when demand rises. Batteries are the most widely discussed option, but pumped hydro, thermal storage, and hydrogen systems are also gaining attention. Improving storage capacity is essential if countries are to build reliable low-carbon power systems.",
+    "duration": 54
+  },
+  {
+    "id": "rl7",
+    "tag": "预测题",
+    "title": "Language and Identity",
+    "transcript": "Language is more than a tool for communication; it is also a marker of identity, culture, and belonging. When minority languages disappear, communities lose not only vocabulary and grammar, but also stories, traditions, and unique ways of understanding the world. Linguists estimate that nearly half of the world's languages may disappear within this century unless active preservation efforts are made. Education policy, media representation, and community-led programs all play important roles in language maintenance.",
+    "duration": 57
+  }
+]

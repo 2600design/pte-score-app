@@ -41,8 +41,7 @@ window.AppProfile = {
   },
 
   getAvatarUrl(user = AppAuth?.user) {
-    const profile = this.get(user);
-    return profile.avatarUrl || '';
+    return '';
   },
 
   getInitial(user = AppAuth?.user, lang = (typeof getAppLang === 'function' ? getAppLang() : 'zh')) {
@@ -220,7 +219,8 @@ const AppAuth = {
     if (!SupabaseService.hasConfig()) throw new Error(SupabaseService.getMissingMessage());
     const client = SupabaseService.getClient();
     if (!client) throw new Error(SupabaseService.getLibraryMessage());
-    const { data, error } = await client.auth.signInWithPassword({ email, password });
+    const normalizedEmail = String(email || '').trim().replace(/\s+/g, '').toLowerCase();
+    const { data, error } = await client.auth.signInWithPassword({ email: normalizedEmail, password });
     if (error) throw error;
     return data;
   },
@@ -236,6 +236,46 @@ const AppAuth = {
     if (!SupabaseService.hasConfig()) throw new Error(SupabaseService.getMissingMessage());
     const client = SupabaseService.getClient();
     if (!client) throw new Error(SupabaseService.getLibraryMessage());
+
+    const platform = window.Capacitor ? Capacitor.getPlatform() : 'web';
+    console.log('[GoogleAuth] platform:', platform);
+
+    const isIOS = platform === 'ios';
+    if (isIOS) {
+      console.log('[GoogleAuth] Entering iOS native branch (ASWebAuthenticationSession)');
+      const redirectTo = 'ptescore://auth/callback';
+      console.log('[GoogleAuth] redirectTo:', redirectTo);
+      const { data: oauthData, error: urlError } = await client.auth.signInWithOAuth({
+        provider: 'google',
+        options: { redirectTo, skipBrowserRedirect: true },
+      });
+      if (urlError) throw urlError;
+      const oauthUrl = oauthData?.url;
+      if (!oauthUrl) throw new Error('Could not get Google OAuth URL.');
+      console.log('[GoogleAuth] oauthUrl:', oauthUrl);
+      console.log('[GoogleAuth] Opening ASWebAuthenticationSession');
+      const plugin = window.Capacitor.Plugins.GoogleSignIn;
+      if (!plugin) throw new Error('GoogleSignIn plugin not available.');
+      const { callbackUrl } = await plugin.openSession({ url: oauthUrl });
+      console.log('[GoogleAuth] callbackUrl:', callbackUrl);
+      if (!callbackUrl) {
+        throw new Error('No callback URL returned');
+      }
+
+      const url = new URL(callbackUrl);
+      const code = url.searchParams.get('code');
+
+      if (!code) {
+        console.error('[GoogleAuth] Missing code. Full URL:', callbackUrl);
+        throw new Error('No auth code returned from Google');
+      }
+
+      const { error: sessionError } = await client.auth.exchangeCodeForSession(code);
+      if (sessionError) throw sessionError;
+      return;
+    }
+
+    console.log('[GoogleAuth] Entering web OAuth branch');
     const { error } = await client.auth.signInWithOAuth({
       provider: 'google',
       options: { redirectTo: this.getAuthRedirectUrl() },
@@ -315,15 +355,19 @@ const AppAuth = {
     // Native Sign in with Apple via Capacitor plugin (if available)
     const cap = window.Capacitor;
     if (cap && cap.isNativePlatform && cap.isNativePlatform() && cap.isPluginAvailable && cap.isPluginAvailable('SignInWithApple')) {
-      const plugin = cap.Plugins.SignInWithApple;
-      const result = await plugin.authorize({ scopes: ['email', 'name'] });
-      const credential = result.response;
-      const { error } = await client.auth.signInWithIdToken({
-        provider: 'apple',
-        token: credential.identityToken,
-      });
-      if (error) throw error;
-      return;
+      try {
+        const plugin = cap.Plugins.SignInWithApple;
+        const result = await plugin.authorize({ scopes: ['email', 'name'] });
+        const credential = result.response;
+        const { error } = await client.auth.signInWithIdToken({
+          provider: 'apple',
+          token: credential.identityToken,
+        });
+        if (error) throw error;
+        return;
+      } catch (nativeErr) {
+        // fall through to web OAuth below
+      }
     }
 
     // Web / desktop / iOS WKWebView fallback — Supabase OAuth redirect
@@ -369,11 +413,11 @@ const AuthUI = {
         <button id="auth-tab-login" class="auth-tab active" type="button" onclick="AuthUI.switchTab('login')">${t('auth_tab_login')}</button>
         <button id="auth-tab-signup" class="auth-tab" type="button" onclick="AuthUI.switchTab('signup')">${t('auth_tab_signup')}</button>
       </div>
-      <form id="auth-form" class="auth-form" onsubmit="AuthUI.submit(event)">
+      <form id="auth-form" class="auth-form" name="auth-form" method="post" action="#" onsubmit="AuthUI.submit(event)" novalidate>
         <label class="auth-label" for="auth-email" id="auth-email-label">${t('auth_email_label')}</label>
-        <input id="auth-email" class="auth-input" type="email" autocomplete="email" required>
+        <input id="auth-email" class="auth-input" type="email" name="email" inputmode="email" autocomplete="username" autocapitalize="none" autocorrect="off" spellcheck="false" enterkeyhint="next" required>
         <label class="auth-label" for="auth-password" id="auth-password-label">${t('auth_password_label')}</label>
-        <input id="auth-password" class="auth-input" type="password" autocomplete="current-password" required minlength="6">
+        <input id="auth-password" class="auth-input auth-input-password" type="password" name="password" autocomplete="current-password" autocapitalize="none" autocorrect="off" spellcheck="false" enterkeyhint="go" required minlength="6">
         <div id="auth-error" class="auth-message error hidden"></div>
         <div id="auth-success" class="auth-message success hidden"></div>
         <button id="auth-submit" class="btn btn-primary auth-submit" type="submit">${t('auth_btn_login')}</button>
@@ -463,7 +507,14 @@ const AuthUI = {
     $('#auth-modal-title').textContent = this.tab === 'login' ? t('auth_modal_title_login') : t('auth_modal_title_signup');
     $('#auth-modal-copy').textContent = this.tab === 'login' ? t('auth_modal_copy_login') : t('auth_modal_copy_signup');
     $('#auth-submit').textContent = this.tab === 'login' ? t('auth_btn_login') : t('auth_btn_signup');
-    $('#auth-password')?.setAttribute('autocomplete', this.tab === 'login' ? 'current-password' : 'new-password');
+    $('#auth-email')?.setAttribute('autocomplete', this.tab === 'login' ? 'username' : 'email');
+    const passwordInput = $('#auth-password');
+    if (passwordInput) {
+      const useMaskedTextInput = typeof window.isNativeIPad === 'function' && window.isNativeIPad();
+      passwordInput.setAttribute('type', useMaskedTextInput ? 'text' : 'password');
+      passwordInput.classList.toggle('auth-input-password-masked', useMaskedTextInput);
+      passwordInput.setAttribute('autocomplete', useMaskedTextInput ? 'off' : (this.tab === 'login' ? 'current-password' : 'new-password'));
+    }
     const forgotLink = $('#auth-forgot-link');
     if (forgotLink) forgotLink.classList.toggle('hidden', this.tab !== 'login');
     this.resetMessages();
@@ -616,6 +667,9 @@ const AuthUI = {
   async signInWithApple() {
     try {
       await AppAuth.signInWithApple();
+      this.close();
+      if (typeof showToast === 'function') showToast(t('auth_login_success') || 'Signed in successfully');
+      if (typeof refreshCurrentPage === 'function') refreshCurrentPage();
     } catch (error) {
       this.ensureModal();
       this.setError(error.message || 'Apple login failed. Please try again.');
@@ -632,12 +686,24 @@ const AuthUI = {
     }
   },
 
+  async flushAutofill(form) {
+    if (!(form instanceof HTMLFormElement)) return;
+    const active = document.activeElement;
+    if (active instanceof HTMLElement && form.contains(active)) {
+      active.blur();
+      await new Promise(resolve => window.setTimeout(resolve, 80));
+    }
+  },
+
   async submit(event) {
     event.preventDefault();
     this.resetMessages();
 
-    const email = ($('#auth-email')?.value || '').trim();
-    const password = ($('#auth-password')?.value || '').trim();
+    const form = event?.target instanceof HTMLFormElement ? event.target : $('#auth-form');
+    await this.flushAutofill(form);
+    const formData = form instanceof HTMLFormElement ? new FormData(form) : null;
+    const email = String(formData?.get('email') || $('#auth-email')?.value || '').trim();
+    const password = String(formData?.get('password') || $('#auth-password')?.value || '');
     if (!email || !password) {
       this.setError('Please enter both email and password.');
       return;

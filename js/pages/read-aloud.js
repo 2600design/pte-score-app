@@ -16,8 +16,9 @@ Pages['read-aloud'] = function() {
   let speechDetected = false;
   let failedStartWindow = false;
   const prepSeconds = 40;
-  const totalQuestions = DB.readAloud.length;
-  const questions = getAccessibleQuestions(DB.readAloud);
+  const sourceQuestions = getMockQuestionSet('readAloud', DB.readAloud);
+  const totalQuestions = sourceQuestions.length;
+  const questions = getTodayPlanQuestions('practice-read-aloud', getAccessibleQuestions(sourceQuestions));
   qIndex = getInitialQuestionIndex(questions);
   const getQuestionRecordingKey = (question) => `readAloud:${question?.id || qIndex}`;
   const pageStatePage = 'read-aloud';
@@ -482,7 +483,7 @@ ${q.tag ? `<div class="speaking-prompt-caption">${Scorer.escapeHtml(q.tag)}</div
           referenceText: q.text,
           audioUrl: activeAudio.previewUrl || '',
           retryAction: 'RA_startRecord()',
-          nextAction: qIndex < questions.length - 1 ? 'RA_next()' : '',
+          nextAction: qIndex < questions.length - 1 ? 'RA_next()' : getTodayPlanNextAction('practice-read-aloud'),
         });
         persistUi(q);
       } catch (error) {
@@ -535,7 +536,7 @@ ${q.tag ? `<div class="speaking-prompt-caption">${Scorer.escapeHtml(q.tag)}</div
       reference: q.text,
       audioUrl: activeAudio.previewUrl || '',
       retryAction: 'RA_startRecord()',
-      nextAction: qIndex < questions.length - 1 ? 'RA_next()' : '',
+      nextAction: qIndex < questions.length - 1 ? 'RA_next()' : getTodayPlanNextAction('practice-read-aloud'),
     });
     persistUi(q);
   };

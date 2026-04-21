@@ -36,8 +36,9 @@ Pages['describe-image'] = function() {
     isPrediction: false,
   }));
   const sourceQuestions = usingPredictionBank ? predictionQuestions : templateQuestions;
-  const totalQuestions = sourceQuestions.length;
-  const questions = getTodayPlanQuestions('practice-describe-image', getAccessibleQuestions(sourceQuestions));
+  const mockQuestions = getMockQuestionSet('describeImage', sourceQuestions);
+  const totalQuestions = mockQuestions.length;
+  const questions = getTodayPlanQuestions('practice-describe-image', getAccessibleQuestions(mockQuestions));
   qIndex = getInitialQuestionIndex(questions);
   const getQuestionRecordingKey = (question) => `describeImage:${question?.id || qIndex}`;
   const pageStatePage = 'describe-image';
@@ -208,21 +209,32 @@ Pages['describe-image'] = function() {
     renderSubmissionPanel(t('panel_record_answer'));
   }
 
+  function renderDescribeImageFigure(q) {
+    if (q.image) {
+      return `<img src="${q.image}" alt="${Scorer.escapeHtml(q.title)}">`;
+    }
+    return String(q.imageSvg || '')
+      .replace(/style="[^"]*"/i, '')
+      .replace('<svg ', '<svg class="di-figure-svg" ');
+  }
+
   function render() {
     const q = questions[qIndex];
     syncSelectedQuestion(q);
     if (window.PracticeTracker) PracticeTracker.setCurrentQuestion({ questionId: q.id, questionType: 'describeImage', questionText: `${q.title} ${q.hint}` });
     const promptHtml = `
+<div class="di-prompt-shell">
 <div style="display:flex;gap:8px;flex-wrap:wrap">
   <span class="speaking-exam-badge">${Scorer.escapeHtml(usingPredictionBank ? t('prediction_high_badge') : t('di_template_bank'))}</span>
   <span class="speaking-exam-badge">${Scorer.escapeHtml(`${t('di_type_badge')}: ${q.isPrediction ? q.type.replace(/_/g, ' ') : getDiTemplateTypeLabel(q.type)}`)}</span>
   <span class="speaking-exam-badge">${Scorer.escapeHtml(`${t('di_difficulty_badge')}: ${q.difficulty || 'medium'}`)}</span>
 </div>
 <div class="speaking-prompt-copy" style="font-size:15px;font-weight:700">${Scorer.escapeHtml(q.title)}</div>
-<div style="text-align:center">
-  ${q.image ? `<img src="${q.image}" alt="${Scorer.escapeHtml(q.title)}" style="width:min(100%, 860px);border-radius:14px;border:1px solid var(--border);background:#fff">` : q.imageSvg}
+<div class="di-figure-wrap">
+  ${renderDescribeImageFigure(q)}
 </div>
-${q.hint ? `<div class="speaking-prompt-caption">${Scorer.escapeHtml(q.hint)}</div>` : ''}`;
+${q.hint ? `<div class="speaking-prompt-caption">${Scorer.escapeHtml(q.hint)}</div>` : ''}
+</div>`;
     const recordingHtml = AIScorer.renderRecordingCard({
       state: phase,
       promptHtml,
