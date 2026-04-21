@@ -10222,7 +10222,7 @@ input[type="password"] {
   border-color: rgba(34, 197, 94, 0.2);
 }
 
-@media (min-width: 769px) and (max-width: 1023px) {
+@media (min-width: 769px) {
   .speaking-exam-container {
     max-width: 1180px;
     padding: 28px 32px 36px;
