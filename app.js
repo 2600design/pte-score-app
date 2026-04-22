@@ -8,7 +8,7 @@ window.I18N = {
     nav_account: '账号', nav_settings: '设置', nav_account_settings: '我的', nav_mock_test: '模考',
     nav_section_learning: '学习', nav_section_account: '账号', nav_section_practice: '练习', nav_section_tools: '工具',
     nav_smart_practice: '智能练习', nav_tools: '工具', nav_prediction_bank: '预测题库', nav_high_frequency: '高频题', nav_mistakes: '错题本', nav_audio_trainer: '语音训练',
-    nav_question_bank: '题库', nav_profile: '个人中心', nav_support: 'Support',
+    nav_question_bank: '题库', nav_profile: '个人中心', nav_support: 'Support', nav_privacy: 'Privacy',
     nav_practice_history: '练习记录', nav_wrong_answers: '错题本', nav_saved_recordings: '录音记录',
     nav_predicted_questions: '预测题', nav_high_frequency_questions: '高频题',
     nav_pronunciation_training: '发音训练', nav_my_account: '账户设置',
@@ -402,7 +402,7 @@ window.I18N = {
     nav_account: 'Account', nav_settings: 'Settings', nav_account_settings: 'My Profile', nav_mock_test: 'Mock Test',
     nav_section_learning: 'Learning', nav_section_account: 'Account', nav_section_practice: 'Practice', nav_section_tools: 'Tools',
     nav_smart_practice: 'Smart Practice', nav_tools: 'Tools', nav_prediction_bank: 'Prediction Bank', nav_high_frequency: 'High Frequency', nav_mistakes: 'Mistakes', nav_audio_trainer: 'Audio Trainer',
-    nav_question_bank: 'Question Bank', nav_profile: 'Profile', nav_support: 'Support',
+    nav_question_bank: 'Question Bank', nav_profile: 'Profile', nav_support: 'Support', nav_privacy: 'Privacy',
     nav_practice_history: 'Practice History', nav_wrong_answers: 'Wrong Answers', nav_saved_recordings: 'Saved Recordings',
     nav_predicted_questions: 'Predicted Questions', nav_high_frequency_questions: 'High-frequency Questions',
     nav_pronunciation_training: 'Pronunciation Training', nav_my_account: 'Account Settings',
@@ -819,6 +819,7 @@ const PAGE_PATHS = {
   'study-plan': '/study-plan',
   'account-settings': '/account-settings',
   support: '/support',
+  privacy: '/privacy',
   'mock-test': '/mock-test',
   'mock-results': '/mock-test/results',
   'mock-review': '/mock-test/review',
@@ -917,6 +918,7 @@ const SIDEBAR_GROUPS = [
     children: [
       { key: 'profile-account', labelKey: 'nav_my_account', targetPage: 'account-settings' },
       { key: 'profile-support', labelKey: 'nav_support', targetPage: 'support' },
+      { key: 'profile-privacy', labelKey: 'nav_privacy', targetPage: 'privacy' },
     ],
   },
 ];
@@ -967,6 +969,7 @@ function getSidebarActiveItem(page = '') {
   if (current === 'tools-audio-trainer' || current === 'audio-trainer') return 'tools-pronunciation';
   if (current === 'account-settings' || current === 'account') return 'profile-account';
   if (current === 'support') return 'profile-support';
+  if (current === 'privacy') return 'profile-privacy';
   if (current === 'settings') return 'profile-account';
   if (PAGE_PATHS[current]) return current;
   if (PRACTICE_SKILL_PAGES.speaking.includes(current)) return 'practice-speaking';
@@ -1138,7 +1141,7 @@ function setPageCleanup(cleanup) {
 
 function getPageLayout(page) {
   if (page === 'home') return 'dashboard';
-  if (page === 'practice' || page === 'practice-all' || page === 'practice-speaking' || page === 'practice-writing' || page === 'practice-reading' || page === 'practice-listening' || page === 'tools-prediction-bank' || page === 'tools-high-frequency' || page === 'tools-mistakes' || page === 'tools-audio-trainer' || page === 'progress' || page === 'study-plan' || page === 'account-settings' || page === 'settings' || page === 'support' || page === 'account' || page === 'mock-test' || page === 'mock-results' || page === 'mock-review' || page === 'audio-trainer' || page === 'question-list') return 'wide';
+  if (page === 'practice' || page === 'practice-all' || page === 'practice-speaking' || page === 'practice-writing' || page === 'practice-reading' || page === 'practice-listening' || page === 'tools-prediction-bank' || page === 'tools-high-frequency' || page === 'tools-mistakes' || page === 'tools-audio-trainer' || page === 'progress' || page === 'study-plan' || page === 'account-settings' || page === 'settings' || page === 'support' || page === 'privacy' || page === 'account' || page === 'mock-test' || page === 'mock-results' || page === 'mock-review' || page === 'audio-trainer' || page === 'question-list') return 'wide';
   if (String(page || '').startsWith('practice-')) return 'wide';
   return 'focus';
 }
@@ -1188,7 +1191,7 @@ function navigate(page, options = {}) {
   if (pageHeader && !pageHeader.querySelector('.page-back-btn')) {
     const backTarget = (typeof isMockSessionActive === 'function' && isMockSessionActive() && isMockQuestionPage)
       ? 'mock-test'
-      : targetPage === 'support'
+      : targetPage === 'support' || targetPage === 'privacy'
         ? 'account-settings'
         : 'practice';
     const backBtn = document.createElement('button');

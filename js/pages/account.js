@@ -456,6 +456,11 @@ Pages['account-settings'] = function () {
           <span class="mob-settings-label">Support</span>
           <span class="mob-settings-chevron">›</span>
         </div>
+        <div class="mob-settings-row" onclick="navigate('privacy')">
+          <div class="mob-settings-icon" style="background:#f8fafc">P</div>
+          <span class="mob-settings-label">Privacy</span>
+          <span class="mob-settings-chevron">›</span>
+        </div>
       </div>
     </section>
 
@@ -575,6 +580,15 @@ Pages['account-settings'] = function () {
       Need help with account, login, profile, or technical issues?
     </p>
     <button class="btn btn-outline" onclick="navigate('support')">Support</button>
+  </div>
+
+  <div class="card settings-card">
+    <div class="eyebrow">Privacy</div>
+    <div class="card-title" style="margin-bottom:10px">Privacy Policy</div>
+    <p style="font-size:13.5px;color:var(--text-light);line-height:1.7;margin-bottom:14px">
+      Learn how PTE Score collects, uses, and protects your information.
+    </p>
+    <button class="btn btn-outline" onclick="navigate('privacy')">Privacy</button>
   </div>
 </div>`;
 };
